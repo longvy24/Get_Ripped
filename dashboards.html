@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Ripped — Progress Dashboards</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #1a2028;
+    --panel-2: #232b36;
+    --border: #2d3744;
+    --text: #e6edf3;
+    --muted: #8b96a5;
+    --accent: #ff6b35;
+    --accent-2: #ffa726;
+    --good: #4caf50;
+    --bad: #e53935;
+    --blue: #4ea8de;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    line-height: 1.5;
+  }
+  header {
+    background: linear-gradient(135deg, #1a2028, #2a3340);
+    border-bottom: 3px solid var(--accent);
+    padding: 18px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .logo {
+    font-size: 22px;
+    font-weight: 900;
+    color: white;
+  }
+  .logo span { color: var(--accent-2); }
+  .nav-back {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px;
+  }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  h2 {
+    font-size: 20px;
+    margin: 28px 0 12px;
+    color: var(--accent);
+  }
+  .upload-card {
+    background: var(--panel);
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .upload-card input[type=file] { display: none; }
+  .upload-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 8px;
+  }
+  .upload-btn.secondary { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); }
+  .status {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .summary-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+  }
+  .summary-card .num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    font-family: ui-monospace, Menlo, monospace;
+  }
+  .summary-card .lbl {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+  .summary-card .sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .chart-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 18px;
+  }
+  .chart-card h3 {
+    margin: 0 0 12px;
+    color: var(--accent-2);
+    font-size: 16px;
+  }
+  canvas { max-height: 320px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; }
+  th { color: var(--accent-2); font-weight: 700; }
+  tr:hover td { background: var(--panel-2); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+  .empty {
+    color: var(--muted);
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+  }
+  .query-box {
+    background: var(--panel-2);
+    border-left: 3px solid var(--blue);
+    padding: 10px 14px;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+    border-radius: 0 6px 6px 0;
+    overflow-x: auto;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">GET <span>RIPPED</span> · Progress Dashboards</div>
+  <a class="nav-back" href="../index.html">← Back to plan</a>
+</header>
+
+<main>
+  <h1>Your Progress, Visualized</h1>
+  <p style="color:var(--muted); margin-top:0;">Upload your <code>.db</code> file (from <code>migrate.py</code>) or your <code>.json</code> backup (from the main app's Settings tab). Everything runs in your browser — no upload anywhere.</p>
+
+  <div class="upload-card" id="upload-card">
+    <div style="font-size:42px; margin-bottom:12px;">📊</div>
+    <div style="font-size:16px; margin-bottom:12px;">Upload your data</div>
+    <label class="upload-btn">
+      📁 SQLite .db file
+      <input type="file" id="db-input" accept=".db,.sqlite,.sqlite3">
+    </label>
+    <label class="upload-btn secondary">
+      📁 JSON backup
+      <input type="file" id="json-input" accept=".json">
+    </label>
+    <div class="status" id="status">Waiting for file...</div>
+    <div style="margin-top:18px; padding-top:14px; border-top:1px solid var(--border); font-size:13px; color:var(--muted);">
+      💡 Want to see what fully-populated dashboards look like first?<br>
+      Upload <strong>sample_data.json</strong> from this folder — it's a fictional 8-week demo (9 weigh-ins, 78 workout entries, full body measurements).
+    </div>
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px; padding:10px 14px; background:var(--panel); border-radius:8px;">
+      <span id="loaded-info" style="font-size:13px; color:var(--muted);">Data loaded</span>
+      <button class="upload-btn secondary" style="margin:0; padding:6px 14px; font-size:13px;" onclick="resetUpload()">🔄 Load different file</button>
+    </div>
+
+    <h2>📌 Summary</h2>
+    <div class="summary-grid" id="summary"></div>
+
+    <h2>📉 Weight Trend</h2>
+    <div class="chart-card">
+      <canvas id="weight-chart"></canvas>
+      <div class="query-box">SELECT measured_on, weight_lbs, weekly_change, total_change FROM v_weight_trend ORDER BY measured_on;</div>
+    </div>
+
+    <h2>📏 Body Measurements</h2>
+    <div class="chart-card">
+      <canvas id="measurements-chart"></canvas>
+      <div class="query-box">SELECT measured_on, waist_in, chest_in, arms_in, thighs_in FROM v_measurements_trend ORDER BY measured_on;</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="chart-card">
+        <h3>💪 Lift Progression (estimated 1RM)</h3>
+        <canvas id="lift-chart"></canvas>
+        <div class="query-box">SELECT exercise, completed_on, estimated_1rm FROM v_lift_progression;</div>
+      </div>
+      <div class="chart-card">
+        <h3>✅ Workout Completion by Week</h3>
+        <canvas id="workout-chart"></canvas>
+        <div class="query-box">SELECT completed_on, COUNT(*) FROM workout_completions GROUP BY completed_on;</div>
+      </div>
+    </div>
+
+    <h2>🍳 Recipe Cycle History</h2>
+    <div class="chart-card">
+      <table id="cycle-table"></table>
+      <div class="query-box">SELECT * FROM v_recipe_cycle_summary ORDER BY cycle_number;</div>
+    </div>
+
+    <h2>💰 Weekly Grocery Spend</h2>
+    <div class="chart-card">
+      <canvas id="spend-chart"></canvas>
+      <div class="query-box">SELECT generated_on, weekly_cost, rolling_4wk_avg FROM v_weekly_spend;</div>
+    </div>
+
+    <h2>💊 Supplement Adherence</h2>
+    <div class="chart-card">
+      <table id="supplement-table"></table>
+      <div class="query-box">SELECT supplement, days_taken, adherence_pct FROM v_supplement_adherence;</div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-wasm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+let db = null;
+let SQL = null;
+
+const status = (msg, ok = true) => {
+  const el = document.getElementById("status");
+  el.textContent = msg;
+  el.style.color = ok ? "var(--muted)" : "var(--bad)";
+};
+
+initSqlJs({ locateFile: f => `https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/${f}` })
+  .then(sql => {
+    SQL = sql;
+    status("Ready. Upload your .db or .json file above.");
+  })
+  .catch(e => status("Failed to load SQL.js: " + e.message, false));
+
+document.getElementById("db-input").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  status(`Loading ${file.name}...`);
+  const buf = await file.arrayBuffer();
+  db = new SQL.Database(new Uint8Array(buf));
+  status(`✅ Loaded ${file.name}`);
+  document.getElementById("loaded-info").textContent = `📁 Loaded: ${file.name} (SQLite DB)`;
+  renderDashboard();
+});
+
+function resetUpload() {
+  document.getElementById("upload-card").style.display = "block";
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("db-input").value = "";
+  document.getElementById("json-input").value = "";
+  status("Ready. Upload your .db or .json file above.");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("json-input").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  status(`Loading ${file.name}...`);
+  const text = await file.text();
+  const json = JSON.parse(text);
+  const weightCount = (json.weights || []).length;
+  const logCount = Object.keys(json.logs || {}).length;
+  const hasMeas = Object.values(json.measurements || {}).some(v => v);
+
+  // Build a fresh in-memory DB from JSON
+  await fetch("schema.sql").then(r => r.text()).then(async schema => {
+    db = new SQL.Database();
+    db.exec(schema);
+    const seedText = await fetch("seed.sql").then(r => r.text());
+    db.exec(seedText);
+    importJsonIntoDb(json);
+    status(`✅ Loaded ${file.name} into in-memory DB`);
+    document.getElementById("loaded-info").innerHTML = `📁 Loaded: <strong>${file.name}</strong> · ${weightCount} weigh-ins · ${logCount} lift logs · ${hasMeas ? 'measurements ✓' : 'no measurements'}`;
+    renderDashboard();
+  }).catch(e => {
+    // Fallback: build a minimal schema if fetch fails (e.g., opened via file://)
+    db = new SQL.Database();
+    db.exec(MINIMAL_SCHEMA);
+    importJsonIntoDb(json);
+    status(`✅ Loaded ${file.name} (minimal schema — fetch schema.sql blocked, using fallback)`);
+    document.getElementById("loaded-info").innerHTML = `📁 Loaded: <strong>${file.name}</strong> · ${weightCount} weigh-ins · ${logCount} lift logs · ${hasMeas ? 'measurements ✓' : 'no measurements'}`;
+    renderDashboard();
+  });
+});
+
+const MINIMAL_SCHEMA = `
+  CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT, name TEXT, start_date DATE);
+  CREATE TABLE user_settings (user_id INTEGER, bodyweight_lbs REAL, meal_plan INTEGER, cycle_number INTEGER, weekly_recipe TEXT, notes TEXT);
+  CREATE TABLE weight_logs (id INTEGER PRIMARY KEY, user_id INTEGER, measured_on DATE, weight_lbs REAL);
+  CREATE TABLE body_measurements (id INTEGER PRIMARY KEY, user_id INTEGER, measured_on DATE, waist_in REAL, chest_in REAL, hips_in REAL, arms_in REAL, thighs_in REAL, neck_in REAL);
+  CREATE TABLE workout_completions (id INTEGER PRIMARY KEY, user_id INTEGER, completed_on DATE, sets_logged TEXT, top_set_weight_lbs REAL, top_set_reps INTEGER, notes TEXT);
+  CREATE TABLE supplement_logs (id INTEGER PRIMARY KEY, user_id INTEGER, supplement_id INTEGER, taken_on DATE);
+  CREATE TABLE shopping_lists (id INTEGER PRIMARY KEY, user_id INTEGER, generated_on DATE, total_cost REAL);
+  CREATE TABLE recipe_history (id INTEGER PRIMARY KEY, user_id INTEGER, recipe_id INTEGER, cycle_number INTEGER, week_starting DATE, cost_estimate REAL);
+  CREATE TABLE recipes (id INTEGER PRIMARY KEY, key TEXT, name TEXT, short_name TEXT);
+`;
+
+function importJsonIntoDb(json) {
+  const userId = 1;
+  // Helper: sql.js doesn't auto-convert undefined to NULL — it throws. Coerce everything.
+  const N = v => (v === undefined || v === null || Number.isNaN(v)) ? null : v;
+
+  db.run("INSERT OR IGNORE INTO users (id, email, name, start_date) VALUES (?, ?, ?, ?)",
+    [userId, "longvy24@gmail.com", "Long", N(json.startDate)]);
+
+  // Settings so the summary card shows weight, cycle, etc.
+  db.run("INSERT OR REPLACE INTO user_settings (user_id, bodyweight_lbs, meal_plan, cycle_number, weekly_recipe, notes) VALUES (?, ?, ?, ?, ?, ?)",
+    [userId, N(json.bodyweight), N(json.mealPlan ?? 5), N(json.cycleNumber ?? 1), N(json.weeklyRecipe), json.notes || ""]);
+
+  // Weights
+  (json.weights || []).forEach(w => {
+    if (!w.date || w.lbs == null) return;
+    db.run("INSERT OR REPLACE INTO weight_logs (user_id, measured_on, weight_lbs) VALUES (?, ?, ?)",
+      [userId, w.date, w.lbs]);
+  });
+
+  // Measurements snapshot
+  const m = json.measurements || {};
+  if (Object.values(m).some(v => v)) {
+    const today = new Date().toISOString().slice(0,10);
+    const f = k => {
+      const v = parseFloat(m[k]);
+      return Number.isFinite(v) ? v : null;
+    };
+    db.run("INSERT OR REPLACE INTO body_measurements (user_id, measured_on, waist_in, chest_in, hips_in, arms_in, thighs_in, neck_in) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [userId, today, f('waist'), f('chest'), f('hips'), f('arms'), f('thighs'), f('neck')]);
+  }
+
+  // Workout logs — parse top set; if no numeric weight (bodyweight-only), keep nulls
+  Object.entries(json.logs || {}).forEach(([key, sets]) => {
+    if (!sets) return;
+    const matches = [...String(sets).matchAll(/(\d+(?:\.\d+)?)\s*[xX×]\s*(\d+)/g)];
+    let topW = null, topR = null;
+    if (matches.length) {
+      // pick top by estimated 1RM (Epley)
+      let bestScore = -1;
+      for (const m of matches) {
+        const w = parseFloat(m[1]);
+        const r = parseInt(m[2]);
+        const score = w * (1 + r / 30);
+        if (Number.isFinite(score) && score > bestScore) {
+          bestScore = score;
+          topW = w;
+          topR = r;
+        }
+      }
+    }
+    db.run("INSERT INTO workout_completions (user_id, completed_on, sets_logged, top_set_weight_lbs, top_set_reps, notes) VALUES (?, ?, ?, ?, ?, ?)",
+      [userId, new Date().toISOString().slice(0,10), String(sets), N(topW), N(topR), "key=" + key]);
+  });
+}
+
+function query(sql) {
+  const r = db.exec(sql);
+  if (!r.length) return [];
+  return r[0].values.map(row => Object.fromEntries(r[0].columns.map((c, i) => [c, row[i]])));
+}
+
+function renderDashboard() {
+  document.getElementById("upload-card").style.display = "none";
+  document.getElementById("dashboard").style.display = "block";
+  renderSummary();
+  renderWeightChart();
+  renderMeasurementsChart();
+  renderLiftChart();
+  renderWorkoutChart();
+  renderCycleTable();
+  renderSpendChart();
+  renderSupplementTable();
+}
+
+function renderSummary() {
+  const u = query("SELECT * FROM users LIMIT 1")[0] || {};
+  const settings = query("SELECT * FROM user_settings LIMIT 1")[0] || {};
+  const weights = query("SELECT measured_on, weight_lbs FROM weight_logs ORDER BY measured_on");
+  const wc = query("SELECT COUNT(*) as n FROM workout_completions");
+
+  const startDate = u.start_date ? new Date(u.start_date) : null;
+  const today = new Date();
+  const daysIn = startDate ? Math.max(0, Math.floor((today - startDate) / 86400000)) : 0;
+  const daysLeft = startDate ? Math.max(0, 120 - daysIn) : 120;
+  const currentDay = Math.max(1, Math.min(120, daysIn + 1));
+
+  const startWeight = weights[0]?.weight_lbs;
+  const currentWeight = weights[weights.length - 1]?.weight_lbs || settings.bodyweight_lbs;
+  const weightDelta = (startWeight && currentWeight) ? (currentWeight - startWeight).toFixed(1) : "—";
+
+  const cards = [
+    { num: currentDay, lbl: "Day of Program", sub: `${daysLeft} days left` },
+    { num: settings.bodyweight_lbs || "—", lbl: "Current Weight (lbs)", sub: `Start: ${startWeight || "—"}` },
+    { num: weightDelta === "—" ? "—" : (weightDelta > 0 ? "+" : "") + weightDelta, lbl: "Weight Change (lbs)", sub: weights.length + " entries logged" },
+    { num: weights.length, lbl: "Weigh-ins Logged", sub: "Keep going" },
+    { num: wc[0]?.n || 0, lbl: "Workout Entries", sub: "Total exercise logs" },
+    { num: "#" + (settings.cycle_number || 1), lbl: "Recipe Cycle", sub: settings.weekly_recipe || "no pick yet" }
+  ];
+  document.getElementById("summary").innerHTML = cards.map(c => `
+    <div class="summary-card">
+      <div class="num">${c.num}</div>
+      <div class="lbl">${c.lbl}</div>
+      <div class="sub">${c.sub}</div>
+    </div>
+  `).join("");
+}
+
+function makeChart(canvasId, type, data, options = {}) {
+  const ctx = document.getElementById(canvasId).getContext("2d");
+  return new Chart(ctx, {
+    type,
+    data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: "#e6edf3" } } },
+      scales: {
+        x: { ticks: { color: "#8b96a5" }, grid: { color: "#2d3744" } },
+        y: { ticks: { color: "#8b96a5" }, grid: { color: "#2d3744" } }
+      },
+      ...options
+    }
+  });
+}
+
+function renderWeightChart() {
+  const rows = query("SELECT measured_on, weight_lbs FROM weight_logs ORDER BY measured_on");
+  if (!rows.length) {
+    document.querySelector("#weight-chart").parentElement.innerHTML = '<h3>📉 Weight Trend</h3><div class="empty">No weight entries yet. Log weights in the main app, then re-export.</div>';
+    return;
+  }
+  makeChart("weight-chart", "line", {
+    labels: rows.map(r => r.measured_on),
+    datasets: [{
+      label: "Weight (lbs)",
+      data: rows.map(r => r.weight_lbs),
+      borderColor: "#ff6b35",
+      backgroundColor: "rgba(255,107,53,0.15)",
+      tension: 0.3,
+      fill: true
+    }]
+  });
+}
+
+function renderMeasurementsChart() {
+  const rows = query("SELECT measured_on, waist_in, chest_in, arms_in, thighs_in FROM body_measurements ORDER BY measured_on");
+  if (!rows.length) {
+    document.querySelector("#measurements-chart").parentElement.innerHTML = '<h3>📏 Body Measurements</h3><div class="empty">No measurements yet. Log them in the main app under Progress.</div>';
+    return;
+  }
+  const cols = ["waist_in", "chest_in", "arms_in", "thighs_in"];
+  const colors = ["#ff6b35", "#4ea8de", "#ffa726", "#4caf50"];
+  makeChart("measurements-chart", "line", {
+    labels: rows.map(r => r.measured_on),
+    datasets: cols.map((c, i) => ({
+      label: c.replace("_in", " (in)"),
+      data: rows.map(r => r[c]),
+      borderColor: colors[i],
+      backgroundColor: "transparent",
+      tension: 0.3
+    }))
+  });
+}
+
+function renderLiftChart() {
+  const rows = query(`
+    SELECT
+      COALESCE(e.name, SUBSTR(wc.notes, INSTR(wc.notes, '=')+1)) AS exercise,
+      wc.completed_on, wc.top_set_weight_lbs, wc.top_set_reps,
+      ROUND(wc.top_set_weight_lbs * (1 + wc.top_set_reps / 30.0), 1) AS est_1rm
+    FROM workout_completions wc
+    LEFT JOIN workout_exercises we ON we.id = wc.workout_exercise_id
+    LEFT JOIN exercises e ON e.id = we.exercise_id
+    WHERE wc.top_set_weight_lbs IS NOT NULL
+    ORDER BY wc.completed_on
+  `);
+  if (!rows.length) {
+    document.querySelector("#lift-chart").parentElement.querySelector(".empty, canvas").outerHTML = '<div class="empty">No lift logs yet. Enter weight×reps in the main app (e.g., "135x8, 145x6").</div>';
+    return;
+  }
+  const byExercise = {};
+  rows.forEach(r => {
+    const ex = r.exercise || "Unknown";
+    if (!byExercise[ex]) byExercise[ex] = [];
+    byExercise[ex].push({ x: r.completed_on, y: r.est_1rm });
+  });
+  const colors = ["#ff6b35", "#4ea8de", "#ffa726", "#4caf50", "#e53935", "#9c27b0"];
+  makeChart("lift-chart", "line", {
+    datasets: Object.entries(byExercise).map(([ex, pts], i) => ({
+      label: ex,
+      data: pts,
+      borderColor: colors[i % colors.length],
+      backgroundColor: "transparent",
+      tension: 0.2
+    }))
+  }, { scales: { x: { type: "category", ticks: { color: "#8b96a5" }, grid: { color: "#2d3744" } } } });
+}
+
+function renderWorkoutChart() {
+  const rows = query(`
+    SELECT completed_on, COUNT(*) AS n
+    FROM workout_completions
+    GROUP BY completed_on
+    ORDER BY completed_on
+  `);
+  if (!rows.length) {
+    document.querySelector("#workout-chart").parentElement.querySelector(".empty, canvas").outerHTML = '<div class="empty">No workout entries yet.</div>';
+    return;
+  }
+  makeChart("workout-chart", "bar", {
+    labels: rows.map(r => r.completed_on),
+    datasets: [{
+      label: "Exercises done",
+      data: rows.map(r => r.n),
+      backgroundColor: "rgba(78,168,222,0.6)",
+      borderColor: "#4ea8de"
+    }]
+  });
+}
+
+function renderCycleTable() {
+  let rows = [];
+  try {
+    rows = query("SELECT * FROM v_recipe_cycle_summary ORDER BY cycle_number");
+  } catch (e) {}
+  const el = document.getElementById("cycle-table");
+  if (!rows.length) {
+    const settings = query("SELECT * FROM user_settings LIMIT 1")[0] || {};
+    const cycleUsed = settings.cycle_used_json ? JSON.parse(settings.cycle_used_json) : [];
+    if (cycleUsed.length) {
+      el.outerHTML = `<div style="padding:14px; background:var(--panel-2); border-radius:6px;">
+        <strong>Current cycle:</strong> #${settings.cycle_number || 1} ·
+        ${cycleUsed.length}/5 recipes used: ${cycleUsed.join(", ")}
+      </div>`;
+    } else {
+      el.outerHTML = '<div class="empty">No recipe cycles logged yet. Pick recipes in the main app.</div>';
+    }
+    return;
+  }
+  el.innerHTML = `
+    <thead><tr><th>Cycle</th><th>Recipes Used</th><th>Started</th><th>Total Cost</th></tr></thead>
+    <tbody>${rows.map(r => `<tr>
+      <td>#${r.cycle_number}</td>
+      <td>${r.recipes_list || '—'}</td>
+      <td>${r.cycle_started || '—'}</td>
+      <td>$${(r.total_cycle_cost || 0).toFixed(2)}</td>
+    </tr>`).join('')}</tbody>
+  `;
+}
+
+function renderSpendChart() {
+  let rows = [];
+  try { rows = query("SELECT generated_on, weekly_cost, rolling_4wk_avg FROM v_weekly_spend"); } catch(e){}
+  if (!rows.length) {
+    document.querySelector("#spend-chart").parentElement.querySelector(".empty, canvas").outerHTML = '<div class="empty">No shopping list history yet. Log a weekly trip to populate.</div>';
+    return;
+  }
+  makeChart("spend-chart", "bar", {
+    labels: rows.map(r => r.generated_on),
+    datasets: [
+      { label: "Weekly cost", data: rows.map(r => r.weekly_cost), backgroundColor: "rgba(255,107,53,0.6)" },
+      { label: "4-week avg", data: rows.map(r => r.rolling_4wk_avg), type: "line", borderColor: "#ffa726", backgroundColor: "transparent", tension: 0.3 }
+    ]
+  });
+}
+
+function renderSupplementTable() {
+  let rows = [];
+  try { rows = query("SELECT * FROM v_supplement_adherence ORDER BY adherence_pct DESC"); } catch(e){}
+  const el = document.getElementById("supplement-table");
+  if (!rows.length) {
+    el.outerHTML = '<div class="empty">No supplement logs yet. The webapp doesn\'t persist daily supplement check-marks; log them manually in the DB if you want adherence tracking.</div>';
+    return;
+  }
+  el.innerHTML = `
+    <thead><tr><th>Supplement</th><th>Days Taken</th><th>First / Last</th><th>Adherence %</th></tr></thead>
+    <tbody>${rows.map(r => `<tr>
+      <td>${r.supplement}</td>
+      <td>${r.days_taken}</td>
+      <td>${r.first_logged} → ${r.last_logged}</td>
+      <td><strong style="color:${r.adherence_pct>=80?'var(--good)':r.adherence_pct>=50?'var(--accent-2)':'var(--bad)'}">${r.adherence_pct}%</strong></td>
+    </tr>`).join('')}</tbody>
+  `;
+}
+</script>
+
+</body>
+</html>
