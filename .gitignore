@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Backups Claude or the user generates locally (not for the public repo)
+*-backup-*.json
+get-ripped-backup-*.json
+
+# OS junk
+Thumbs.db
+ehthumbs.db
+
+# Personal SQLite databases (rebuild from migrate.py from your JSON backup)
+database/*.db
+database/*.db-journal
+database/*.sqlite
+database/*.sqlite3
