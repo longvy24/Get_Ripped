@@ -769,8 +769,31 @@
     <button class="tab-btn" data-tab="resources">Resources</button>
     <button class="tab-btn" data-tab="supplements">Supplements</button>
     <button class="tab-btn" data-tab="settings">Settings</button>
+    <a class="tab-btn tab-power" href="power_level.html" target="_blank" title="Open Power Level scouter">⚡ Power Level</a>
   </div>
 </nav>
+<style>
+  /* Power Level tab styling — stands out from regular tabs so it's discoverable */
+  .tab-btn.tab-power {
+    background: linear-gradient(135deg, rgba(255, 213, 74, 0.18), rgba(255, 61, 146, 0.18));
+    color: #ffd54a !important;
+    text-decoration: none;
+    border: 1px solid rgba(255, 213, 74, 0.5);
+    box-shadow: 0 0 12px rgba(255, 213, 74, 0.3);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    animation: powerTabPulse 2.5s ease-in-out infinite;
+  }
+  .tab-btn.tab-power:hover {
+    background: linear-gradient(135deg, rgba(255, 213, 74, 0.4), rgba(255, 61, 146, 0.4));
+    transform: translateY(-1px);
+    box-shadow: 0 0 18px rgba(255, 213, 74, 0.6);
+  }
+  @keyframes powerTabPulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(255, 213, 74, 0.3); }
+    50% { box-shadow: 0 0 22px rgba(255, 61, 146, 0.5); }
+  }
+</style>
 
 <main>
 
