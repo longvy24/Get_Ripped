@@ -970,11 +970,11 @@
     <ol style="margin:8px 0 0; padding-left:20px;">
       <li>Grab 5 mason jars or glass containers with bamboo lids</li>
       <li>In each: 1/2 cup rolled oats + 1 cup whole milk + 1 scoop whey + 1 tbsp PB + cinnamon. Stir.</li>
-      <li>Slice 5 bananas, drop one into each jar (or add fresh banana each morning if you prefer firmer fruit)</li>
-      <li>Seal, fridge. Eats best 12-72 hours later — soaked oats are creamy.</li>
+      <li>Drop 3/4 cup frozen berries (strawberries, mixed berries, blueberries — your choice) into each jar straight from the freezer. They'll thaw and bleed into the oats overnight, giving you a built-in jam layer.</li>
+      <li>Seal, fridge. Eats best 12-72 hours later — soaked oats are creamy, berries are juicy.</li>
       <li>Grab one each morning. Eat with a spoon in the car or at your desk. No cooking, no thinking.</li>
     </ol>
-    <p style="margin:8px 0 0; font-size:13px;">Wed (legs day) and Sun (rest day) get a different version — adjust portions in those jars accordingly. The Power Shake alternative is a 60-second blend if you want hot variety or forgot to prep.</p>
+    <p style="margin:8px 0 0; font-size:13px;">Wed (legs day) gets <strong>1 cup berries + 1 tbsp honey</strong> for the carb-up. Sun (rest) gets <strong>1/2 cup berries</strong>, smaller portion. The Power Shake is a 60-second blend alternative if you want variety or forgot to prep.</p>
   </div>
 
   <div id="meals-list"></div>
@@ -1515,6 +1515,8 @@
     </div>
   </div>
 
+<<<<<<< HEAD
+=======
   <h2>📊 Progress Dashboards (SQL)</h2>
   <div class="card">
     <p>For long-term progress tracking, there's a full SQL database with dashboards in the <code>database/</code> folder of this repo. Export your data here (button above), then upload the JSON to the dashboard for charts of weight trend, lift progression, body composition, recipe cycle history, and weekly spend.</p>
@@ -1524,6 +1526,7 @@
     </div>
   </div>
 
+>>>>>>> 45e53b6 (db/dashboard update)
   <h2>About This Plan</h2>
   <div class="card">
     <p class="muted">120-day fat loss program. 5 days/week training in a full gym, up to 2 hours per session. No vegetables. Built for an adult with prior training experience but inconsistent recently.</p>
@@ -2104,49 +2107,49 @@ const mealSplit = [
 const meals = [
   { day:"Day 1 (Mon, Push)", dailyMult:{cal:1.00, c:1.00, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon — prep 5 jars Sunday, soaks overnight) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey, 60-sec blend)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon — prep 5 jars Sunday, soaks overnight) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey, 60-sec blend)", slot:0},
       {n:"Mid-Morning", t:"PB Banana shake — cheap whey, milk, banana, 1 tbsp store-brand PB", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Mon lunch portion from Sunday's giant batch)", slot:2},
       {n:"Pre-Workout", t:"🥤 Pre-WO Shake (1.5 scoops whey + 1 cup milk + 1 banana + 1 tsp honey) — OR — 🥄 Greek yogurt bowl (1.5 cups + 1/4 cup granola + 1 banana)", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.25 servings + 1.5 cups rice (post-workout dinner portion)", slot:4}]},
   { day:"Day 2 (Tue, Pull)", dailyMult:{cal:1.00, c:1.00, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
       {n:"Mid-Morning", t:"Greek yogurt (1.5 cups, store brand) + 1/4 cup granola + cinnamon", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Tue lunch portion)", slot:2},
       {n:"Pre-Workout", t:"🥤 Pre-WO Shake (1.5 scoops whey + 1 cup milk + 1 banana + 1 tsp honey) — OR — 🥄 Greek yogurt bowl (1.5 cups + 1/4 cup granola + 1 banana)", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.25 servings + 1.5 cups rice", slot:4}]},
   { day:"Day 3 (Wed, Legs — carb up)", dailyMult:{cal:1.10, c:1.30, f:0.95},
     items:[
-      {n:"Breakfast", t:"🌾 Mass Overnight Oats (3/4c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + 1 tbsp honey — carb up for legs day) — OR — 🥤 Mass Shake (2 scoops whey + 1.5c milk + banana + 1/2c oats blended + 1 tbsp PB)", slot:0},
+      {n:"Breakfast", t:"🌾 Mass Overnight Oats (3/4c oats + 1c milk + 1 scoop whey + 1c frozen berries + 1 tbsp PB + 1 tbsp honey — carb up for legs day) — OR — 🥤 Mass Shake (2 scoops whey + 1.5c milk + banana + 1/2c oats blended + 1 tbsp PB)", slot:0},
       {n:"Mid-Morning", t:"Strawberry shake — whey, milk, frozen strawberries (cheapest frozen fruit)", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1.5 cups rice (Wed lunch, extra carbs for legs day)", slot:2},
       {n:"Pre-Workout", t:"🥤 Mass Pre-WO Shake (2 scoops whey + 1 cup milk + 1 banana + 1/2 cup oats blended + 1 tsp honey) — OR — 🥄 Big Yogurt Bowl (1.5 cups + 1/2 cup granola + 1 banana + 1 tbsp honey) — extra carbs for legs day", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.5 servings + 2 cups rice (carb-up post legs)", slot:4}]},
   { day:"Day 4 (Thu, Upper)", dailyMult:{cal:1.00, c:1.00, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
       {n:"Mid-Morning", t:"PB Banana shake (skip almond butter — too pricey)", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Thu lunch portion)", slot:2},
       {n:"Pre-Workout", t:"🥤 Pre-WO Shake (1.5 scoops whey + 1 cup milk + 1 banana + 1 tsp honey) — OR — 🥄 Greek yogurt bowl (1.5 cups + 1/4 cup granola + 1 banana)", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.25 servings + 1.5 cups rice", slot:4}]},
   { day:"Day 5 (Fri, Lower)", dailyMult:{cal:1.00, c:1.00, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
       {n:"Mid-Morning", t:"Greek yogurt (1.5 cups, store brand) + 1/4 cup granola + cinnamon", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Fri lunch portion)", slot:2},
       {n:"Pre-Workout", t:"🥤 Pre-WO Shake (1.5 scoops whey + 1 cup milk + 1 banana + 1 tsp honey) — OR — 🥄 Greek yogurt bowl (1.5 cups + 1/4 cup granola + 1 banana)", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.25 servings + 1.5 cups rice", slot:4}]},
   { day:"Day 6 (Sat, Walk)", dailyMult:{cal:0.95, c:0.95, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
       {n:"Mid-Morning", t:"PB Banana shake", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Sat lunch, lighter day)", slot:2},
       {n:"Mid-Afternoon", t:"Greek yogurt (1.5 cups) + 1/4 cup granola + cinnamon, or 1 apple", slot:3},
       {n:"Dinner", t:"🍳 Same as lunch — 1 serving + 1 cup rice (no training, keep dinner normal-sized)", slot:4}]},
   { day:"Day 7 (Sun, Rest — lower carbs)", dailyMult:{cal:0.90, c:0.65, f:1.10},
     items:[
-      {n:"Breakfast", t:"🌾 Light Overnight Oats (1/3c oats + 1c milk + 1 scoop whey + cinnamon, skip banana — rest day, lower carbs) — OR — 🥤 Lean Shake (2 scoops whey + water + 1 banana, no oats)", slot:0},
+      {n:"Breakfast", t:"🌾 Light Overnight Oats (1/3c oats + 1c milk + 1 scoop whey + 1/2c frozen berries + cinnamon — rest day, lighter portion) — OR — 🥤 Lean Shake (2 scoops whey + water + 1 banana, no oats)", slot:0},
       {n:"Mid-Morning", t:"Water shake — 2 scoops whey, water, 1 banana (skip milk, saves money)", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1/2 cup rice (Sun lunch, rest day = lower carbs)", slot:2},
       {n:"Mid-Afternoon", t:"Greek yogurt + 2 tbsp PB", slot:3},
@@ -2394,7 +2397,7 @@ const groceryV2 = {
   "Fruit": [
     {name:"Bananas (cheapest fresh fruit)", qty:12, unit:"ct", costW:0.22, costR:0.30, tier:1},
     {name:"Apples (bagged, not loose)", qty:4, unit:"ct", costW:0.50, costR:0.75, tier:2},
-    {name:"Frozen strawberries (Member's Mark 4 lb bag, amortized)", qty:2, unit:"lb", costW:2.50, costR:4.50, tier:2},
+    {name:"Frozen berries (Member's Mark 4 lb bag — for daily overnight oats jars)", qty:3, unit:"lb", costW:2.50, costR:4.50, tier:1},
     {name:"Frozen mixed berries (variety for shakes)", qty:1, unit:"lb", costW:5.00, costR:7.00, tier:3}
   ],
   "Pantry": [
