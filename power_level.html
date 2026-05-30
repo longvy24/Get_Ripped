@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POWER LEVEL — Get Ripped Edition</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg-deep: #050818;
+    --bg-mid: #0c0f2c;
+    --bg-glow: #1a1040;
+    --neon-cyan: #00f0ff;
+    --neon-gold: #ffd54a;
+    --neon-pink: #ff3d92;
+    --neon-green: #39ff66;
+    --neon-purple: #b066ff;
+    --text: #f0f4ff;
+    --dim: #7a8aa8;
+    --bar-track: #1f2444;
+    --danger: #ff5050;
+  }
+  html, body {
+    background:
+      radial-gradient(ellipse at 30% 10%, rgba(255, 80, 200, 0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 90%, rgba(0, 240, 255, 0.18) 0%, transparent 50%),
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 50%, var(--bg-deep) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+  /* Animated scan lines */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 240, 255, 0.025) 3px,
+      rgba(0, 240, 255, 0.025) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 32px 20px 64px;
+    position: relative;
+    z-index: 2;
+  }
+  /* HEADER */
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+    padding: 20px;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 12px;
+    background: rgba(0, 240, 255, 0.05);
+    box-shadow:
+      0 0 24px rgba(0, 240, 255, 0.4),
+      inset 0 0 24px rgba(0, 240, 255, 0.1);
+    position: relative;
+  }
+  .header h1 {
+    font-size: clamp(24px, 4vw, 36px);
+    letter-spacing: 0.2em;
+    color: var(--neon-cyan);
+    text-shadow:
+      0 0 8px var(--neon-cyan),
+      0 0 24px var(--neon-cyan),
+      0 0 48px rgba(0, 240, 255, 0.3);
+    font-weight: 900;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  .header .subtitle {
+    color: var(--dim);
+    margin-top: 8px;
+    letter-spacing: 0.2em;
+    font-size: 12px;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { text-shadow: 0 0 8px var(--neon-cyan), 0 0 24px var(--neon-cyan); }
+    50% { text-shadow: 0 0 16px var(--neon-cyan), 0 0 48px var(--neon-cyan), 0 0 96px rgba(0, 240, 255, 0.6); }
+  }
+  /* MAIN POWER DISPLAY */
+  .power-display {
+    text-align: center;
+    margin: 40px 0;
+    padding: 32px 20px;
+    position: relative;
+  }
+  .power-label {
+    color: var(--neon-cyan);
+    letter-spacing: 0.4em;
+    font-size: 13px;
+    margin-bottom: 16px;
+    opacity: 0.85;
+  }
+  .power-number {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(48px, 10vw, 96px);
+    font-weight: 900;
+    color: var(--neon-gold);
+    text-shadow:
+      0 0 12px var(--neon-gold),
+      0 0 40px var(--neon-gold),
+      0 0 80px rgba(255, 213, 74, 0.5);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    word-break: break-all;
+    transition: color 0.3s, text-shadow 0.3s;
+  }
+  .power-number.over-9k {
+    color: #ff3d92;
+    text-shadow:
+      0 0 12px #ff3d92,
+      0 0 48px #ff3d92,
+      0 0 96px rgba(255, 61, 146, 0.6);
+    animation: shake 0.4s infinite;
+  }
+  .power-number.legendary {
+    color: var(--neon-green);
+    text-shadow:
+      0 0 12px var(--neon-green),
+      0 0 48px var(--neon-green),
+      0 0 96px rgba(57, 255, 102, 0.7);
+  }
+  .power-number.transcendent {
+    background: linear-gradient(90deg, #ff3d92, #ffd54a, #00f0ff, #b066ff, #ff3d92);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: rainbow 3s linear infinite;
+    text-shadow: 0 0 64px rgba(255, 255, 255, 0.4);
+  }
+  @keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 1px); }
+    50% { transform: translate(2px, -1px); }
+    75% { transform: translate(-1px, -2px); }
+  }
+  /* CHARACTER CARD */
+  .character-card {
+    margin: 32px auto;
+    max-width: 600px;
+    padding: 28px 24px;
+    border-radius: 16px;
+    border: 2px solid var(--neon-gold);
+    background: linear-gradient(145deg, rgba(255, 213, 74, 0.08), rgba(255, 213, 74, 0.02));
+    box-shadow:
+      0 0 32px rgba(255, 213, 74, 0.35),
+      inset 0 0 24px rgba(255, 213, 74, 0.08);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s, box-shadow 0.4s;
+  }
+  .character-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(255, 213, 74, 0.15) 30deg, transparent 60deg);
+    animation: rotate 8s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes rotate {
+    to { transform: rotate(360deg); }
+  }
+  .char-emoji {
+    font-size: 84px;
+    display: inline-block;
+    filter: drop-shadow(0 0 16px var(--neon-gold));
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .char-name {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin: 12px 0 6px;
+    color: var(--neon-gold);
+    text-shadow: 0 0 12px rgba(255, 213, 74, 0.7);
+    position: relative;
+    z-index: 2;
+  }
+  .char-tier {
+    display: inline-block;
+    padding: 4px 14px;
+    border: 1px solid var(--neon-cyan);
+    border-radius: 999px;
+    color: var(--neon-cyan);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 2;
+  }
+  .char-quote {
+    font-style: italic;
+    color: #d8e0f5;
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-size: 15px;
+    position: relative;
+    z-index: 2;
+  }
+  /* STATS GRID */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .stat {
+    padding: 14px 12px;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    border-radius: 10px;
+    background: rgba(0, 240, 255, 0.04);
+    text-align: center;
+  }
+  .stat-label {
+    color: var(--dim);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    margin-bottom: 6px;
+  }
+  .stat-value {
+    color: var(--neon-cyan);
+    font-size: 22px;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+  }
+  /* NEXT TIER */
+  .next-tier {
+    margin: 24px 0;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(176, 102, 255, 0.06);
+    border: 1px solid rgba(176, 102, 255, 0.4);
+  }
+  .nt-label {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--dim);
+    margin-bottom: 10px;
+  }
+  .nt-label span {
+    color: var(--neon-purple);
+    font-weight: 700;
+  }
+  .progress-bar {
+    height: 18px;
+    background: var(--bar-track);
+    border-radius: 9px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink), var(--neon-gold));
+    border-radius: 9px;
+    transition: width 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 0 12px var(--neon-purple);
+    position: relative;
+    width: 0;
+  }
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s linear infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .nt-meta {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--dim);
+    text-align: right;
+  }
+  /* POWER UP BUTTON */
+  .power-up-btn {
+    display: block;
+    margin: 28px auto;
+    padding: 16px 36px;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: #000;
+    background: linear-gradient(135deg, var(--neon-gold), var(--neon-pink), var(--neon-cyan));
+    background-size: 200% 200%;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 0 24px var(--neon-gold), 0 4px 0 rgba(0,0,0,0.3);
+    animation: btn-glow 3s ease-in-out infinite;
+    transition: transform 0.1s;
+  }
+  @keyframes btn-glow {
+    0%, 100% { background-position: 0% 50%; box-shadow: 0 0 24px var(--neon-gold), 0 4px 0 rgba(0,0,0,0.3); }
+    50% { background-position: 100% 50%; box-shadow: 0 0 40px var(--neon-pink), 0 4px 0 rgba(0,0,0,0.3); }
+  }
+  .power-up-btn:active { transform: translateY(2px); box-shadow: 0 0 24px var(--neon-gold); }
+  /* SCREEN SHAKE for POWER UP */
+  .shaking {
+    animation: bigshake 0.6s;
+  }
+  @keyframes bigshake {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-8px, -4px); }
+    20% { transform: translate(8px, 4px); }
+    30% { transform: translate(-6px, 6px); }
+    40% { transform: translate(6px, -6px); }
+    50% { transform: translate(-4px, 4px); }
+    60% { transform: translate(4px, -4px); }
+    70% { transform: translate(-2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    90% { transform: translate(-1px, 1px); }
+  }
+  /* ENERGY BURST */
+  .burst {
+    position: fixed;
+    top: 50%; left: 50%;
+    width: 50px; height: 50px;
+    background: radial-gradient(circle, var(--neon-gold) 0%, var(--neon-pink) 40%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0;
+  }
+  .burst.go {
+    animation: burst 1.2s ease-out forwards;
+  }
+  @keyframes burst {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(60); opacity: 0; }
+  }
+  /* TIER LADDER */
+  .section-title {
+    margin: 40px 0 16px;
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    color: var(--neon-pink);
+    text-shadow: 0 0 8px rgba(255, 61, 146, 0.5);
+    border-left: 3px solid var(--neon-pink);
+    padding-left: 12px;
+  }
+  .tier-list {
+    list-style: none;
+    padding: 8px;
+    counter-reset: tier;
+    max-height: 540px;
+    overflow-y: auto;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    scrollbar-width: thin;
+    scrollbar-color: var(--neon-purple) transparent;
+  }
+  .tier-list::-webkit-scrollbar { width: 8px; }
+  .tier-list::-webkit-scrollbar-track { background: transparent; }
+  .tier-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--neon-purple), var(--neon-pink));
+    border-radius: 4px;
+  }
+  .tier {
+    display: grid;
+    grid-template-columns: 60px 80px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 6px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s;
+  }
+  .tier:hover {
+    background: rgba(255, 213, 74, 0.06);
+    border-color: rgba(255, 213, 74, 0.3);
+  }
+  .tier.unlocked {
+    background: linear-gradient(90deg, rgba(57, 255, 102, 0.08), transparent);
+    border-color: rgba(57, 255, 102, 0.3);
+  }
+  .tier.current {
+    background: linear-gradient(90deg, rgba(255, 213, 74, 0.18), rgba(255, 213, 74, 0.02));
+    border-color: var(--neon-gold);
+    box-shadow: 0 0 16px rgba(255, 213, 74, 0.4);
+    position: relative;
+  }
+  .tier.current::before {
+    content: '◀ YOU';
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--neon-gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    background: var(--bg-mid);
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--neon-gold);
+    box-shadow: 0 0 12px var(--neon-gold);
+    white-space: nowrap;
+  }
+  .tier.locked {
+    opacity: 0.45;
+  }
+  .tier-num {
+    font-family: 'Courier New', monospace;
+    color: var(--dim);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+  }
+  .tier-emoji {
+    font-size: 32px;
+    text-align: center;
+  }
+  .tier.locked .tier-emoji {
+    filter: grayscale(1) brightness(0.6);
+  }
+  .tier-info {
+    min-width: 0;
+  }
+  .tier-name {
+    font-weight: 700;
+    color: var(--text);
+  }
+  .tier-days {
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+  .tier-power {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--neon-cyan);
+    text-align: right;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .tier.locked .tier-power {
+    color: var(--dim);
+  }
+  /* ABSURD COMPARISONS */
+  .absurd {
+    margin: 32px 0;
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255, 61, 146, 0.06), rgba(255, 213, 74, 0.04));
+    border: 1px dashed rgba(255, 61, 146, 0.4);
+  }
+  .absurd ul { list-style: none; padding: 0; }
+  .absurd li {
+    padding: 8px 0;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.08);
+    color: #d8e0f5;
+    line-height: 1.5;
+  }
+  .absurd li:last-child { border-bottom: none; }
+  .absurd li strong {
+    color: var(--neon-gold);
+    text-shadow: 0 0 4px rgba(255, 213, 74, 0.4);
+    font-family: 'Courier New', monospace;
+  }
+  /* DATA STATUS */
+  .data-status {
+    margin: 32px 0 0;
+    padding: 16px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .data-status .status-text {
+    font-size: 12px;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+  }
+  .data-status .status-text.linked {
+    color: var(--neon-green);
+  }
+  .data-status button {
+    padding: 8px 16px;
+    background: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    transition: all 0.2s;
+  }
+  .data-status button:hover {
+    background: var(--neon-cyan);
+    color: #000;
+  }
+  .demo-controls {
+    margin: 16px 0;
+    padding: 16px;
+    border-radius: 10px;
+    background: rgba(176, 102, 255, 0.06);
+    border: 1px solid rgba(176, 102, 255, 0.3);
+  }
+  .demo-controls label {
+    display: block;
+    color: var(--neon-purple);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+  .demo-controls input[type=range] {
+    width: 100%;
+    accent-color: var(--neon-purple);
+  }
+  .footer {
+    margin-top: 48px;
+    text-align: center;
+    color: var(--dim);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+  .footer a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+  }
+  /* ETERNAL badge */
+  .eternal-badge {
+    margin: 16px 0 24px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgba(255, 61, 146, 0.15), rgba(176, 102, 255, 0.15), rgba(0, 240, 255, 0.15));
+    background-size: 200% 100%;
+    border: 2px solid var(--neon-pink);
+    box-shadow: 0 0 24px rgba(255, 61, 146, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: eternalShine 4s linear infinite;
+  }
+  @keyframes eternalShine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  .eb-icon {
+    font-size: 42px;
+    filter: drop-shadow(0 0 12px var(--neon-pink));
+    animation: float 3s ease-in-out infinite;
+  }
+  .eb-title {
+    color: var(--neon-pink);
+    letter-spacing: 0.25em;
+    font-weight: 800;
+    font-size: 14px;
+    text-shadow: 0 0 8px rgba(255, 61, 146, 0.6);
+  }
+  .eb-meta {
+    color: #e8ecff;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .eb-meta strong {
+    color: var(--neon-gold);
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+  }
+  /* Section dividers in tier list */
+  .section-divider {
+    margin: 24px 0 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border-left: 4px solid;
+  }
+  .sd-label {
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    font-size: 13px;
+  }
+  .sd-blurb {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--dim);
+    line-height: 1.5;
+  }
+  .section-MORTAL {
+    border-left-color: var(--neon-cyan);
+    background: rgba(0, 240, 255, 0.05);
+  }
+  .section-MORTAL .sd-label { color: var(--neon-cyan); }
+  .section-BEYOND {
+    border-left-color: var(--neon-pink);
+    background: linear-gradient(90deg, rgba(255, 61, 146, 0.08), transparent);
+    box-shadow: inset 0 0 12px rgba(255, 61, 146, 0.1);
+  }
+  .section-BEYOND .sd-label {
+    color: var(--neon-pink);
+    text-shadow: 0 0 8px rgba(255, 61, 146, 0.5);
+  }
+  .section-ETERNAL {
+    border-left-color: transparent;
+    background:
+      linear-gradient(90deg, rgba(0, 240, 255, 0.06), rgba(255, 213, 74, 0.06), rgba(255, 61, 146, 0.06), rgba(176, 102, 255, 0.06));
+    background-size: 300% 100%;
+    animation: eternalShine 5s linear infinite;
+    position: relative;
+  }
+  .section-ETERNAL::before {
+    content: '';
+    position: absolute;
+    left: -2px; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--neon-cyan), var(--neon-gold), var(--neon-pink), var(--neon-purple));
+    border-radius: 4px;
+  }
+  .section-ETERNAL .sd-label {
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-gold), var(--neon-pink), var(--neon-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 100%;
+    animation: rainbow 3s linear infinite;
+  }
+  /* Quick-demo buttons */
+  .demo-quick {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .demo-quick button {
+    padding: 6px 12px;
+    background: rgba(176, 102, 255, 0.15);
+    border: 1px solid rgba(176, 102, 255, 0.5);
+    color: var(--neon-purple);
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .demo-quick button:hover {
+    background: var(--neon-purple);
+    color: #000;
+    transform: translateY(-1px);
+  }
+  @media (max-width: 600px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats .stat:last-child { grid-column: 1 / -1; }
+    .tier { grid-template-columns: 40px 60px 1fr; }
+    .tier-power { grid-column: 1 / -1; text-align: left; padding-left: 100px; }
+    .char-emoji { font-size: 64px; }
+    .char-name { font-size: 22px; }
+    .eternal-badge { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="container" id="root">
+
+  <div class="header">
+    <h1>⚡ POWER LEVEL ⚡</h1>
+    <div class="subtitle">GET RIPPED ‖ ANIME SCOUTER v2.0 — NO CEILING</div>
+  </div>
+
+  <div class="eternal-badge" id="eternalBadge" style="display:none;">
+    <div class="eb-icon">♾️</div>
+    <div class="eb-text">
+      <div class="eb-title">BEYOND THE MINIMUM</div>
+      <div class="eb-meta">You have trained <strong><span class="eb-count">0</span></strong> sessions past Day 120. The ceiling does not exist.</div>
+    </div>
+  </div>
+
+  <div class="power-display">
+    <div class="power-label">CURRENT POWER LEVEL</div>
+    <div class="power-number" id="powerNumber">0</div>
+  </div>
+
+  <div class="character-card">
+    <div class="char-emoji" id="charEmoji">💀</div>
+    <div class="char-name" id="charName">Yamcha (Crater Form)</div>
+    <div class="char-tier" id="charTier">TIER 0 — DEAD WEIGHT</div>
+    <div class="char-quote" id="charQuote">"…"</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">DAYS PASSED</div>
+      <div class="stat-value" id="daysPassedVal">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">SESSIONS DONE</div>
+      <div class="stat-value" id="sessionsVal">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">CONSISTENCY</div>
+      <div class="stat-value" id="consistencyVal">—</div>
+    </div>
+  </div>
+
+  <div class="next-tier">
+    <div class="nt-label">NEXT POWER-UP: <span id="nextChar">Krillin</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+    <div class="nt-meta" id="ntMeta">Train more to ascend.</div>
+  </div>
+
+  <button class="power-up-btn" onclick="powerUp()">⚡ POWER UP ⚡</button>
+
+  <div class="section-title">▌ ABSURD COMPARISONS</div>
+  <div class="absurd"><ul id="funList"></ul></div>
+
+  <div class="section-title">▌ TIER LADDER</div>
+  <ol class="tier-list" id="tierList"></ol>
+
+  <div class="data-status">
+    <div class="status-text" id="statusText">⚙ No data linked — currently in DEMO MODE</div>
+    <div>
+      <button onclick="document.getElementById('fileIn').click()">📁 Upload JSON</button>
+      <button onclick="tryLoadStorage()">🔄 Re-link</button>
+      <input type="file" id="fileIn" hidden accept=".json" onchange="parseFile(event)">
+    </div>
+  </div>
+
+  <div class="demo-controls" id="demoControls">
+    <label>🧪 DEMO MODE — drag to simulate sessions (167 = full 120 days · 2,500 = beyond all named tiers · 10,000 = eternal)</label>
+    <input type="range" min="0" max="10000" value="0" id="demoSlider">
+    <div class="demo-quick">
+      <button onclick="setDemo(0)">RESET</button>
+      <button onclick="setDemo(15)">🔥 Over 9000</button>
+      <button onclick="setDemo(120)">🏋️ Day 120</button>
+      <button onclick="setDemo(300)">📖 Featherine</button>
+      <button onclick="setDemo(1000)">🎴 Six Paths</button>
+      <button onclick="setDemo(2500)">✍️ THE WRITER</button>
+      <button onclick="setDemo(10000)">∞ ETERNAL</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="index.html">← back to the plan</a> &nbsp;·&nbsp;
+    <a href="database/dashboards.html">view dashboards →</a>
+  </div>
+
+</div>
+
+<div class="burst" id="burst"></div>
+
+<script>
+// ───────────────────────────── TIER SYSTEM ─────────────────────────────
+// 33 anime tiers with ABSURD power-level scaling — no cap, ever.
+// 120 days is the MINIMUM. The ladder keeps climbing into the cosmic.
+// Each tier: min sessions, emoji, name, label, quote, section, power.
+// Power can be a Number OR { m, e } for values past Number.MAX_VALUE.
+const TIERS = [
+  // ━━━━━━━━━━━━ MORTAL TIERS (sessions 0–120) ━━━━━━━━━━━━
+  { section: 'MORTAL',    min: 0,   emoji: '💀', name: 'Yamcha (Crater Form)',          label: 'DEAD WEIGHT',                power: 5,           quote: "Face-planted in a crater. Hasn't even done a warmup." },
+  { section: 'MORTAL',    min: 1,   emoji: '🥚', name: 'Krillin',                        label: 'EARNEST DISCIPLE',           power: 206,         quote: "I AM the only human strong enough to stand beside the Saiyans." },
+  { section: 'MORTAL',    min: 5,   emoji: '🌱', name: 'Rock Lee (No Weights)',          label: 'YOUTHFUL POWER',             power: 1850,        quote: "Hard work beats talent when talent doesn't work hard. Watch me prove it." },
+  { section: 'MORTAL',    min: 10,  emoji: '🍥', name: 'Naruto (Pre-Sage)',              label: 'KAGE BUNSHIN',               power: 5400,        quote: "I never go back on my word — that's my ninja way. Also, my deadlift is up." },
+  { section: 'MORTAL',    min: 15,  emoji: '👽', name: 'Piccolo',                        label: "IT'S OVER 9000",             power: 9001,        quote: "WHAT?! 9000?! THERE'S NO WAY THAT CAN BE RIGHT!" },
+  { section: 'MORTAL',    min: 22,  emoji: '👑', name: 'Vegeta (Saiyan Saga)',           label: 'PRINCE OF SAIYANS',          power: 18000,       quote: "I am the prince of all Saiyans, and you will know my squat depth." },
+  { section: 'MORTAL',    min: 30,  emoji: '🥋', name: 'Goku (Saiyan Saga)',             label: 'KAMEHAMEHA-READY',           power: 90000,       quote: "Push past your limits — Plus Ultra, Kamehameha, whatever. Just lift more." },
+  { section: 'MORTAL',    min: 40,  emoji: '⚡', name: 'Super Saiyan Goku',              label: 'GOLDEN HAIR FORM',           power: 1.5e8,       quote: "It's not the fall that's killing me, it's the impact... of my new PR." },
+  { section: 'MORTAL',    min: 50,  emoji: '👾', name: 'Frieza (Final Form)',            label: 'TRUE FORM UNLEASHED',        power: 1.2e9,       quote: "Allow me to demonstrate your one-rep max." },
+  { section: 'MORTAL',    min: 60,  emoji: '🦗', name: 'Cell (Perfect)',                 label: 'PERFECT FORM',               power: 9e9,         quote: "I have ascended. My physique is mathematically optimal." },
+  { section: 'MORTAL',    min: 71,  emoji: '🍬', name: 'Majin Buu',                      label: 'PURE PROTEIN',               power: 4.4e10,      quote: "Buu turn cardio into candy. Buu eat candy. Buu now jacked." },
+  { section: 'MORTAL',    min: 81,  emoji: '🔵', name: 'Goku — Super Saiyan Blue',       label: 'GOD KI',                     power: 8.8e11,      quote: "I am the hope of the universe... and the office. Don't skip leg day." },
+  { section: 'MORTAL',    min: 91,  emoji: '💪', name: 'All Might (Plus Ultra)',         label: 'SYMBOL OF PEACE',            power: 9.99e13,     quote: "I AM HERE! ...also you ARE here. At the gym. Six AM. Like a champion." },
+  { section: 'MORTAL',    min: 101, emoji: '👊', name: 'Saitama',                        label: 'ONE PUNCH MAN',              power: 1e30,        quote: "Bro. Just do 100 push-ups, 100 sit-ups, 100 squats, and a 10km run every single day. Also, I went bald." },
+  { section: 'MORTAL',    min: 111, emoji: '✨', name: 'Goku — Ultra Instinct',          label: 'MOVEMENT WITHOUT THOUGHT',   power: 9.99e50,     quote: "The body moves on its own. There is no thought. There is only the rep." },
+  { section: 'MORTAL',    min: 120, emoji: '🏋️', name: 'YOU — TRUE FINAL FORM',         label: 'MINIMUM ACHIEVED',           power: 9.99e99,     quote: "120 days complete. The gym is your dojo. The barbell is your blade. But this was just the MINIMUM." },
+
+  // ━━━━━━━━━━━━ THE BEYOND (sessions 121–2,400) ━━━━━━━━━━━━
+  { section: 'BEYOND',    min: 121, emoji: '🌀', name: 'Madara (Edo Tensei)',            label: 'INFINITE TSUKUYOMI MODE',    power: { m: 1.5, e: 110 }, quote: "Just getting warmed up. Susanoo, but for cardio." },
+  { section: 'BEYOND',    min: 135, emoji: '🦋', name: 'Aizen (Hogyoku Merged)',         label: 'JUST AS PLANNED',            power: { m: 3.7, e: 125 }, quote: "All according to plan. The plan was: get jacked. The plan worked." },
+  { section: 'BEYOND',    min: 155, emoji: '⚔️', name: 'Eren — Founding Titan',          label: 'RUMBLING ENERGY',            power: { m: 8.2, e: 140 }, quote: "I'll keep moving forward, until all my enemies — including bad habits — are destroyed." },
+  { section: 'BEYOND',    min: 180, emoji: '👁️', name: 'Zeno-sama',                     label: 'OMNI-KING',                  power: { m: 2.1, e: 160 }, quote: "I can erase entire universes. I can also erase entire calorie surpluses. Both equally fun." },
+  { section: 'BEYOND',    min: 210, emoji: '🌌', name: 'Anti-Spiral',                    label: 'PROBABILITY MANIPULATOR',    power: { m: 6.6, e: 180 }, quote: "Just who the hell do you think you are? Answer: someone who never skips leg day." },
+  { section: 'BEYOND',    min: 250, emoji: '🚪', name: 'Truth (Equivalent Exchange)',    label: 'THE GATE',                   power: { m: 9.9, e: 210 }, quote: "You gave up Netflix. I gave you a six-pack. Equivalent exchange. We're even." },
+  { section: 'BEYOND',    min: 300, emoji: '📖', name: 'Featherine Augustus Aurora',     label: 'AUTHOR OF UNIVERSES',        power: { m: 4.4, e: 240 }, quote: "I am the author of universes. You are the author of your body. We respect each other." },
+  { section: 'BEYOND',    min: 366, emoji: '🪿', name: 'Saitama (3-Year Anniversary)',   label: 'CANONICAL BALDNESS',         power: { m: 1.1, e: 280 }, quote: "Bro. You literally did the routine. The fictional one. For a YEAR. The hair loss is REAL." },
+  { section: 'BEYOND',    min: 450, emoji: '🧠', name: 'Tetsuo (Akira Final Form)',      label: 'BIOMASS UNCONSTRAINED',      power: { m: 7.3, e: 320 }, quote: "Form is a suggestion. The gym is my consciousness. The barbell, an extension of self." },
+  { section: 'BEYOND',    min: 550, emoji: '🌠', name: 'Cosmic Garou',                   label: 'AWAKENED HERO HUNTER',       power: { m: 3.1, e: 380 }, quote: "I've awakened. The mirror is the only worthy opponent left." },
+  { section: 'BEYOND',    min: 700, emoji: '🌑', name: 'Ichigo (True Bankai)',           label: 'FINAL GETSUGA',              power: { m: 9.0, e: 450 }, quote: "Final Getsuga Tensho? More like Final Set Tensho. Last rep. Always one more." },
+  { section: 'BEYOND',    min: 900, emoji: '🎴', name: 'Madara — Six Paths Sage Mode',   label: 'COMPLETE BODY',              power: { m: 6.6, e: 540 }, quote: "Wake up to reality. Your reality includes 900 workout sessions. Be proud." },
+  { section: 'BEYOND',    min: 1100,emoji: '🔮', name: 'Goku Black — Rosé',              label: 'DIVINE BLADE',               power: { m: 2.2, e: 640 }, quote: "Hope... not. You're past hope. You ARE the result of the prayer." },
+  { section: 'BEYOND',    min: 1366,emoji: '🌟', name: 'Lord Boros (OPM)',               label: 'METEORIC BURST',             power: { m: 5.5, e: 760 }, quote: "I will only fight someone worthy. Apparently that's you. In the mirror." },
+  { section: 'BEYOND',    min: 1700,emoji: '⚛️', name: 'Tetsuo (Reality-Editor)',        label: 'CAUSAL DISTORTION',          power: { m: 8.8, e: 900 }, quote: "The fabric of reality has noticed your gains and is taking notes." },
+  { section: 'BEYOND',    min: 2100,emoji: '👁️‍🗨️',name: 'Beerus + Whis (Tag Team)',     label: 'DESTROYER + ATTENDANT',      power: { m: 1.1, e: 1050}, quote: "We don't even have to spar with you anymore. You're our pre-workout." },
+
+  // ━━━━━━━━━━━━ ETERNAL TIERS (sessions 2,500+) ━━━━━━━━━━━━
+  { section: 'ETERNAL',   min: 2500, emoji: '✍️', name: 'THE WRITER',                    label: 'AUTHOR OF THE ANIME',        power: { m: 9.9, e: 1300}, quote: "You are now writing the anime. The previous tier characters were YOUR creations." },
+  { section: 'ETERNAL',   min: 3000, emoji: '🪞', name: 'THE READER',                    label: 'FOURTH WALL DISMANTLED',     power: { m: 5.5, e: 1600}, quote: "You're reading this. From the gym. Mid-set. The fourth wall is rubble." },
+  { section: 'ETERNAL',   min: 4000, emoji: '🧬', name: 'THE TRAINER',                   label: 'GUIDE OF GUIDES',            power: { m: 9.9, e: 2000}, quote: "You are now training the gods. They send protein shakes as tribute." },
+  { section: 'ETERNAL',   min: 6000, emoji: '⊗',  name: 'The User Who Would Not Stop',   label: 'REALITY OVERFLOW',           power: { m: 9.9, e: 2800}, quote: "The page has crashed trying to format your number. Try not to be too smug." },
+  { section: 'ETERNAL',   min: 10000,emoji: '∞',  name: 'The Concept of Power Itself',   label: 'ETERNAL FORM',               power: { m: 9.9, e: 5000}, quote: "When other people lift, they whisper your name. They don't know why." },
+];
+
+// ─────────── BIG NUMBER REPRESENTATION ───────────
+// Power values can exceed Number.MAX_VALUE (~1.79e308).
+// We represent every power as { m, e } where value = m × 10^e.
+function toBig(p) {
+  if (typeof p === 'object' && p !== null && 'm' in p && 'e' in p) {
+    return { m: p.m, e: p.e };
+  }
+  if (p === Infinity) return { m: 9.99, e: Infinity };
+  if (p == null || p <= 0) return { m: 0, e: 0 };
+  // Plain number → normalize to mantissa & exponent
+  const e = Math.floor(Math.log10(p));
+  const m = p / Math.pow(10, e);
+  return { m, e };
+}
+
+function bigToNumber(b) {
+  // Try to return a regular Number if safe (exponent < 300)
+  if (b.e === Infinity) return Infinity;
+  if (b.e < 300) return b.m * Math.pow(10, b.e);
+  return Number.POSITIVE_INFINITY;    // overflow, but we keep b for formatting
+}
+
+// Format a big-number-or-number for display
+function fmt(p) {
+  const b = (typeof p === 'object' && p !== null && 'm' in p) ? p : toBig(p);
+  if (b.e === Infinity) return '∞';
+  if (b.e < 6) {
+    const v = b.m * Math.pow(10, b.e);
+    return Math.round(v).toLocaleString();
+  }
+  if (b.e < 9)  return (b.m * Math.pow(10, b.e - 6)).toFixed(1) + 'M';
+  if (b.e < 12) return (b.m * Math.pow(10, b.e - 9)).toFixed(1) + 'B';
+  if (b.e < 15) return (b.m * Math.pow(10, b.e - 12)).toFixed(1) + 'T';
+  if (b.e < 18) return (b.m * Math.pow(10, b.e - 15)).toFixed(1) + ' Quadrillion';
+  // Scientific for everything beyond
+  return b.m.toFixed(2) + ' × 10^' + Math.round(b.e);
+}
+
+// ─────────── COMPUTE POWER (never caps) ───────────
+function computePower(sessions) {
+  sessions = Math.max(0, sessions);
+  let curIdx = 0;
+  for (let i = TIERS.length - 1; i >= 0; i--) {
+    if (sessions >= TIERS[i].min) { curIdx = i; break; }
+  }
+  const cur = TIERS[curIdx];
+  const next = TIERS[curIdx + 1];
+  const curB = toBig(cur.power);
+
+  if (!next) {
+    // ───── ETERNAL EXTRAPOLATION ─────
+    // Past the last named tier, exponent grows linearly with sessions.
+    // ~0.5 added to log10 power per session: NEVER caps. NEVER stops.
+    const beyond = sessions - cur.min;
+    return { m: 9.99, e: curB.e + beyond * 0.5 };
+  }
+
+  const nextB = toBig(next.power);
+  const span = next.min - cur.min;
+  if (span <= 0) return curB;
+  const t = Math.min(1, (sessions - cur.min) / span);
+  // Log-linear interpolation on exponents — feels exponential
+  const e = curB.e + (nextB.e - curB.e) * t;
+  // Mantissa interpolation (less important visually)
+  const m = curB.m + (nextB.m - curB.m) * t;
+  return { m, e };
+}
+
+function currentTier(sessions) {
+  let idx = 0;
+  for (let i = TIERS.length - 1; i >= 0; i--) {
+    if (sessions >= TIERS[i].min) { idx = i; break; }
+  }
+  return { idx, ...TIERS[idx] };
+}
+
+// ─────────────────── ABSURD COMPARISONS GENERATOR ───────────────────
+function absurdComparisons(power, sessions) {
+  const items = [];
+  const b = (typeof power === 'object' && power !== null && 'm' in power) ? power : toBig(power);
+  const e = b.e;    // log10 power, easy to reason about
+
+  // Bench equivalent (always relatable)
+  const benchEqv = Math.round(135 + sessions * 4);
+  items.push(`💪 Bench-press equivalent: <strong>${benchEqv.toLocaleString()} lbs</strong>`);
+
+  // Energy comparison (uses log scale)
+  if (e < 3) {
+    items.push(`⚡ Your ki could power <strong>${Math.max(1, Math.round(bigToNumber(b) / 5))} Walkman${b.m > 1 ? 's' : ''}</strong> for an hour.`);
+  } else if (e < 6) {
+    items.push(`⚡ Your ki could power <strong>${fmt({m: b.m, e: e - 3})} smartphones</strong> for a day.`);
+  } else if (e < 9) {
+    items.push(`⚡ Your ki could power a city of <strong>${fmt({m: b.m, e: e - 2})} people</strong> for an hour.`);
+  } else if (e < 12) {
+    items.push(`⚡ Your ki could power <strong>${fmt({m: b.m, e: e - 8})} small countries</strong>, simultaneously.`);
+  } else if (e < 18) {
+    items.push(`⚡ Your ki output rivals <strong>${fmt({m: b.m, e: e - 15})} suns</strong>. Astronomers are confused.`);
+  } else if (e < 30) {
+    items.push(`⚡ Your ki could power <strong>${fmt({m: b.m, e: e - 20})} solar systems</strong>. NASA wants to interview you.`);
+  } else if (e < 60) {
+    items.push(`⚡ Your ki could collapse <strong>${fmt({m: b.m, e: e - 50})} galaxies</strong> into singularities. Politely, please.`);
+  } else if (e < 100) {
+    items.push(`⚡ Your ki could ignite <strong>${fmt({m: b.m, e: e - 80})} parallel universes</strong>. The multiverse files a complaint.`);
+  } else if (e < 300) {
+    items.push(`⚡ Your ki has exceeded the Bekenstein bound of <strong>${fmt({m: b.m, e: e - 100})} observable universes</strong>. Physicists weep.`);
+  } else if (e < 1000) {
+    items.push(`⚡ Your ki is now measured in <strong>concepts per second</strong>. The unit was invented for you.`);
+  } else if (e < 5000) {
+    items.push(`⚡ Your ki has been peer-reviewed by reality and reality lost.`);
+  } else {
+    items.push(`⚡ Your ki has broken the power meter. The scientists have given up. <strong>Yamcha is crying.</strong>`);
+  }
+
+  // Kamehameha scaling
+  if (e < 4) {
+    items.push(`🌊 Your Kamehameha would knock over <strong>${Math.round(bigToNumber(b) / 2).toLocaleString()} traffic cones</strong>.`);
+  } else if (e < 7) {
+    items.push(`🌊 Your Kamehameha would level <strong>${fmt({m: b.m, e: e - 3})} city blocks</strong>.`);
+  } else if (e < 11) {
+    items.push(`🌊 Your Kamehameha would split <strong>${fmt({m: b.m, e: e - 7})} continents</strong>.`);
+  } else if (e < 30) {
+    items.push(`🌊 Your Kamehameha could destroy <strong>${fmt({m: b.m, e: e - 12})} Earth-sized planets</strong>.`);
+  } else if (e < 80) {
+    items.push(`🌊 Your Kamehameha could unmake <strong>${fmt({m: b.m, e: e - 40})} timelines</strong>. Trunks would like a word.`);
+  } else if (e < 250) {
+    items.push(`🌊 Your Kamehameha exists in <strong>11 dimensions simultaneously</strong>. String theorists are taking notes.`);
+  } else if (e < 1000) {
+    items.push(`🌊 Your Kamehameha has been classified as <strong>a new force of nature</strong>.`);
+  } else {
+    items.push(`🌊 Your Kamehameha cannot be observed. To witness it would require leaving the simulation.`);
+  }
+
+  // Recovery time
+  if (sessions === 0) {
+    items.push(`🛌 Recovery time after a leg day: <strong>2-3 business weeks</strong>.`);
+  } else if (sessions < 20) {
+    items.push(`🛌 Recovery time after a leg day: <strong>${Math.max(1, 5 - Math.floor(sessions / 5))} day${5 - Math.floor(sessions/5) === 1 ? '' : 's'}</strong>.`);
+  } else if (sessions < 80) {
+    items.push(`🛌 Recovery time after a leg day: <strong>${Math.max(8, 36 - Math.floor(sessions / 3))} hours</strong>.`);
+  } else if (sessions < 160) {
+    items.push(`🛌 Recovery time: <strong>1 hyperbolic time chamber visit (one day = one year)</strong>.`);
+  } else if (sessions < 500) {
+    items.push(`🛌 Recovery time: a single <strong>blink</strong>. You blinked just now. You're recovered.`);
+  } else if (sessions < 2000) {
+    items.push(`🛌 Recovery time: <strong>negative</strong>. You finish leg day stronger than you started.`);
+  } else {
+    items.push(`🛌 You no longer experience the concept of soreness, exhaustion, or limitation.`);
+  }
+
+  // Milestone flexes — keep stacking as sessions climb
+  if (sessions >= 100) items.push(`👑 Side effect: <strong>NPCs in real life now ask for your photo.</strong>`);
+  if (sessions >= 120) items.push(`🌌 Day 120 unlocked. <strong>The minimum is behind you. Now you ascend.</strong>`);
+  if (sessions >= 200) items.push(`🦁 Side effect: <strong>You can now bench an apex predator.</strong>`);
+  if (sessions >= 300) items.push(`🚙 Side effect: <strong>You no longer use chairs. Chairs use you.</strong>`);
+  if (sessions >= 500) items.push(`☄️ Side effect: <strong>Meteor showers redirect themselves around you.</strong>`);
+  if (sessions >= 1000) items.push(`🌠 Side effect: <strong>Time dilates near you. People nearby age slower.</strong>`);
+  if (sessions >= 2000) items.push(`🌀 Side effect: <strong>Reality occasionally checks in with you for direction.</strong>`);
+  if (sessions >= 5000) items.push(`👁️ Side effect: <strong>You are no longer described — you describe.</strong>`);
+  if (sessions >= 10000) items.push(`♾️ Side effect: <strong>The page has crashed trying to format your number. (Just kidding. It hasn't. Yet.)</strong>`);
+
+  return items;
+}
+
+// ─────────────────── COUNT SESSIONS FROM STATE ───────────────────
+function countSessions(completedObj) {
+  if (!completedObj) return 0;
+  const sessions = new Set();
+  for (const key in completedObj) {
+    if (!completedObj[key]) continue;
+    // Key shape: phase-week-session-exerciseIdx
+    const parts = key.split('-');
+    if (parts.length >= 3) {
+      sessions.add(parts.slice(0, 3).join('-'));
+    }
+  }
+  return sessions.size;
+}
+
+function daysSinceStart(startDate) {
+  if (!startDate) return 0;
+  const start = new Date(startDate);
+  if (isNaN(start.getTime())) return 0;
+  const now = new Date();
+  const diffMs = now - start;
+  return Math.max(0, Math.floor(diffMs / 86400000));
+}
+
+// ─────────────────── COUNTER ANIMATION ───────────────────
+// We animate via the EXPONENT for big values, so visually it counts up smoothly
+// even from 1 → 10^5000.
+let displayed = { m: 0, e: 0 };
+let powerAnimId = null;
+function animatePower(target) {
+  cancelAnimationFrame(powerAnimId);
+  const el = document.getElementById('powerNumber');
+  const tgt = (typeof target === 'object' && target !== null && 'm' in target) ? target : toBig(target);
+
+  // Set visual class based on target exponent
+  el.className = 'power-number';
+  if (tgt.e === Infinity || tgt.e >= 30) el.classList.add('transcendent');
+  else if (tgt.e >= 9) el.classList.add('legendary');
+  else if (tgt.e >= 3.95) el.classList.add('over-9k');
+
+  if (tgt.e === Infinity) {
+    el.textContent = '∞';
+    displayed = tgt;
+    return;
+  }
+
+  const start = { m: displayed.m, e: displayed.e === Infinity ? 0 : displayed.e };
+  const t0 = performance.now();
+  const dur = 1600;
+  function step(t) {
+    const k = Math.min(1, (t - t0) / dur);
+    const eased = 1 - Math.pow(1 - k, 4);
+    const e = start.e + (tgt.e - start.e) * eased;
+    const m = start.m + (tgt.m - start.m) * eased;
+    el.textContent = fmt({ m, e });
+    if (k < 1) powerAnimId = requestAnimationFrame(step);
+    else {
+      el.textContent = fmt(tgt);
+      displayed = tgt;
+    }
+  }
+  powerAnimId = requestAnimationFrame(step);
+}
+
+// ─────────────────── RENDER UI ───────────────────
+function renderTierList(sessions) {
+  const list = document.getElementById('tierList');
+  list.innerHTML = '';
+  const cur = currentTier(sessions);
+  let lastSection = null;
+  let currentEl = null;
+  TIERS.forEach((t, i) => {
+    // Section divider when entering a new tier band
+    if (t.section !== lastSection) {
+      const div = document.createElement('div');
+      div.className = 'section-divider section-' + t.section;
+      let blurb = '';
+      if (t.section === 'MORTAL')   blurb = 'The 120-day minimum. The base. Where heroes are forged.';
+      if (t.section === 'BEYOND')   blurb = 'You crossed Day 120. Now the cosmic tiers open. There is no ceiling here.';
+      if (t.section === 'ETERNAL')  blurb = 'Past tier names. Past power scales. The math itself bends to make room.';
+      div.innerHTML = `
+        <div class="sd-label">━━ ${t.section} TIERS ━━</div>
+        <div class="sd-blurb">${blurb}</div>
+      `;
+      list.appendChild(div);
+      lastSection = t.section;
+    }
+    const li = document.createElement('li');
+    li.className = 'tier ' + (i === cur.idx ? 'current' : i < cur.idx ? 'unlocked' : 'locked');
+    li.innerHTML = `
+      <div class="tier-num">T${String(i).padStart(2, '0')}</div>
+      <div class="tier-emoji">${t.emoji}</div>
+      <div class="tier-info">
+        <div class="tier-name">${t.name}</div>
+        <div class="tier-days">Unlocks at ${t.min === 0 ? 'session 0' : t.min.toLocaleString() + ' sessions'} · ${t.label}</div>
+      </div>
+      <div class="tier-power">${fmt(t.power)}</div>
+    `;
+    list.appendChild(li);
+    if (i === cur.idx) currentEl = li;
+  });
+  // After paint, scroll the current tier into view inside the scroll container
+  if (currentEl) {
+    requestAnimationFrame(() => {
+      currentEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
+}
+
+function renderCharacterCard(sessions) {
+  const cur = currentTier(sessions);
+  document.getElementById('charEmoji').textContent = cur.emoji;
+  document.getElementById('charName').textContent = cur.name;
+  document.getElementById('charTier').textContent = `TIER ${cur.idx} — ${cur.label}`;
+  document.getElementById('charQuote').textContent = `"${cur.quote}"`;
+}
+
+function renderNextTier(sessions) {
+  const cur = currentTier(sessions);
+  const next = TIERS[cur.idx + 1];
+  if (!next) {
+    // ETERNAL extrapolation — show next milestone every 500 sessions
+    const milestone = Math.ceil((sessions + 1) / 500) * 500;
+    const into = sessions - Math.floor(sessions / 500) * 500;
+    const pct = Math.min(100, Math.round((into / 500) * 100));
+    document.getElementById('nextChar').textContent = `♾️ ETERNAL TIER +${Math.floor(sessions / 500) + 1}`;
+    document.getElementById('progFill').style.width = pct + '%';
+    document.getElementById('ntMeta').textContent = `${milestone - sessions} sessions until your next eternal milestone — the climb never ends`;
+    return;
+  }
+  const span = next.min - cur.min;
+  const into = sessions - cur.min;
+  const pct = span > 0 ? Math.min(100, Math.round((into / span) * 100)) : 0;
+  document.getElementById('nextChar').textContent = `${next.emoji} ${next.name}`;
+  document.getElementById('progFill').style.width = pct + '%';
+  const remaining = Math.max(0, next.min - sessions);
+  document.getElementById('ntMeta').textContent = remaining + ' more session' + (remaining === 1 ? '' : 's') + ' until ascension';
+}
+
+function renderAbsurd(power, sessions) {
+  const list = document.getElementById('funList');
+  list.innerHTML = absurdComparisons(power, sessions).map(s => `<li>${s}</li>`).join('');
+}
+
+function renderAll(sessions, daysPassed) {
+  const power = computePower(sessions);
+  // Days label shows "X / 120" until 120, then "X / 120 (+N BEYOND)"
+  const daysLabel = daysPassed <= 120
+    ? `${daysPassed} / 120`
+    : `120 <span style="color: var(--neon-pink); font-size: 0.7em">+${daysPassed - 120}</span>`;
+  document.getElementById('daysPassedVal').innerHTML = daysLabel;
+  document.getElementById('sessionsVal').textContent = sessions.toLocaleString();
+  let consistency = '—';
+  if (daysPassed > 0) {
+    const expected = Math.min(daysPassed * 1.4, 167);  // ~1.4 sessions/day with two-a-days
+    const rate = Math.min(999, Math.round((sessions / Math.max(1, expected)) * 100));
+    consistency = rate + '%';
+  } else if (sessions > 0) {
+    consistency = '∞';
+  }
+  document.getElementById('consistencyVal').textContent = consistency;
+
+  // ETERNAL badge toggle
+  const eternalBadge = document.getElementById('eternalBadge');
+  if (sessions >= 121) {
+    eternalBadge.style.display = 'block';
+    eternalBadge.querySelector('.eb-count').textContent = (sessions - 120).toLocaleString();
+  } else {
+    eternalBadge.style.display = 'none';
+  }
+
+  animatePower(power);
+  renderCharacterCard(sessions);
+  renderNextTier(sessions);
+  renderAbsurd(power, sessions);
+  renderTierList(sessions);
+}
+
+// ─────────────────── POWER UP EFFECT ───────────────────
+function powerUp() {
+  const root = document.getElementById('root');
+  root.classList.remove('shaking');
+  void root.offsetWidth;     // restart anim
+  root.classList.add('shaking');
+  const burst = document.getElementById('burst');
+  burst.classList.remove('go');
+  void burst.offsetWidth;
+  burst.classList.add('go');
+}
+
+// ─────────────────── DATA LOADERS ───────────────────
+const STORAGE_KEY = 'getRipped120_v2';
+
+function tryLoadStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      const legacy = localStorage.getItem('getRipped120');
+      if (!legacy) {
+        setStatus('⚙ No saved data found in this browser — using DEMO MODE', false);
+        return false;
+      }
+      const st = JSON.parse(legacy);
+      applyState(st, 'legacy localStorage');
+      return true;
+    }
+    const st = JSON.parse(raw);
+    applyState(st, 'localStorage');
+    return true;
+  } catch (e) {
+    setStatus('⚠ Could not read localStorage — using DEMO MODE', false);
+    return false;
+  }
+}
+
+function parseFile(ev) {
+  const f = ev.target.files && ev.target.files[0];
+  if (!f) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const st = JSON.parse(e.target.result);
+      applyState(st, 'JSON file: ' + f.name);
+    } catch (err) {
+      setStatus('⚠ Invalid JSON — ' + err.message, false);
+    }
+  };
+  reader.readAsText(f);
+}
+
+function applyState(st, src) {
+  const sessions = countSessions(st.completed);
+  const daysPassed = daysSinceStart(st.startDate);
+  setStatus(`✅ Linked to ${src} — startDate: ${st.startDate || 'not set'}`, true);
+  // hide demo slider in real-data mode
+  document.getElementById('demoControls').style.display = sessions > 0 ? 'none' : 'block';
+  renderAll(sessions, daysPassed);
+}
+
+function setStatus(msg, linked) {
+  const el = document.getElementById('statusText');
+  el.textContent = msg;
+  el.classList.toggle('linked', !!linked);
+}
+
+// ─────────────────── DEMO SLIDER ───────────────────
+document.getElementById('demoSlider').addEventListener('input', (e) => {
+  const sessions = parseInt(e.target.value, 10) || 0;
+  // For demo, pretend 1 session ≈ 0.85 days (with two-a-days, sessions > days a bit)
+  const days = Math.round(sessions / 1.4);
+  renderAll(sessions, days);
+});
+
+function setDemo(sessions) {
+  document.getElementById('demoSlider').value = sessions;
+  const days = Math.round(sessions / 1.4);
+  renderAll(sessions, days);
+}
+
+// ─────────────────── INIT ───────────────────
+const linked = tryLoadStorage();
+if (!linked) renderAll(0, 0);
+</script>
+</body>
+</html>
