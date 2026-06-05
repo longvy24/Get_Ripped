@@ -1609,7 +1609,7 @@ const programData = {
           ["DB Shoulder Press","3 × 10, RPE 6"],["Dead Bug","3 × 10/side"]]},
         {day:"Thu", type:"rest", label:"Rest or 20 min easy bike"},
         {day:"Fri", type:"upper", label:"Full Body C", exercises:[
-          ["Trap Bar Deadlift","3 × 8, RPE 6"],["Incline DB Press","3 × 10, RPE 6"],
+          ["Dumbbell Suitcase Deadlift","3 × 8, RPE 6 — heavy DBs held at sides, stand inside them like a trap bar"],["Incline DB Press","3 × 10, RPE 6"],
           ["Assisted Pull-up","3 × 8, RPE 7"],["Bulgarian Split Squat","2 × 8 each leg"],
           ["Cable Face Pull","3 × 12"],["Side Plank","3 × 20 sec each side"]]},
         {day:"Sat", type:"cond", label:"45 min incline walk @ 3.0 mph / 8%"},
@@ -1630,7 +1630,7 @@ const programData = {
           ["Cable Lateral Raise","3 × 15"],["Seated Cable Row","3 × 12"],
           ["EZ Bar Curl","3 × 12"],["Overhead Cable Triceps Ext","3 × 12"]]},
         {day:"Fri", type:"lower", label:"Lower B", exercises:[
-          ["Trap Bar Deadlift","4 × 6, RPE 7"],["Leg Press","4 × 12"],
+          ["Dumbbell Suitcase Deadlift","4 × 6, RPE 7"],["Leg Press","4 × 12"],
           ["DB Bulgarian Split Squat","3 × 8 each"],["Hip Thrust","3 × 12"],
           ["Seated Calf Raise","4 × 15"],["Cable Crunch","3 × 12"]]},
         {day:"Sat", type:"cond", label:"30 min steady cardio"},
@@ -1682,7 +1682,7 @@ const programData = {
         ["20 min Z2 rower or bike","Steady warm-up"],
         ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
       {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
-        ["Trap Bar Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
         ["Hip Thrust","4 × 10"],["Single-Leg Press","3 × 10 each"],
         ["Lying Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
         ["Cable Wood Chop","3 × 10 each"]]},
@@ -1876,6 +1876,9 @@ const exerciseGuide = {
   "romanian deadlift": ["Soft knees — bend knees ONCE at the start, then they don't move","Hinge at hips; bar slides down front of legs","Push hips back; feel hamstring stretch","Drive hips forward to stand — don't squat the weight up"],
   "deadlift": ["Bar over mid-foot, an inch from your shins","Hips below shoulders; flat back, chest up","Push the floor away — drive through whole foot","Lock out with hips and shoulders at the same time"],
   "trap bar deadlift": ["Stand inside the trap bar","More squat-like position than barbell — easier on lower back","Neutral spine; drive floor away"],
+  "dumbbell suitcase deadlift": ["Set heavy DBs on the floor at your sides — handles parallel to your feet","Squat down with neutral spine, chest up, grab the handles","Brace core HARD before lifting; drive through your heels","Keep DBs close to your sides — don't let them swing forward","Stand tall, squeeze glutes at the top","Lower with control: push hips back FIRST, then bend knees","Grip is the limit — that's the point; it builds forearms and traps too"],
+  "db suitcase deadlift": ["See dumbbell suitcase deadlift"],
+  "suitcase deadlift": ["See dumbbell suitcase deadlift"],
   "db romanian deadlift": ["DBs in front of thighs","Same hinge pattern as barbell RDL","Easier setup — great for learning the hinge"],
   "hip thrust": ["Upper back on bench, bar on hip crease (USE A PAD)","Feet planted, knees ~90° at the top","Drive hips up; squeeze glutes HARD","Don't hyperextend lower back; full hip extension only"],
   "glute bridge": ["On the floor, same pattern as hip thrust","Bar or DB on hips for resistance","Squeeze glutes at the top"],
@@ -1967,7 +1970,7 @@ const exerciseAlts = {
     {name:"Triceps Dip Machine", why:"Locked path, can push to failure safely"}
   ],
   "deadlift": [
-    {name:"Trap Bar Deadlift", why:"Already in your plan — center of mass aligned, easier on lower back, easy to drop if you fail"},
+    {name:"Dumbbell Suitcase Deadlift", why:"Already in your plan — load at your sides like a trap bar, easier on the lower back, easy to drop if you fail"},
     {name:"Romanian Deadlift", why:"Already in your plan — partial ROM, far less spinal load"},
     {name:"Rack Pulls (pins set at knee height)", why:"Shortened ROM means heavier weight at the lockout, less injury risk"},
     {name:"Note: deadlift is safe to fail alone — just drop the bar","why":"Unlike bench/squat, you can always release the bar. No spotter needed even for max lifts."}
@@ -1982,7 +1985,7 @@ function findAlts(name) {
     .trim();
   if (exerciseAlts[n]) return exerciseAlts[n];
   // If the exercise is ALREADY a safer alternative, no alts icon needed
-  const alreadySafe = ['dumbbell ', 'db ', 'goblet ', 'trap bar ', 'romanian ', 'smith ', 'machine ', 'cable ', 'hack ', 'leg ', 'seated ', 'incline db', 'one-arm ', 'single-arm '];
+  const alreadySafe = ['dumbbell ', 'db ', 'goblet ', 'trap bar ', 'suitcase ', 'romanian ', 'smith ', 'machine ', 'cable ', 'hack ', 'leg ', 'seated ', 'incline db', 'one-arm ', 'single-arm '];
   if (alreadySafe.some(p => n.startsWith(p))) return null;
   const variants = [
     n.replace(/^barbell /, ''),
@@ -2026,7 +2029,7 @@ function isMainLift(name) {
     'lat pulldown',
     // LOWER BODY
     'back squat', 'front squat', 'goblet squat',
-    'deadlift', 'trap bar', 'romanian',
+    'deadlift', 'trap bar', 'suitcase deadlift', 'romanian',
     'hack squat', 'leg press',
     'hip thrust',
     'bulgarian split squat', 'ffe split squat', 'split squat',
