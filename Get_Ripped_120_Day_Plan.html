@@ -939,6 +939,18 @@
     <ul id="warmup-list"></ul>
   </div>
 
+  <h2>Hip Prep Circuit (4 min, Before Lower-Body Lifts)</h2>
+  <div class="card">
+    <p class="muted">Eight hours of desk sitting puts your hip abductors and adductors to sleep — this wakes them up so squats, deads, and lunges fire properly. Do it AFTER the dynamic warm-up but BEFORE your first working set on lower-body days. Equipment: just a mini-band ($8 anywhere) and a bench/chair.</p>
+    <ul>
+      <li><strong>Banded Lateral Walk — 10 steps each way:</strong> Mini-band above the knees, athletic stance, sidestep against band tension. Targets glute medius (the abductor most people don't train).</li>
+      <li><strong>Clamshells — 15 each side:</strong> Lay on side, knees bent, feet stacked. Lift the top knee while keeping feet together. Wakes up glute medius/minimus. Mini-band makes it harder.</li>
+      <li><strong>Glute Bridge — 12 reps with 2-sec squeeze at top:</strong> Lay on back, knees bent, drive hips up, squeeze glutes HARD for 2 seconds at the top. Fires the glutes before squats so they actually do the work.</li>
+      <li><strong>Copenhagen Plank — 20 sec each side:</strong> Side plank with TOP leg on a bench. Lift hips into a straight line. Adductors hit hard — the one muscle group nothing else in your program directly trains.</li>
+    </ul>
+    <p class="muted"><strong>Why it matters:</strong> weak glute medius causes knee valgus (knees caving in) during squats. Untrained adductors strain easily on wide stances. Both fixed in 4 minutes a day, 3–5 days a week. This shows up automatically in every lower-body session in the Training tab — just check it off when done.</p>
+  </div>
+
   <h2>Daily Cool-Down (10 min, After Lifting)</h2>
   <div class="card">
     <p class="muted">Static stretching. Hold each 30–45 seconds. Breathe through it.</p>
@@ -1599,17 +1611,20 @@ const programData = {
     weeks: [
       { title: "Week 1 (Days 1–7) — 3 Full-Body Days", sessions: [
         {day:"Mon", type:"upper", label:"Full Body A", exercises:[
+          ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
           ["Goblet Squat","3 × 10, RPE 6"],["Dumbbell Bench Press","3 × 10, RPE 6"],
           ["Lat Pulldown","3 × 10, RPE 6"],["DB Romanian Deadlift","3 × 10, RPE 6"],
           ["Seated Cable Row","3 × 10, RPE 6"],["Plank","3 × 30 sec"]]},
         {day:"Tue", type:"rest", label:"Active Recovery — 30 min walk"},
         {day:"Wed", type:"upper", label:"Full Body B", exercises:[
+          ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
           ["Leg Press","3 × 12, RPE 6"],["Machine Chest Press","3 × 10, RPE 6"],
           ["Single-Arm DB Row","3 × 10/side, RPE 6"],["Walking Lunge","2 × 10 each leg"],
           ["DB Shoulder Press","3 × 10, RPE 6"],["Dead Bug","3 × 10/side"]]},
         {day:"Thu", type:"rest", label:"Rest or 20 min easy bike"},
         {day:"Fri", type:"upper", label:"Full Body C", exercises:[
-          ["Trap Bar Deadlift","3 × 8, RPE 6"],["Incline DB Press","3 × 10, RPE 6"],
+          ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
+          ["Dumbbell Suitcase Deadlift","3 × 8, RPE 6 — heavy DBs held at sides, stand inside them like a trap bar"],["Incline DB Press","3 × 10, RPE 6"],
           ["Assisted Pull-up","3 × 8, RPE 7"],["Bulgarian Split Squat","2 × 8 each leg"],
           ["Cable Face Pull","3 × 12"],["Side Plank","3 × 20 sec each side"]]},
         {day:"Sat", type:"cond", label:"45 min incline walk @ 3.0 mph / 8%"},
@@ -1621,6 +1636,7 @@ const programData = {
           ["Seated DB Shoulder Press","3 × 10"],["Lat Pulldown (wide)","3 × 12"],
           ["DB Curl","3 × 12"],["Triceps Rope Pushdown","3 × 12"]]},
         {day:"Tue", type:"lower", label:"Lower A", exercises:[
+          ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
           ["Back Squat","4 × 8, RPE 7"],["Romanian Deadlift","4 × 8, RPE 7"],
           ["Walking Lunge","3 × 10 each leg"],["Leg Curl","3 × 12"],
           ["Standing Calf Raise","4 × 15"],["Hanging Knee Raise","3 × 10"]]},
@@ -1630,18 +1646,37 @@ const programData = {
           ["Cable Lateral Raise","3 × 15"],["Seated Cable Row","3 × 12"],
           ["EZ Bar Curl","3 × 12"],["Overhead Cable Triceps Ext","3 × 12"]]},
         {day:"Fri", type:"lower", label:"Lower B", exercises:[
-          ["Trap Bar Deadlift","4 × 6, RPE 7"],["Leg Press","4 × 12"],
+          ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
+          ["Dumbbell Suitcase Deadlift","4 × 6, RPE 7"],["Leg Press","4 × 12"],
           ["DB Bulgarian Split Squat","3 × 8 each"],["Hip Thrust","3 × 12"],
           ["Seated Calf Raise","4 × 15"],["Cable Crunch","3 × 12"]]},
         {day:"Sat", type:"cond", label:"30 min steady cardio"},
         {day:"Sun", type:"rest", label:"Off"}]
       },
       { title: "Week 3 (Days 15–21) — Intro to 5-Day Split", sessions: [
-        {day:"Mon", type:"push", label:"Push (preview of Phase 2)"},
-        {day:"Tue", type:"pull", label:"Pull"},
-        {day:"Wed", type:"legs", label:"Legs"},
-        {day:"Thu", type:"upper", label:"Upper"},
-        {day:"Fri", type:"lower", label:"Lower"},
+        {day:"Mon", type:"push", label:"Push (preview of Phase 2)", exercises:[
+          ["Barbell Bench Press","3 × 8, RPE 7"],["DB Shoulder Press","3 × 10, RPE 7"],
+          ["Incline DB Press","3 × 10"],["Cable Crossover (high → low)","3 × 12"],
+          ["DB Lateral Raise","3 × 12"],["Rope Triceps Pushdown","3 × 12"]]},
+        {day:"Tue", type:"pull", label:"Pull (preview of Phase 2)", exercises:[
+          ["Lat Pulldown","3 × 10, RPE 7"],["Barbell Row","3 × 10, RPE 7"],
+          ["Chest-Supported Row","3 × 10"],["Face Pull","3 × 12"],
+          ["EZ Bar Curl","3 × 10"],["DB Hammer Curl","3 × 12"]]},
+        {day:"Wed", type:"legs", label:"Legs (preview of Phase 2)", exercises:[
+          ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
+          ["Back Squat","3 × 8, RPE 7"],["Romanian Deadlift","3 × 8, RPE 7"],
+          ["Leg Press","3 × 12"],["Walking Lunge","2 × 10 each leg"],
+          ["Standing Calf Raise","3 × 12"],["Hanging Knee Raise","3 × 10"]]},
+        {day:"Thu", type:"upper", label:"Upper (preview of Phase 2)", exercises:[
+          ["Incline DB Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+          ["Seated DB Shoulder Press","3 × 10"],["Lat Pulldown (wide)","3 × 12"],
+          ["Cable Lateral Raise","3 × 12"],["DB Curl","3 × 12"],
+          ["Triceps Rope Pushdown","3 × 12"]]},
+        {day:"Fri", type:"lower", label:"Lower (preview of Phase 2)", exercises:[
+          ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
+          ["Dumbbell Suitcase Deadlift","3 × 6, RPE 7"],["Bulgarian Split Squat","3 × 8 each leg"],
+          ["Hip Thrust","3 × 10"],["Leg Curl","3 × 12"],
+          ["Seated Calf Raise","3 × 15"],["Cable Crunch","3 × 12"]]},
         {day:"Sat", type:"cond", label:"30 min steady cardio"},
         {day:"Sun", type:"rest", label:"Off"}]
       }
@@ -1669,6 +1704,7 @@ const programData = {
         ["30 min steady bike or stair climber","Z2 pace"],
         ["Lower impact option for leg day","Saves your legs for PM"]]},
       {day:"Wed PM", time:"PM", type:"legs", label:"🌙 PM Legs (quads, hams, glutes, calves)", exercises:[
+        ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
         ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],["Romanian Deadlift","4 × 8, RPE 8"],
         ["Leg Press","3 × 12"],["Walking Lunge (DB)","3 × 12 each"],
         ["Leg Curl","4 × 12"],["Leg Extension","3 × 15"],
@@ -1682,7 +1718,8 @@ const programData = {
         ["20 min Z2 rower or bike","Steady warm-up"],
         ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
       {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
-        ["Trap Bar Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
         ["Hip Thrust","4 × 10"],["Single-Leg Press","3 × 10 each"],
         ["Lying Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
         ["Cable Wood Chop","3 × 10 each"]]},
@@ -1703,6 +1740,7 @@ const programData = {
         ["DB Lateral Raise","3 × 15"],["Barbell Curl","3 × 8"],
         ["Close-Grip Bench","3 × 8"]]},
       {day:"Tue", type:"lower", label:"PM Lower Strength (single session — recovery from heavy AM Mon)", exercises:[
+        ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
         ["Back Squat","5 × 5, RPE 8 (rest 3 min)"],["Deadlift","4 × 4, RPE 8 (rest 3–4 min)"],
         ["FFE Split Squat","3 × 8 each"],["Glute-Ham Raise","3 × 8"],
         ["Standing Calf Raise","4 × 10 heavy"],["Heavy Plate Carry","3 × 40 yards"]]},
@@ -1723,6 +1761,7 @@ const programData = {
       {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 stair climber", exercises:[
         ["30 min stair climber, Z2 pace","Save energy for PM lower"]]},
       {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Hypertrophy", exercises:[
+        ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
         ["Hack Squat or Leg Press","4 × 12"],["Romanian Deadlift","4 × 10"],
         ["Walking Lunge","3 × 12 each"],["Leg Curl","4 × 12"],
         ["Leg Extension","3 × 15"],["Hip Thrust","3 × 12"],
@@ -1767,6 +1806,7 @@ const programData = {
         ["Farmer Carry","40 yd × 3 rounds"]]},
       {day:"Wed", type:"legs", label:"PM Legs (heavy, single session — protect recovery)", exercises:[
         ["💡 Keep ALL volume","Wed is the hardest day — don't drop accessories. Eat big, sleep hard."],
+        ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
         ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],
         ["Romanian Deadlift","4 × 8, RPE 8"],
         ["Leg Press","3 × 12"],
@@ -1794,6 +1834,7 @@ const programData = {
         ["30 min stair climber or incline walk","Z2"]]},
       {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Volume + Finisher D", exercises:[
         ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Hip Prep Circuit","4 min activation: Banded Lateral Walk 10/way + Clamshells 15/side + Glute Bridge 12 (2-sec hold) + Copenhagen Plank 20s each side"],
         ["Hack Squat or Leg Press","4 × 12"],
         ["Romanian Deadlift","4 × 10"],
         ["Walking Lunge","3 × 12 each leg"],
@@ -1876,6 +1917,16 @@ const exerciseGuide = {
   "romanian deadlift": ["Soft knees — bend knees ONCE at the start, then they don't move","Hinge at hips; bar slides down front of legs","Push hips back; feel hamstring stretch","Drive hips forward to stand — don't squat the weight up"],
   "deadlift": ["Bar over mid-foot, an inch from your shins","Hips below shoulders; flat back, chest up","Push the floor away — drive through whole foot","Lock out with hips and shoulders at the same time"],
   "trap bar deadlift": ["Stand inside the trap bar","More squat-like position than barbell — easier on lower back","Neutral spine; drive floor away"],
+  "dumbbell suitcase deadlift": ["Set heavy DBs on the floor at your sides — handles parallel to your feet","Squat down with neutral spine, chest up, grab the handles","Brace core HARD before lifting; drive through your heels","Keep DBs close to your sides — don't let them swing forward","Stand tall, squeeze glutes at the top","Lower with control: push hips back FIRST, then bend knees","Grip is the limit — that's the point; it builds forearms and traps too"],
+  "db suitcase deadlift": ["See dumbbell suitcase deadlift"],
+  "suitcase deadlift": ["See dumbbell suitcase deadlift"],
+
+  // HIP PREP CIRCUIT — 4-minute warm-up activation
+  "hip prep circuit": ["A 4-minute mini-circuit done BEFORE squats/deads to wake up the muscles desk-sitting puts to sleep","Order: Banded Lateral Walk → Clamshells → Glute Bridge → Copenhagen Plank","Minimal rest between moves — keep it flowing","No PR-chasing here; the point is activation, not fatigue","Skip ONLY if you're already pumped from previous lifts that day"],
+  "banded lateral walk": ["Mini-band (resistance loop) above the knees, OR around the ankles for harder version","Half-squat position, chest up, knees pushed OUT against the band","Step sideways with the lead leg, then drag the trailing leg — slow and controlled","Band tension stays HIGH the whole time — don't let knees collapse inward","10 steps each direction = 1 set"],
+  "clamshells": ["Lay on your side, knees bent ~45°, ankles & feet stacked together","Hips stacked, top hand on hip — DO NOT let pelvis roll backward","Lift the TOP knee toward the ceiling like a clamshell opening","Keep feet pressed together throughout","Lower slowly. 15 reps each side. Add a mini-band above knees for more challenge"],
+  "clamshell": ["See clamshells"],
+  "copenhagen plank": ["Lay on your side near a low bench or chair","Put TOP leg's shin/ankle on the bench (whole leg supported is easiest; just foot is hardest)","Forearm under shoulder, bottom leg hanging straight","Lift hips off the floor — body forms a straight line shoulder to ankle","Hold 20 seconds each side. Beginner: tuck the bottom knee under for support"],
   "db romanian deadlift": ["DBs in front of thighs","Same hinge pattern as barbell RDL","Easier setup — great for learning the hinge"],
   "hip thrust": ["Upper back on bench, bar on hip crease (USE A PAD)","Feet planted, knees ~90° at the top","Drive hips up; squeeze glutes HARD","Don't hyperextend lower back; full hip extension only"],
   "glute bridge": ["On the floor, same pattern as hip thrust","Bar or DB on hips for resistance","Squeeze glutes at the top"],
@@ -1967,7 +2018,7 @@ const exerciseAlts = {
     {name:"Triceps Dip Machine", why:"Locked path, can push to failure safely"}
   ],
   "deadlift": [
-    {name:"Trap Bar Deadlift", why:"Already in your plan — center of mass aligned, easier on lower back, easy to drop if you fail"},
+    {name:"Dumbbell Suitcase Deadlift", why:"Already in your plan — load at your sides like a trap bar, easier on the lower back, easy to drop if you fail"},
     {name:"Romanian Deadlift", why:"Already in your plan — partial ROM, far less spinal load"},
     {name:"Rack Pulls (pins set at knee height)", why:"Shortened ROM means heavier weight at the lockout, less injury risk"},
     {name:"Note: deadlift is safe to fail alone — just drop the bar","why":"Unlike bench/squat, you can always release the bar. No spotter needed even for max lifts."}
@@ -1982,7 +2033,7 @@ function findAlts(name) {
     .trim();
   if (exerciseAlts[n]) return exerciseAlts[n];
   // If the exercise is ALREADY a safer alternative, no alts icon needed
-  const alreadySafe = ['dumbbell ', 'db ', 'goblet ', 'trap bar ', 'romanian ', 'smith ', 'machine ', 'cable ', 'hack ', 'leg ', 'seated ', 'incline db', 'one-arm ', 'single-arm '];
+  const alreadySafe = ['dumbbell ', 'db ', 'goblet ', 'trap bar ', 'suitcase ', 'romanian ', 'smith ', 'machine ', 'cable ', 'hack ', 'leg ', 'seated ', 'incline db', 'one-arm ', 'single-arm '];
   if (alreadySafe.some(p => n.startsWith(p))) return null;
   const variants = [
     n.replace(/^barbell /, ''),
@@ -2026,7 +2077,7 @@ function isMainLift(name) {
     'lat pulldown',
     // LOWER BODY
     'back squat', 'front squat', 'goblet squat',
-    'deadlift', 'trap bar', 'romanian',
+    'deadlift', 'trap bar', 'suitcase deadlift', 'romanian',
     'hack squat', 'leg press',
     'hip thrust',
     'bulgarian split squat', 'ffe split squat', 'split squat',
