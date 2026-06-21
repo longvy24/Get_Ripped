@@ -1631,7 +1631,7 @@ const programData = {
           ["EZ Bar Curl","3 × 12"],["Overhead Cable Triceps Ext","3 × 12"]]},
         {day:"Fri", type:"lower", label:"Lower B", exercises:[
           ["Dumbbell Suitcase Deadlift","4 × 6, RPE 7"],["Leg Press","4 × 12"],
-          ["DB Bulgarian Split Squat","3 × 8 each"],["Hip Thrust","3 × 12"],
+          ["DB Bulgarian Split Squat","3 × 8 each"],["Cable Pull-Through","3 × 12"],
           ["Seated Calf Raise","4 × 15"],["Cable Crunch","3 × 12"]]},
         {day:"Sat", type:"cond", label:"30 min steady cardio"},
         {day:"Sun", type:"rest", label:"Off"}]
@@ -1656,7 +1656,7 @@ const programData = {
           ["Triceps Rope Pushdown","3 × 12"]]},
         {day:"Fri", type:"lower", label:"Lower (preview of Phase 2)", exercises:[
           ["Dumbbell Suitcase Deadlift","3 × 6, RPE 7"],["Bulgarian Split Squat","3 × 8 each leg"],
-          ["Hip Thrust","3 × 10"],["Leg Curl","3 × 12"],
+          ["Cable Pull-Through","3 × 10"],["Leg Curl","3 × 12"],
           ["Seated Calf Raise","3 × 15"],["Cable Crunch","3 × 12"]]},
         {day:"Sat", type:"cond", label:"30 min steady cardio"},
         {day:"Sun", type:"rest", label:"Off"}]
@@ -1699,7 +1699,7 @@ const programData = {
         ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
       {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
         ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
-        ["Hip Thrust","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
         ["Lying Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
         ["Cable Wood Chop","3 × 10 each"]]},
       {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
@@ -1741,7 +1741,7 @@ const programData = {
       {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Hypertrophy", exercises:[
         ["Hack Squat or Leg Press","4 × 12"],["Romanian Deadlift","4 × 10"],
         ["Walking Lunge","3 × 12 each"],["Leg Curl","4 × 12"],
-        ["Leg Extension","3 × 15"],["Hip Thrust","3 × 12"],
+        ["Leg Extension","3 × 15"],["Cable Pull-Through","3 × 12"],
         ["Seated Calf Raise","4 × 15"]]},
       {day:"Sat", type:"cond", label:"☀ Sprint Day — 8 × 30s @ 85–90%, 90s walk recovery (single, AM)"},
       {day:"Sun", type:"rest", label:"Off + stretch + sauna if available"}]
@@ -1815,7 +1815,7 @@ const programData = {
         ["Walking Lunge","3 × 12 each leg"],
         ["Leg Curl","4 × 12"],
         ["Leg Extension","3 × 15"],
-        ["Hip Thrust","3 × 12"],
+        ["Cable Pull-Through","3 × 12"],
         ["Seated Calf Raise","4 × 15"],
         ["━━ Finisher D ━━","3 rounds, 75s rest between rounds"],
         ["Goblet Squat","15 reps × 3 rounds"],
@@ -1897,6 +1897,9 @@ const exerciseGuide = {
   "suitcase deadlift": ["See dumbbell suitcase deadlift"],
   "db romanian deadlift": ["DBs in front of thighs","Same hinge pattern as barbell RDL","Easier setup — great for learning the hinge"],
   "hip thrust": ["Upper back on bench, bar on hip crease (USE A PAD)","Feet planted, knees ~90° at the top","Drive hips up; squeeze glutes HARD","Don't hyperextend lower back; full hip extension only"],
+  "cable pull-through": ["Cable rope attachment, pulley set to LOW (floor level)","Face away from the stack, rope between your legs, take 2-3 steps forward to load the cable","Feet shoulder-width, soft knees (slight bend, locked there for the whole set)","Hinge at hips — push butt BACK toward the cable stack until you feel a hamstring stretch","Drive hips FORWARD to stand tall, squeeze glutes HARD at the top","Arms stay straight the entire rep — they're just hooks, not pullers","Don't squat the weight up — it's a HINGE, not a squat","Same glute focus as a hip thrust, way easier setup, no bar-on-hip awkwardness"],
+  "cable pullthrough": ["See cable pull-through"],
+  "pull-through": ["See cable pull-through"],
   "glute bridge": ["On the floor, same pattern as hip thrust","Bar or DB on hips for resistance","Squeeze glutes at the top"],
   "glute-ham raise": ["Ankles locked, knees on the pad","Lower torso slowly with control","Contract hamstrings hard to pull yourself back up","Use band assist if needed — it's hard"],
   "leg curl": ["Pad sits on your achilles, not your calf","Full ROM — curl hamstring fully","Slow on the eccentric"],
@@ -2047,7 +2050,7 @@ function isMainLift(name) {
     'back squat', 'front squat', 'goblet squat',
     'deadlift', 'trap bar', 'suitcase deadlift', 'romanian',
     'hack squat', 'leg press',
-    'hip thrust',
+    'hip thrust', 'cable pull-through', 'pull-through',
     'bulgarian split squat', 'ffe split squat', 'split squat',
     'glute-ham raise'
   ];
