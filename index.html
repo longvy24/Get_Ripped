@@ -1666,7 +1666,8 @@ const programData = {
   2: {
     name: "Phase 2: Build", days: "Days 22–60",
     note: "Five days a week. Two-a-days on Mon/Wed/Fri — morning Z2 cardio before work, evening lift. Tuesday and Thursday are single-session lift days (your recovery days from the AM grind).",
-    weeks: [{ title: "Weekly Template (Repeat Days 22–60)", sessions: [
+    weeks: [
+      { title: "Week 1 (Days 22–28) — Acclimate: Step up from 3-day to 5-day split. Use Phase 1 Week 3 loads.", sessions: [
       {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
         ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
         ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
@@ -1678,7 +1679,7 @@ const programData = {
         ["Overhead Triceps Ext","3 × 12"]]},
       {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
         ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
-        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported T-Bar Row","3 × 10"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
         ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
         ["DB Hammer Curl","3 × 12"]]},
       {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
@@ -1700,11 +1701,182 @@ const programData = {
       {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
         ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
         ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
-        ["Lying Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
         ["Cable Wood Chop","3 × 10 each"]]},
       {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
       {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
-    }]
+      },
+      { title: "Week 2 (Days 29–35) — Build: Add 5 lb to Bench, Squat, RDL, OHP vs Week 1.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
+        ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
+        ["Fueled or fasted — your call","Black coffee or 1 scoop whey in water is fine"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push (chest, shoulders, triceps)", exercises:[
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"]]},
+      {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"]]},
+      {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min steady bike or stair climber","Z2 pace"],
+        ["Lower impact option for leg day","Saves your legs for PM"]]},
+      {day:"Wed PM", time:"PM", type:"legs", label:"🌙 PM Legs (quads, hams, glutes, calves)", exercises:[
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],["Walking Lunge (DB)","3 × 12 each"],
+        ["Leg Curl","4 × 12"],["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu", type:"upper", label:"PM Upper (single session — no AM cardio)", exercises:[
+        ["Incline Barbell Bench","4 × 8"],["Weighted Pull-up","4 × 8"],
+        ["Seated DB Shoulder Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+        ["Cable Lateral Raise","4 × 15"],["Hammer Curl","3 × 10"],
+        ["Skullcrusher","3 × 10"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 + brief HIIT", exercises:[
+        ["20 min Z2 rower or bike","Steady warm-up"],
+        ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Cable Wood Chop","3 × 10 each"]]},
+      {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
+      },
+      { title: "Week 3 (Days 36–42) — Progress: Add 5 lb again. Push the last set of every main lift.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
+        ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
+        ["Fueled or fasted — your call","Black coffee or 1 scoop whey in water is fine"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push (chest, shoulders, triceps)", exercises:[
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"]]},
+      {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"]]},
+      {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min steady bike or stair climber","Z2 pace"],
+        ["Lower impact option for leg day","Saves your legs for PM"]]},
+      {day:"Wed PM", time:"PM", type:"legs", label:"🌙 PM Legs (quads, hams, glutes, calves)", exercises:[
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],["Walking Lunge (DB)","3 × 12 each"],
+        ["Leg Curl","4 × 12"],["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu", type:"upper", label:"PM Upper (single session — no AM cardio)", exercises:[
+        ["Incline Barbell Bench","4 × 8"],["Weighted Pull-up","4 × 8"],
+        ["Seated DB Shoulder Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+        ["Cable Lateral Raise","4 × 15"],["Hammer Curl","3 × 10"],
+        ["Skullcrusher","3 × 10"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 + brief HIIT", exercises:[
+        ["20 min Z2 rower or bike","Steady warm-up"],
+        ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Cable Wood Chop","3 × 10 each"]]},
+      {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
+      },
+      { title: "Week 4 (Days 43–49) — Push: Add 5 lb more on main lifts. Last set to RPE 8.5.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
+        ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
+        ["Fueled or fasted — your call","Black coffee or 1 scoop whey in water is fine"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push (chest, shoulders, triceps)", exercises:[
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"]]},
+      {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"]]},
+      {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min steady bike or stair climber","Z2 pace"],
+        ["Lower impact option for leg day","Saves your legs for PM"]]},
+      {day:"Wed PM", time:"PM", type:"legs", label:"🌙 PM Legs (quads, hams, glutes, calves)", exercises:[
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],["Walking Lunge (DB)","3 × 12 each"],
+        ["Leg Curl","4 × 12"],["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu", type:"upper", label:"PM Upper (single session — no AM cardio)", exercises:[
+        ["Incline Barbell Bench","4 × 8"],["Weighted Pull-up","4 × 8"],
+        ["Seated DB Shoulder Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+        ["Cable Lateral Raise","4 × 15"],["Hammer Curl","3 × 10"],
+        ["Skullcrusher","3 × 10"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 + brief HIIT", exercises:[
+        ["20 min Z2 rower or bike","Steady warm-up"],
+        ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Cable Wood Chop","3 × 10 each"]]},
+      {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
+      },
+      { title: "Week 5 (Days 50–56) — Peak: Last set of every main lift to RPE 9. Lock in your Phase 2 PRs.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
+        ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
+        ["Fueled or fasted — your call","Black coffee or 1 scoop whey in water is fine"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push (chest, shoulders, triceps)", exercises:[
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"]]},
+      {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"]]},
+      {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min steady bike or stair climber","Z2 pace"],
+        ["Lower impact option for leg day","Saves your legs for PM"]]},
+      {day:"Wed PM", time:"PM", type:"legs", label:"🌙 PM Legs (quads, hams, glutes, calves)", exercises:[
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],["Walking Lunge (DB)","3 × 12 each"],
+        ["Leg Curl","4 × 12"],["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu", type:"upper", label:"PM Upper (single session — no AM cardio)", exercises:[
+        ["Incline Barbell Bench","4 × 8"],["Weighted Pull-up","4 × 8"],
+        ["Seated DB Shoulder Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+        ["Cable Lateral Raise","4 × 15"],["Hammer Curl","3 × 10"],
+        ["Skullcrusher","3 × 10"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 + brief HIIT", exercises:[
+        ["20 min Z2 rower or bike","Steady warm-up"],
+        ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Cable Wood Chop","3 × 10 each"]]},
+      {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
+      },
+      { title: "Days 57–60 — Transition to Phase 3 (active recovery + mid-program photos)", sessions: [
+        {day:"Mon (Day 57)", type:"cond", label:"☀ Active Recovery — 30 min easy walk + 15 min mobility", exercises:[
+          ["30 min Z1 walk (talk normally the whole time)","Recovery, not training"],
+          ["15 min mobility flow","Hips, t-spine, shoulders"]]},
+        {day:"Tue (Day 58)", type:"rest", label:"Rest + mid-program photos and measurements", exercises:[
+          ["Photo: front, side, back in same lighting as Day 1","Compare side-by-side"],
+          ["Measure: waist, chest, arms, thighs","Log to Progress tab"]]},
+        {day:"Wed (Day 59)", type:"cond", label:"☀ Light Z2 Cardio — 30 min, no lifting", exercises:[
+          ["30 min easy bike or walk","Z2, keep it conversational"],
+          ["Stretch hips and shoulders post-cardio","Prepare for Phase 3 intensity"]]},
+        {day:"Thu (Day 60)", type:"rest", label:"Rest + plan Phase 3 — Phase 3 starts tomorrow", exercises:[
+          ["Read Phase 3 overview","Heavier strength + harder conditioning ahead"],
+          ["Set baseline loads for Phase 3 strength days","Bench, Squat, Deadlift starting weights"]]}]
+      }
+    ]
   },
   3: {
     name: "Phase 3: Push", days: "Days 61–90",
@@ -1895,7 +2067,7 @@ const programData = {
         ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
         ["Barbell Row","4 × 8, RPE 8"],
         ["Lat Pulldown (close grip)","3 × 10"],
-        ["Chest-Supported T-Bar Row","3 × 10"],
+        ["Chest-Supported DB Row","3 × 10"],
         ["Face Pull","4 × 15"],
         ["EZ Bar Curl","4 × 10"],
         ["DB Hammer Curl","3 × 12"],
@@ -1969,7 +2141,7 @@ const programData = {
         ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
         ["Barbell Row","4 × 8, RPE 8"],
         ["Lat Pulldown (close grip)","3 × 10"],
-        ["Chest-Supported T-Bar Row","3 × 10"],
+        ["Chest-Supported DB Row","3 × 10"],
         ["Face Pull","4 × 15"],
         ["EZ Bar Curl","4 × 10"],
         ["DB Hammer Curl","3 × 12"],
@@ -2043,7 +2215,7 @@ const programData = {
         ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
         ["Barbell Row","4 × 8, RPE 8"],
         ["Lat Pulldown (close grip)","3 × 10"],
-        ["Chest-Supported T-Bar Row","3 × 10"],
+        ["Chest-Supported DB Row","3 × 10"],
         ["Face Pull","4 × 15"],
         ["EZ Bar Curl","4 × 10"],
         ["DB Hammer Curl","3 × 12"],
@@ -2117,7 +2289,7 @@ const programData = {
         ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
         ["Barbell Row","4 × 8, RPE 8"],
         ["Lat Pulldown (close grip)","3 × 10"],
-        ["Chest-Supported T-Bar Row","3 × 10"],
+        ["Chest-Supported DB Row","3 × 10"],
         ["Face Pull","4 × 15"],
         ["EZ Bar Curl","4 × 10"],
         ["DB Hammer Curl","3 × 12"],
@@ -2219,6 +2391,7 @@ const exerciseGuide = {
   "barbell row": ["Hinge at hips to ~45°; soft knees","Bar at mid-thigh; row to lower chest/upper abs","Squeeze shoulder blades together at the top","Torso stays still — no body english"],
   "pendlay row": ["Like barbell row but bar resets on floor each rep","Explosive concentric, dead stop reset","Forces strict form — great for power"],
   "chest-supported row": ["Chest pinned against pad — no lower back stress","Pull DBs/handles to your hips","Squeeze blades together hard at the top"],
+  "chest-supported db row": ["Set an incline bench to ~30°","Lie chest-down on the bench, DBs hanging at arm's length","Row DBs to your hips (not your armpits) — elbows track close to your sides","Squeeze your shoulder blades HARD at the top, hold 1 sec","Slow on the way down — no swinging or kipping","Chest stays GLUED to the pad the whole set; if it lifts, the weight's too heavy"],
   "chest-supported t-bar row": ["Chest on pad, feet braced","Row handles to lower chest/abs","Neutral grip eases shoulder stress"],
   "t-bar row": ["Straddle the bar, hinge to 45°","Pull handles to lower chest","Strong squeeze at the top"],
   "seated cable row": ["Tall posture; sit upright, slight back lean okay","Pull handle to lower chest/upper abs","Squeeze blades, control the release"],
@@ -2259,6 +2432,7 @@ const exerciseGuide = {
   "glute-ham raise": ["Ankles locked, knees on the pad","Lower torso slowly with control","Contract hamstrings hard to pull yourself back up","Use band assist if needed — it's hard"],
   "leg curl": ["Pad sits on your achilles, not your calf","Full ROM — curl hamstring fully","Slow on the eccentric"],
   "lying leg curl": ["Same cues as leg curl","Don't let hips lift off the pad"],
+  "seated leg curl": ["Sit upright, thigh pad locked down on top of your quads","Pad behind your ankles (NOT on your calves)","Curl heels DOWN and under by squeezing the hamstrings","Brief pause at the bottom of the rep — full contraction","Slow on the way back up (3 seconds) — the eccentric is where growth happens","Stretched starting position = slightly more hypertrophy than lying leg curl"],
   "leg extension": ["Pad sits on top of your ankle","Full extension at the top, brief pause","Slow eccentric — don't slam the stack"],
   "standing calf raise": ["Balls of feet on the platform, heels off","Full stretch at the bottom","Full contraction at the top, brief pause","Slow controlled reps — calves respond to time under tension"],
   "seated calf raise": ["Targets the soleus (deeper calf)","Same ROM cues as standing","Heavier weight is fine — soleus is strong"],
