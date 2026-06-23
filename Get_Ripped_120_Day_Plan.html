@@ -1709,7 +1709,8 @@ const programData = {
   3: {
     name: "Phase 3: Push", days: "Days 61–90",
     note: "Three two-a-days (Mon/Thu/Fri). Wednesday is conditioning circuit day — single session, hard. Tuesday is heavy lower-body strength — also single to protect recovery.",
-    weeks: [{ title: "Weekly Template (Repeat Days 61–90)", sessions: [
+    weeks: [
+      { title: "Week 1 (Days 61–67) — Foundation: Re-establish two-a-day rhythm. Use Phase 2 working loads.", sessions: [
       {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 35 min Z2", exercises:[
         ["35 min incline walk or steady bike","Z2 pace"],
         ["Fasted okay","Drink a black coffee, get it done"]]},
@@ -1745,12 +1746,133 @@ const programData = {
         ["Seated Calf Raise","4 × 15"]]},
       {day:"Sat", type:"cond", label:"☀ Sprint Day — 8 × 30s @ 85–90%, 90s walk recovery (single, AM)"},
       {day:"Sun", type:"rest", label:"Off + stretch + sauna if available"}]
-    }]
+      },
+      { title: "Week 2 (Days 68–74) — Build: Add 5 lb to Bench, Squat, Deadlift, OHP vs Week 1.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 35 min Z2", exercises:[
+        ["35 min incline walk or steady bike","Z2 pace"],
+        ["Fasted okay","Drink a black coffee, get it done"]]},
+      {day:"Mon PM", time:"PM", type:"upper", label:"🌙 PM Upper Strength (heavy)", exercises:[
+        ["Bench Press","5 × 5, RPE 8 (rest 3 min)"],["Weighted Pull-up","5 × 5, RPE 8"],
+        ["Standing OHP","4 × 6, RPE 8"],["Pendlay Row","4 × 6"],
+        ["DB Lateral Raise","3 × 15"],["Barbell Curl","3 × 8"],
+        ["Close-Grip Bench","3 × 8"]]},
+      {day:"Tue", type:"lower", label:"PM Lower Strength (single session — recovery from heavy AM Mon)", exercises:[
+        ["Back Squat","5 × 5, RPE 8 (rest 3 min)"],["Deadlift","4 × 4, RPE 8 (rest 3–4 min)"],
+        ["FFE Split Squat","3 × 8 each"],["Glute-Ham Raise","3 × 8"],
+        ["Standing Calf Raise","4 × 10 heavy"],["Heavy Plate Carry","3 × 40 yards"]]},
+      {day:"Wed", type:"cond", label:"Conditioning Circuit Day (single session, AM or PM)", exercises:[
+        ["Circuit A — KB Swing × 15","4 rounds"],["+ Goblet Squat × 12","4 rounds"],
+        ["+ Push-up × 12","4 rounds"],["+ TRX/Inverted Row × 12","4 rounds"],
+        ["Sled Push 20 yd","6 trips, heavy"],["Circuit B — Battle Rope 30s","4 rounds"],
+        ["+ Box Step-up × 10 each","4 rounds"],["+ DB Thruster × 10","4 rounds"],
+        ["+ Plank × 30s","4 rounds"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM HIIT — 15 min rower intervals", exercises:[
+        ["12 min rowing intervals (250m on / 60s off)","All-out efforts"],
+        ["Plus 3-5 min easy cool-down","Tough but short"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Hypertrophy", exercises:[
+        ["Incline DB Press","4 × 10"],["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],["Lat Pulldown (neutral)","3 × 12"],
+        ["Seated DB Press","3 × 10"],["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],["Triceps Rope Pushdown","3 × 12"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 stair climber", exercises:[
+        ["30 min stair climber, Z2 pace","Save energy for PM lower"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Hypertrophy", exercises:[
+        ["Hack Squat or Leg Press","4 × 12"],["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each"],["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"]]},
+      {day:"Sat", type:"cond", label:"☀ Sprint Day — 8 × 30s @ 85–90%, 90s walk recovery (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + sauna if available"}]
+      },
+      { title: "Week 3 (Days 75–81) — Push: Add 5 lb again on all main lifts. Last set to RPE 8.5.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 35 min Z2", exercises:[
+        ["35 min incline walk or steady bike","Z2 pace"],
+        ["Fasted okay","Drink a black coffee, get it done"]]},
+      {day:"Mon PM", time:"PM", type:"upper", label:"🌙 PM Upper Strength (heavy)", exercises:[
+        ["Bench Press","5 × 5, RPE 8 (rest 3 min)"],["Weighted Pull-up","5 × 5, RPE 8"],
+        ["Standing OHP","4 × 6, RPE 8"],["Pendlay Row","4 × 6"],
+        ["DB Lateral Raise","3 × 15"],["Barbell Curl","3 × 8"],
+        ["Close-Grip Bench","3 × 8"]]},
+      {day:"Tue", type:"lower", label:"PM Lower Strength (single session — recovery from heavy AM Mon)", exercises:[
+        ["Back Squat","5 × 5, RPE 8 (rest 3 min)"],["Deadlift","4 × 4, RPE 8 (rest 3–4 min)"],
+        ["FFE Split Squat","3 × 8 each"],["Glute-Ham Raise","3 × 8"],
+        ["Standing Calf Raise","4 × 10 heavy"],["Heavy Plate Carry","3 × 40 yards"]]},
+      {day:"Wed", type:"cond", label:"Conditioning Circuit Day (single session, AM or PM)", exercises:[
+        ["Circuit A — KB Swing × 15","4 rounds"],["+ Goblet Squat × 12","4 rounds"],
+        ["+ Push-up × 12","4 rounds"],["+ TRX/Inverted Row × 12","4 rounds"],
+        ["Sled Push 20 yd","6 trips, heavy"],["Circuit B — Battle Rope 30s","4 rounds"],
+        ["+ Box Step-up × 10 each","4 rounds"],["+ DB Thruster × 10","4 rounds"],
+        ["+ Plank × 30s","4 rounds"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM HIIT — 15 min rower intervals", exercises:[
+        ["12 min rowing intervals (250m on / 60s off)","All-out efforts"],
+        ["Plus 3-5 min easy cool-down","Tough but short"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Hypertrophy", exercises:[
+        ["Incline DB Press","4 × 10"],["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],["Lat Pulldown (neutral)","3 × 12"],
+        ["Seated DB Press","3 × 10"],["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],["Triceps Rope Pushdown","3 × 12"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 stair climber", exercises:[
+        ["30 min stair climber, Z2 pace","Save energy for PM lower"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Hypertrophy", exercises:[
+        ["Hack Squat or Leg Press","4 × 12"],["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each"],["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"]]},
+      {day:"Sat", type:"cond", label:"☀ Sprint Day — 8 × 30s @ 85–90%, 90s walk recovery (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + sauna if available"}]
+      },
+      { title: "Week 4 (Days 82–88) — Peak: Push the last set of every main lift to RPE 9 (1 rep in reserve).", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 35 min Z2", exercises:[
+        ["35 min incline walk or steady bike","Z2 pace"],
+        ["Fasted okay","Drink a black coffee, get it done"]]},
+      {day:"Mon PM", time:"PM", type:"upper", label:"🌙 PM Upper Strength (heavy)", exercises:[
+        ["Bench Press","5 × 5, RPE 8 (rest 3 min)"],["Weighted Pull-up","5 × 5, RPE 8"],
+        ["Standing OHP","4 × 6, RPE 8"],["Pendlay Row","4 × 6"],
+        ["DB Lateral Raise","3 × 15"],["Barbell Curl","3 × 8"],
+        ["Close-Grip Bench","3 × 8"]]},
+      {day:"Tue", type:"lower", label:"PM Lower Strength (single session — recovery from heavy AM Mon)", exercises:[
+        ["Back Squat","5 × 5, RPE 8 (rest 3 min)"],["Deadlift","4 × 4, RPE 8 (rest 3–4 min)"],
+        ["FFE Split Squat","3 × 8 each"],["Glute-Ham Raise","3 × 8"],
+        ["Standing Calf Raise","4 × 10 heavy"],["Heavy Plate Carry","3 × 40 yards"]]},
+      {day:"Wed", type:"cond", label:"Conditioning Circuit Day (single session, AM or PM)", exercises:[
+        ["Circuit A — KB Swing × 15","4 rounds"],["+ Goblet Squat × 12","4 rounds"],
+        ["+ Push-up × 12","4 rounds"],["+ TRX/Inverted Row × 12","4 rounds"],
+        ["Sled Push 20 yd","6 trips, heavy"],["Circuit B — Battle Rope 30s","4 rounds"],
+        ["+ Box Step-up × 10 each","4 rounds"],["+ DB Thruster × 10","4 rounds"],
+        ["+ Plank × 30s","4 rounds"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM HIIT — 15 min rower intervals", exercises:[
+        ["12 min rowing intervals (250m on / 60s off)","All-out efforts"],
+        ["Plus 3-5 min easy cool-down","Tough but short"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Hypertrophy", exercises:[
+        ["Incline DB Press","4 × 10"],["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],["Lat Pulldown (neutral)","3 × 12"],
+        ["Seated DB Press","3 × 10"],["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],["Triceps Rope Pushdown","3 × 12"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 stair climber", exercises:[
+        ["30 min stair climber, Z2 pace","Save energy for PM lower"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Hypertrophy", exercises:[
+        ["Hack Squat or Leg Press","4 × 12"],["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each"],["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"]]},
+      {day:"Sat", type:"cond", label:"☀ Sprint Day — 8 × 30s @ 85–90%, 90s walk recovery (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + sauna if available"}]
+      },
+      { title: "Days 89–90 — Transition to Phase 4 (active recovery + baseline photos)", sessions: [
+        {day:"Mon (Day 89)", type:"cond", label:"☀ Active Recovery — 30 min easy walk + 15 min full-body mobility", exercises:[
+          ["30 min Z1 walk (talk normally the whole time)","Recovery, not training"],
+          ["15 min mobility flow","Hips, t-spine, shoulders"]]},
+        {day:"Tue (Day 90)", type:"rest", label:"Rest + take Phase 4 baseline photos and measurements", exercises:[
+          ["Photo: front, side, back in same lighting as Day 1","Compare side-by-side later"],
+          ["Measure: waist, chest, arms, thighs","Log to Progress tab"]]}]
+      }
+    ]
   },
   4: {
     name: "Phase 4: Peak/Cut", days: "Days 91–120",
     note: "Four two-a-days (Mon/Tue/Thu/Fri). Wednesday legs stays single — too heavy to two-a-day. This is the most aggressive phase; protect sleep and food.",
-    weeks: [{ title: "Weekly Template (Repeat Days 91–120)", sessions: [
+    weeks: [
+      { title: "Week 1 (Days 91–97) — Adapt: Establish four two-a-days/week. Conservative loads to absorb the volume.", sessions: [
       {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
         ["30 min incline walk @ 3.5 / 8%","Z2 fat-loss pace"]]},
       {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push + Finisher A", exercises:[
@@ -1823,7 +1945,240 @@ const programData = {
         ["Plank","45 sec × 3 rounds"]]},
       {day:"Sat", type:"cond", label:"☀ Long walk 60–75 min, fasted if possible — Z1 (single, AM)"},
       {day:"Sun", type:"rest", label:"Off + stretch + meal prep"}]
-    }]
+      },
+      { title: "Week 2 (Days 98–104) — Cut Volume: Stay at standard loads. Eat in deficit, hit every set.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk @ 3.5 / 8%","Z2 fat-loss pace"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push + Finisher A", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],
+        ["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],
+        ["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],
+        ["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"],
+        ["━━ Finisher A ━━","3 rounds, 60s rest between rounds"],
+        ["Push-up","15 reps × 3 rounds"],
+        ["DB Push Press","10 reps × 3 rounds"],
+        ["Battle Rope","30 sec × 3 rounds"]]},
+      {day:"Tue AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 bike", exercises:[
+        ["30 min steady bike","Z2, lower-impact day"]]},
+      {day:"Tue PM", time:"PM", type:"pull", label:"🌙 PM Pull + Finisher B", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
+        ["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],
+        ["Chest-Supported T-Bar Row","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"],
+        ["━━ Finisher B ━━","3 rounds, 60s rest between rounds"],
+        ["KB Swing","20 reps × 3 rounds"],
+        ["Inverted Row","12 reps × 3 rounds"],
+        ["Farmer Carry","40 yd × 3 rounds"]]},
+      {day:"Wed", type:"legs", label:"PM Legs (heavy, single session — protect recovery)", exercises:[
+        ["💡 Keep ALL volume","Wed is the hardest day — don't drop accessories. Eat big, sleep hard."],
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],
+        ["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],
+        ["Walking Lunge (DB)","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],
+        ["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM Cardio — 15 min HIIT rower", exercises:[
+        ["15 min rower intervals (250m on / 60s off)","Hard"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Volume + Finisher C", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Incline DB Press","4 × 10"],
+        ["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],
+        ["Lat Pulldown (neutral grip)","3 × 12"],
+        ["Seated DB Press","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],
+        ["Triceps Rope Pushdown","3 × 12"],
+        ["━━ Finisher C ━━","Superset, every 90s × 6 rounds"],
+        ["DB Thruster","8 reps × 6 rounds"],
+        ["Pull-up","5 reps × 6 rounds"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min stair climber or incline walk","Z2"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Volume + Finisher D", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Hack Squat or Leg Press","4 × 12"],
+        ["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"],
+        ["━━ Finisher D ━━","3 rounds, 75s rest between rounds"],
+        ["Goblet Squat","15 reps × 3 rounds"],
+        ["Box Jump (low) or Step-up","10 reps × 3 rounds"],
+        ["Plank","45 sec × 3 rounds"]]},
+      {day:"Sat", type:"cond", label:"☀ Long walk 60–75 min, fasted if possible — Z1 (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + meal prep"}]
+      },
+      { title: "Week 3 (Days 105–111) — Cut Intensity: Add 5 lb on Bench/Squat/RDL. Push finishers harder.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk @ 3.5 / 8%","Z2 fat-loss pace"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push + Finisher A", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],
+        ["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],
+        ["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],
+        ["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"],
+        ["━━ Finisher A ━━","3 rounds, 60s rest between rounds"],
+        ["Push-up","15 reps × 3 rounds"],
+        ["DB Push Press","10 reps × 3 rounds"],
+        ["Battle Rope","30 sec × 3 rounds"]]},
+      {day:"Tue AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 bike", exercises:[
+        ["30 min steady bike","Z2, lower-impact day"]]},
+      {day:"Tue PM", time:"PM", type:"pull", label:"🌙 PM Pull + Finisher B", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
+        ["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],
+        ["Chest-Supported T-Bar Row","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"],
+        ["━━ Finisher B ━━","3 rounds, 60s rest between rounds"],
+        ["KB Swing","20 reps × 3 rounds"],
+        ["Inverted Row","12 reps × 3 rounds"],
+        ["Farmer Carry","40 yd × 3 rounds"]]},
+      {day:"Wed", type:"legs", label:"PM Legs (heavy, single session — protect recovery)", exercises:[
+        ["💡 Keep ALL volume","Wed is the hardest day — don't drop accessories. Eat big, sleep hard."],
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],
+        ["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],
+        ["Walking Lunge (DB)","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],
+        ["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM Cardio — 15 min HIIT rower", exercises:[
+        ["15 min rower intervals (250m on / 60s off)","Hard"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Volume + Finisher C", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Incline DB Press","4 × 10"],
+        ["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],
+        ["Lat Pulldown (neutral grip)","3 × 12"],
+        ["Seated DB Press","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],
+        ["Triceps Rope Pushdown","3 × 12"],
+        ["━━ Finisher C ━━","Superset, every 90s × 6 rounds"],
+        ["DB Thruster","8 reps × 6 rounds"],
+        ["Pull-up","5 reps × 6 rounds"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min stair climber or incline walk","Z2"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Volume + Finisher D", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Hack Squat or Leg Press","4 × 12"],
+        ["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"],
+        ["━━ Finisher D ━━","3 rounds, 75s rest between rounds"],
+        ["Goblet Squat","15 reps × 3 rounds"],
+        ["Box Jump (low) or Step-up","10 reps × 3 rounds"],
+        ["Plank","45 sec × 3 rounds"]]},
+      {day:"Sat", type:"cond", label:"☀ Long walk 60–75 min, fasted if possible — Z1 (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + meal prep"}]
+      },
+      { title: "Week 4 (Days 112–118) — Peak Cut: Last set of main lifts to RPE 9. Finishers: zero rest between moves.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk @ 3.5 / 8%","Z2 fat-loss pace"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push + Finisher A", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],
+        ["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],
+        ["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],
+        ["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"],
+        ["━━ Finisher A ━━","3 rounds, 60s rest between rounds"],
+        ["Push-up","15 reps × 3 rounds"],
+        ["DB Push Press","10 reps × 3 rounds"],
+        ["Battle Rope","30 sec × 3 rounds"]]},
+      {day:"Tue AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 bike", exercises:[
+        ["30 min steady bike","Z2, lower-impact day"]]},
+      {day:"Tue PM", time:"PM", type:"pull", label:"🌙 PM Pull + Finisher B", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
+        ["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],
+        ["Chest-Supported T-Bar Row","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"],
+        ["━━ Finisher B ━━","3 rounds, 60s rest between rounds"],
+        ["KB Swing","20 reps × 3 rounds"],
+        ["Inverted Row","12 reps × 3 rounds"],
+        ["Farmer Carry","40 yd × 3 rounds"]]},
+      {day:"Wed", type:"legs", label:"PM Legs (heavy, single session — protect recovery)", exercises:[
+        ["💡 Keep ALL volume","Wed is the hardest day — don't drop accessories. Eat big, sleep hard."],
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],
+        ["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],
+        ["Walking Lunge (DB)","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],
+        ["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM Cardio — 15 min HIIT rower", exercises:[
+        ["15 min rower intervals (250m on / 60s off)","Hard"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Volume + Finisher C", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Incline DB Press","4 × 10"],
+        ["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],
+        ["Lat Pulldown (neutral grip)","3 × 12"],
+        ["Seated DB Press","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],
+        ["Triceps Rope Pushdown","3 × 12"],
+        ["━━ Finisher C ━━","Superset, every 90s × 6 rounds"],
+        ["DB Thruster","8 reps × 6 rounds"],
+        ["Pull-up","5 reps × 6 rounds"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min stair climber or incline walk","Z2"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Volume + Finisher D", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Hack Squat or Leg Press","4 × 12"],
+        ["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"],
+        ["━━ Finisher D ━━","3 rounds, 75s rest between rounds"],
+        ["Goblet Squat","15 reps × 3 rounds"],
+        ["Box Jump (low) or Step-up","10 reps × 3 rounds"],
+        ["Plank","45 sec × 3 rounds"]]},
+      {day:"Sat", type:"cond", label:"☀ Long walk 60–75 min, fasted if possible — Z1 (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + meal prep"}]
+      },
+      { title: "Days 119–120 — Final Days (last long walk + final measurements)", sessions: [
+        {day:"Sat (Day 119)", type:"cond", label:"☀ Final Long Walk 60-75 min — Z1 (single, AM)", exercises:[
+          ["60-75 min fasted Z1 walk","Last cardio session of the program"],
+          ["Reflect: how far you've come","Notice everything that's different vs Day 1"]]},
+        {day:"Sun (Day 120)", type:"rest", label:"🏁 FINAL DAY — Photos, measurements, weigh-in, celebrate", exercises:[
+          ["Final photos: front, side, back","Same lighting, shorts as Day 1 — for the side-by-side"],
+          ["Final measurements: waist, chest, arms, thighs, neck","Compare to Day 1 numbers in the Progress tab"],
+          ["Final weigh-in: empty stomach, post-bathroom","Trust the 120-day trend, not the one number"],
+          ["Plan what comes next","Maintenance? Another cut? Recomp? Pick your direction."]]}]
+      }
+    ]
   }
 };
 
