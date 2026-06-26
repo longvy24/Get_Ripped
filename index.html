@@ -333,6 +333,39 @@
   }
   .ex-name { font-weight: 600; font-size: 15px; }
   .ex-sets { color: var(--muted); font-size: 13px; }
+  .ex-history {
+    margin-top: 6px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+  .ex-history > span {
+    font-family: 'Courier New', monospace;
+    padding: 3px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .ex-last {
+    color: var(--accent);
+    background: rgba(0, 180, 216, 0.10);
+    border: 1px solid rgba(0, 180, 216, 0.4);
+  }
+  .ex-pr {
+    color: #ffd54a;
+    background: rgba(255, 213, 74, 0.10);
+    border: 1px solid rgba(255, 213, 74, 0.45);
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(255, 213, 74, 0.4);
+  }
+  .ex-history-empty {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 4px;
+    font-style: italic;
+    opacity: 0.6;
+  }
   .ex-log {
     background: var(--panel-2);
     border: 1px solid var(--border);
@@ -3202,6 +3235,84 @@ function updateWorkoutCount() {
   document.getElementById("ov-workouts").textContent = done;
 }
 
+// ============== EXERCISE HISTORY HELPERS ==============
+// Look up an exercise's name from its key (phase-week-session-exerciseIdx)
+function getExerciseNameByKey(key) {
+  const parts = key.split('-').map(Number);
+  if (parts.length !== 4 || parts.some(isNaN)) return null;
+  const [phase, w, s, e] = parts;
+  const ex = programData[phase] && programData[phase].weeks && programData[phase].weeks[w]
+          && programData[phase].weeks[w].sessions && programData[phase].weeks[w].sessions[s]
+          && programData[phase].weeks[w].sessions[s].exercises
+          && programData[phase].weeks[w].sessions[s].exercises[e];
+  return ex ? ex[0] : null;
+}
+
+// Compare two keys (phase-week-session-exerciseIdx) lexicographically by number
+function compareKeys(a, b) {
+  const aP = a.split('-').map(Number), bP = b.split('-').map(Number);
+  for (let i = 0; i < 4; i++) {
+    if (aP[i] !== bP[i]) return bP[i] - aP[i];   // descending
+  }
+  return 0;
+}
+
+// Find the MOST RECENT log entry for the same exercise NAME, excluding the current key
+function findPreviousLog(exerciseName, currentKey) {
+  if (!exerciseName) return null;
+  const matches = [];
+  for (const k in state.logs) {
+    if (k === currentKey) continue;
+    if (!state.logs[k]) continue;
+    if (getExerciseNameByKey(k) === exerciseName) {
+      matches.push({ key: k, val: state.logs[k] });
+    }
+  }
+  if (!matches.length) return null;
+  matches.sort((a, b) => compareKeys(a.key, b.key));
+  return matches[0];
+}
+
+// Parse a log string ("135x8, 145x6") and find the heaviest set
+function parseTopSet(logStr) {
+  if (!logStr) return null;
+  const re = /(\d+(?:\.\d+)?)\s*[xX×*]\s*(\d+)/g;
+  let max = null, m;
+  while ((m = re.exec(logStr)) !== null) {
+    const w = parseFloat(m[1]);
+    const r = parseInt(m[2]);
+    if (!max || w > max.w) max = { w, r };
+  }
+  return max;
+}
+
+// Find personal record (heaviest weight × reps) across ALL logs for this exercise
+function findPR(exerciseName) {
+  if (!exerciseName) return null;
+  const tops = [];
+  for (const k in state.logs) {
+    if (!state.logs[k]) continue;
+    if (getExerciseNameByKey(k) === exerciseName) {
+      const top = parseTopSet(state.logs[k]);
+      if (top) tops.push({ key: k, ...top });
+    }
+  }
+  if (!tops.length) return null;
+  tops.sort((a, b) => b.w - a.w);
+  return tops[0];
+}
+
+// Translate a key into a human-readable label (e.g. "Phase 2 Week 3 — Fri")
+function keyToLabel(key) {
+  const parts = key.split('-').map(Number);
+  if (parts.length !== 4) return key;
+  const [phase, w, s] = parts;
+  const week = programData[phase] && programData[phase].weeks && programData[phase].weeks[w];
+  const session = week && week.sessions && week.sessions[s];
+  if (!week || !session) return `Phase ${phase} W${w + 1}`;
+  return `Phase ${phase} W${w + 1} · ${session.day || ''}`;
+}
+
 // ============== TRAINING ==============
 function renderTraining(phaseNum) {
   const p = programData[phaseNum];
@@ -3248,6 +3359,18 @@ function renderTraining(phaseNum) {
                 ${showVideo && !hideCheckbox ? `<a class="ex-icon ex-video" href="${ytUrl}" target="_blank" rel="noopener" title="Watch on YouTube">▶</a>` : ''}
               </div>
               <div class="ex-sets">${ex[1]}</div>
+              ${(() => {
+                if (hideCheckbox) return '';
+                const prev = findPreviousLog(ex[0], key);
+                const pr = findPR(ex[0]);
+                const parts = [];
+                if (prev) parts.push(`<span class="ex-last" title="${keyToLabel(prev.key)}">↺ Last: ${prev.val}</span>`);
+                if (pr) parts.push(`<span class="ex-pr" title="Personal record (heaviest weight × reps logged)">🏆 PR: ${pr.w}×${pr.r}</span>`);
+                if (parts.length) return `<div class="ex-history">${parts.join('')}</div>`;
+                // No history yet — show a hint so the user knows logging unlocks this
+                if (!isNote) return `<div class="ex-history-empty">No log yet — type "weight×reps" in the box to start tracking</div>`;
+                return '';
+              })()}
               ${hasInfo && !hideCheckbox ? `<div class="ex-cues" id="cues-${key}">${cues.map(c => `<div>• ${c}</div>`).join('')}</div>` : ''}
               ${hasAlts && !hideCheckbox ? `<div class="ex-alts" id="alts-${key}"><div style="font-weight:700; margin-bottom:6px; color:var(--accent-2);">↔ Lifting alone? Safer alternatives:</div>${alts.map(a => `<div>• <strong>${a.name}</strong> — ${a.why}</div>`).join('')}</div>` : ''}
             </div>
