@@ -366,6 +366,69 @@
     font-style: italic;
     opacity: 0.6;
   }
+  /* Lift Progress cards */
+  .lift-card {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .lift-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .lift-name { font-weight: 700; font-size: 16px; color: var(--text); }
+  .lift-trend { font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; }
+  .lift-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .lift-stat {
+    padding: 8px 6px;
+    background: var(--panel);
+    border-radius: 6px;
+    text-align: center;
+  }
+  .lift-stat-label { font-size: 9px; letter-spacing: 0.18em; color: var(--muted); margin-bottom: 2px; }
+  .lift-stat-val { font-family: 'Courier New', monospace; font-size: 14px; font-weight: 700; color: var(--accent); }
+  .lift-spark { background: var(--panel); border-radius: 6px; padding: 4px 0; }
+  .lift-detail { margin-top: 10px; }
+  .lift-detail summary {
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 12px;
+    user-select: none;
+    padding: 4px 0;
+  }
+  .lift-detail summary:hover { color: var(--accent); }
+  .lift-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 12px;
+  }
+  .lift-table th, .lift-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  .lift-table th {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+  .lift-table td:nth-child(3), .lift-table td:nth-child(4) { font-family: 'Courier New', monospace; }
+  @media (max-width: 600px) {
+    .lift-stats { grid-template-columns: 1fr 1fr; }
+  }
   .ex-log {
     background: var(--panel-2);
     border: 1px solid var(--border);
@@ -1162,36 +1225,25 @@
     </div>
   </div>
 
-  <h2>Body Measurements (weekly)</h2>
+  <h2>🏋️ Lift Progress</h2>
   <div class="card">
-    <p class="muted">Tape measure once a week — same day, same time, before training. Track these alongside your weight.</p>
-    <div class="grid-3">
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Waist (in)</label>
-        <input type="number" step="0.1" id="m-waist" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Chest (in)</label>
-        <input type="number" step="0.1" id="m-chest" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Hips (in)</label>
-        <input type="number" step="0.1" id="m-hips" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Arms (in)</label>
-        <input type="number" step="0.1" id="m-arms" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Thighs (in)</label>
-        <input type="number" step="0.1" id="m-thighs" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Neck (in)</label>
-        <input type="number" step="0.1" id="m-neck" oninput="saveMeasurements()">
-      </div>
+    <p class="muted" style="margin-top:0;">Estimated 1-rep max (1RM) per exercise, calculated from your logged weight×reps using the Epley formula: <code>1RM = weight × (1 + reps/30)</code>. Each chart is a sparkline of every set you've logged for that lift. Green trend = you're progressing. Hover/tap a dot to see the exact set.</p>
+    <div class="input-row" style="gap:14px; flex-wrap:wrap; margin-top:12px;">
+      <label style="display:flex; align-items:center; gap:6px;">
+        <input type="checkbox" id="lift-show-all" onchange="renderLiftProgress()">
+        Show ALL exercises (not just main lifts)
+      </label>
+      <label style="display:flex; align-items:center; gap:6px;">
+        Sort:
+        <select id="lift-sort" onchange="renderLiftProgress()" style="background:var(--panel-2); color:var(--text); border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
+          <option value="recent">Most recently trained</option>
+          <option value="name">Alphabetical</option>
+          <option value="best">Biggest 1RM gain</option>
+          <option value="pr">Highest PR</option>
+        </select>
+      </label>
     </div>
-    <p class="muted" style="font-size:12px;">Saved automatically.</p>
+    <div id="lift-progress-grid" style="margin-top:16px;"></div>
   </div>
 
   <h2>Red Flags — Adjust the Plan</h2>
@@ -3398,6 +3450,8 @@ function toggleExercise(key, cb) {
 function logExercise(key, val) {
   if (val) state.logs[key] = val; else delete state.logs[key];
   saveState();
+  // Update Lift Progress in the background so it's fresh when user switches tabs
+  if (typeof renderLiftProgress === 'function') renderLiftProgress();
 }
 function resetWorkouts() {
   if (!confirm("Reset all workout check-marks and exercise logs?")) return;
@@ -3713,6 +3767,170 @@ function resetWeights() {
   saveState();
   renderWeights();
   toast("Weight log reset");
+}
+
+// ============== LIFT PROGRESS ==============
+// Build a flat list of all log entries grouped by exercise name.
+// Each entry has: name, key, top set {w,r}, all sets, estimated 1RM.
+function buildLiftHistory() {
+  const byExercise = {};
+  for (const key in state.logs) {
+    if (!state.logs[key]) continue;
+    const name = getExerciseNameByKey(key);
+    if (!name) continue;
+    const logStr = state.logs[key];
+    const sets = [];
+    const re = /(\d+(?:\.\d+)?)\s*[xX×*]\s*(\d+)/g;
+    let m;
+    while ((m = re.exec(logStr)) !== null) {
+      const w = parseFloat(m[1]);
+      const r = parseInt(m[2]);
+      const e1rm = w * (1 + r / 30);    // Epley
+      sets.push({ w, r, e1rm });
+    }
+    if (!sets.length) continue;
+    // Top set = max e1rm in this session
+    const top = sets.reduce((a, b) => b.e1rm > a.e1rm ? b : a);
+    if (!byExercise[name]) byExercise[name] = [];
+    byExercise[name].push({ key, raw: logStr, sets, top, e1rm: top.e1rm });
+  }
+  // Sort each exercise's history chronologically (by key — Phase, Week, Session, Idx)
+  for (const name in byExercise) {
+    byExercise[name].sort((a, b) => {
+      const aP = a.key.split('-').map(Number);
+      const bP = b.key.split('-').map(Number);
+      for (let i = 0; i < 4; i++) {
+        if (aP[i] !== bP[i]) return aP[i] - bP[i];
+      }
+      return 0;
+    });
+  }
+  return byExercise;
+}
+
+// Render the per-exercise progress cards
+function renderLiftProgress() {
+  const grid = document.getElementById("lift-progress-grid");
+  if (!grid) return;
+  const history = buildLiftHistory();
+  const exercises = Object.keys(history);
+  if (!exercises.length) {
+    grid.innerHTML = '<p class="muted" style="text-align:center; padding:24px;">No lift data yet. Start logging weight × reps in the Training tab and your progress will appear here.</p>';
+    return;
+  }
+
+  // Filter & sort
+  const showAll = document.getElementById("lift-show-all").checked;
+  const sortMode = document.getElementById("lift-sort").value;
+  let names = showAll ? exercises : exercises.filter(n => isMainLift(n));
+  if (!names.length) {
+    // Fallback if no main lifts but they want main only
+    grid.innerHTML = '<p class="muted" style="text-align:center; padding:24px;">No main lifts logged yet. Check "Show ALL exercises" to see accessories, or log a main lift (Bench, Squat, Deadlift, OHP, Row, Pull-up) to populate this view.</p>';
+    return;
+  }
+
+  names.sort((a, b) => {
+    const aH = history[a], bH = history[b];
+    if (sortMode === "name") return a.localeCompare(b);
+    if (sortMode === "pr") return bH[bH.length - 1].top.w - aH[aH.length - 1].top.w;
+    if (sortMode === "best") {
+      const aGain = aH[aH.length - 1].e1rm - aH[0].e1rm;
+      const bGain = bH[bH.length - 1].e1rm - bH[0].e1rm;
+      return bGain - aGain;
+    }
+    // recent (default) — last key has highest position
+    const aKey = aH[aH.length - 1].key.split('-').map(Number);
+    const bKey = bH[bH.length - 1].key.split('-').map(Number);
+    for (let i = 0; i < 4; i++) {
+      if (aKey[i] !== bKey[i]) return bKey[i] - aKey[i];
+    }
+    return 0;
+  });
+
+  grid.innerHTML = names.map(name => renderLiftCard(name, history[name])).join('');
+}
+
+// Render a single lift card with sparkline
+function renderLiftCard(name, sessions) {
+  if (!sessions.length) return '';
+  const first = sessions[0];
+  const last = sessions[sessions.length - 1];
+  const pr = sessions.reduce((a, b) => b.top.w > a.top.w ? b : a);
+  const best1RM = sessions.reduce((a, b) => b.e1rm > a.e1rm ? b : a);
+
+  const gain = last.e1rm - first.e1rm;
+  const gainPct = first.e1rm > 0 ? (gain / first.e1rm) * 100 : 0;
+  const trendUp = gain > 0;
+  const trendColor = trendUp ? "var(--good)" : (gain < 0 ? "var(--bad)" : "var(--muted)");
+  const trendIcon = trendUp ? "↗" : (gain < 0 ? "↘" : "→");
+
+  // Sparkline
+  const w = 420, h = 80, pad = {l:30, r:10, t:10, b:18};
+  const e1rms = sessions.map(s => s.e1rm);
+  const minE = Math.min(...e1rms);
+  const maxE = Math.max(...e1rms);
+  const range = Math.max(5, maxE - minE);
+  const yMin = minE - range * 0.15;
+  const yMax = maxE + range * 0.15;
+
+  const n = sessions.length;
+  const pts = sessions.map((s, i) => {
+    const x = pad.l + (n === 1 ? (w - pad.l - pad.r) / 2 : (i / (n - 1)) * (w - pad.l - pad.r));
+    const y = pad.t + ((yMax - s.e1rm) / (yMax - yMin)) * (h - pad.t - pad.b);
+    return { x, y, s };
+  });
+
+  const linePath = "M " + pts.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" L ");
+  const areaPath = linePath + ` L ${pts[pts.length-1].x.toFixed(1)},${h - pad.b} L ${pts[0].x.toFixed(1)},${h - pad.b} Z`;
+
+  // Y-axis labels (min/max)
+  const yLabels = `
+    <text class="chart-label" x="${pad.l - 4}" y="${pad.t + 4}" text-anchor="end" font-size="9" fill="var(--muted)">${maxE.toFixed(0)}</text>
+    <text class="chart-label" x="${pad.l - 4}" y="${h - pad.b - 2}" text-anchor="end" font-size="9" fill="var(--muted)">${minE.toFixed(0)}</text>
+  `;
+
+  const dots = pts.map(p => `
+    <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.5" fill="${trendUp ? 'var(--good)' : (gain < 0 ? 'var(--bad)' : 'var(--accent)')}">
+      <title>${keyToLabel(p.s.key)} — ${p.s.raw} (est 1RM: ${p.s.e1rm.toFixed(0)} lbs)</title>
+    </circle>
+  `).join('');
+
+  return `
+    <div class="lift-card">
+      <div class="lift-card-header">
+        <div class="lift-name">${isMainLift(name) ? '<span class="ex-main-badge" style="margin-right:6px;">MAIN</span>' : ''}${name}</div>
+        <div class="lift-trend" style="color:${trendColor};">${trendIcon} ${gain >= 0 ? '+' : ''}${gain.toFixed(0)} lbs e1RM (${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%)</div>
+      </div>
+      <div class="lift-stats">
+        <div class="lift-stat"><div class="lift-stat-label">SESSIONS</div><div class="lift-stat-val">${sessions.length}</div></div>
+        <div class="lift-stat"><div class="lift-stat-label">PR</div><div class="lift-stat-val">${pr.top.w}×${pr.top.r}</div></div>
+        <div class="lift-stat"><div class="lift-stat-label">BEST 1RM</div><div class="lift-stat-val">${best1RM.e1rm.toFixed(0)} lbs</div></div>
+        <div class="lift-stat"><div class="lift-stat-label">LATEST</div><div class="lift-stat-val">${last.top.w}×${last.top.r}</div></div>
+      </div>
+      <svg class="lift-spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%; height:80px; display:block;">
+        ${yLabels}
+        <path d="${areaPath}" fill="${trendUp ? 'var(--good)' : (gain < 0 ? 'var(--bad)' : 'var(--accent)')}" opacity="0.12"/>
+        <path d="${linePath}" fill="none" stroke="${trendUp ? 'var(--good)' : (gain < 0 ? 'var(--bad)' : 'var(--accent)')}" stroke-width="2"/>
+        ${dots}
+      </svg>
+      <details class="lift-detail">
+        <summary>Show all ${sessions.length} session${sessions.length === 1 ? '' : 's'}</summary>
+        <table class="lift-table">
+          <thead><tr><th>When</th><th>Sets</th><th>Top</th><th>Est 1RM</th></tr></thead>
+          <tbody>
+            ${sessions.slice().reverse().map(s => `
+              <tr>
+                <td>${keyToLabel(s.key)}</td>
+                <td>${s.raw}</td>
+                <td>${s.top.w}×${s.top.r}</td>
+                <td>${s.e1rm.toFixed(0)} lbs</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </details>
+    </div>
+  `;
 }
 
 function saveMeasurements() {
@@ -4322,6 +4540,7 @@ function importData(event) {
       renderTraining(ap);
       renderMeals();
       renderWeights();
+      renderLiftProgress();
       renderGrocery();
       toast("Data imported successfully");
     } catch (err) {
@@ -4349,6 +4568,7 @@ renderMeals();
 renderGrocery();
 document.getElementById("weight-date").value = new Date().toISOString().slice(0, 10);
 renderWeights();
+renderLiftProgress();
 updateDayCounter();
 updateWorkoutCount();
 setInterval(updateDayCounter, 60000);
