@@ -3373,6 +3373,54 @@ function keyToLabel(key) {
   return `Phase ${phase} W${w + 1} · ${session.day || ''}`;
 }
 
+// Sort session exercises with MAIN lifts first — preserves original indices
+// so log keys (phase-week-session-exerciseIdx) stay attached to the right exercise.
+// Notes (💡), dividers (━━), and circuit prefixes (Circuit —, +) stay in place.
+// Finisher blocks (everything after a ━━ divider) keep their prescribed order.
+function sortSessionExercises(exercises) {
+  const withIdx = exercises.map((ex, origIdx) => ({ ex, origIdx }));
+
+  const isUnsortable = (ex) => {
+    const name = ex[0] || '';
+    return name.startsWith("💡") ||
+           name.startsWith("Drop ") || name.startsWith("Keep ") ||
+           name.startsWith("Circuit ") || name.startsWith("+ ");
+  };
+  const isDivider = (ex) => (ex[0] || '').startsWith("━━");
+
+  const result = [];
+  let buffer = [];
+  let pastFinisherDivider = false;
+
+  const flushBuffer = () => {
+    if (buffer.length === 0) return;
+    if (pastFinisherDivider) {
+      // Finisher block — order is prescribed, don't touch
+      result.push(...buffer);
+    } else {
+      // Stable sort: MAIN lifts come first
+      buffer.sort((a, b) => (isMainLift(a.ex[0]) ? 0 : 1) - (isMainLift(b.ex[0]) ? 0 : 1));
+      result.push(...buffer);
+    }
+    buffer = [];
+  };
+
+  for (const item of withIdx) {
+    if (isDivider(item.ex)) {
+      flushBuffer();
+      result.push(item);
+      pastFinisherDivider = true;
+    } else if (isUnsortable(item.ex)) {
+      flushBuffer();
+      result.push(item);
+    } else {
+      buffer.push(item);
+    }
+  }
+  flushBuffer();
+  return result;
+}
+
 // ============== TRAINING ==============
 function renderTraining(phaseNum) {
   const p = programData[phaseNum];
@@ -3391,7 +3439,8 @@ function renderTraining(phaseNum) {
       </div>`;
       if (s.exercises) {
         html += `<div class="card-body">`;
-        s.exercises.forEach((ex, eIdx) => {
+        sortSessionExercises(s.exercises).forEach(({ ex, origIdx }) => {
+          const eIdx = origIdx;   // keep the same variable name for the render code
           const key = `${phaseNum}-${wIdx}-${sIdx}-${eIdx}`;
           const checked = state.completed[key] ? "checked" : "";
           const logged = (state.logs[key] || "").replace(/"/g,'&quot;');
