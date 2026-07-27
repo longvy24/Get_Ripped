@@ -333,6 +333,102 @@
   }
   .ex-name { font-weight: 600; font-size: 15px; }
   .ex-sets { color: var(--muted); font-size: 13px; }
+  .ex-history {
+    margin-top: 6px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+  .ex-history > span {
+    font-family: 'Courier New', monospace;
+    padding: 3px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .ex-last {
+    color: var(--accent);
+    background: rgba(0, 180, 216, 0.10);
+    border: 1px solid rgba(0, 180, 216, 0.4);
+  }
+  .ex-pr {
+    color: #ffd54a;
+    background: rgba(255, 213, 74, 0.10);
+    border: 1px solid rgba(255, 213, 74, 0.45);
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(255, 213, 74, 0.4);
+  }
+  .ex-history-empty {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 4px;
+    font-style: italic;
+    opacity: 0.6;
+  }
+  /* Lift Progress cards */
+  .lift-card {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .lift-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .lift-name { font-weight: 700; font-size: 16px; color: var(--text); }
+  .lift-trend { font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; }
+  .lift-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .lift-stat {
+    padding: 8px 6px;
+    background: var(--panel);
+    border-radius: 6px;
+    text-align: center;
+  }
+  .lift-stat-label { font-size: 9px; letter-spacing: 0.18em; color: var(--muted); margin-bottom: 2px; }
+  .lift-stat-val { font-family: 'Courier New', monospace; font-size: 14px; font-weight: 700; color: var(--accent); }
+  .lift-spark { background: var(--panel); border-radius: 6px; padding: 4px 0; }
+  .lift-detail { margin-top: 10px; }
+  .lift-detail summary {
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 12px;
+    user-select: none;
+    padding: 4px 0;
+  }
+  .lift-detail summary:hover { color: var(--accent); }
+  .lift-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 12px;
+  }
+  .lift-table th, .lift-table td {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  .lift-table th {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+  }
+  .lift-table td:nth-child(3), .lift-table td:nth-child(4) { font-family: 'Courier New', monospace; }
+  @media (max-width: 600px) {
+    .lift-stats { grid-template-columns: 1fr 1fr; }
+  }
   .ex-log {
     background: var(--panel-2);
     border: 1px solid var(--border);
@@ -769,8 +865,31 @@
     <button class="tab-btn" data-tab="resources">Resources</button>
     <button class="tab-btn" data-tab="supplements">Supplements</button>
     <button class="tab-btn" data-tab="settings">Settings</button>
+    <a class="tab-btn tab-power" href="power_level.html" target="_blank" title="Open Power Level scouter">⚡ Power Level</a>
   </div>
 </nav>
+<style>
+  /* Power Level tab styling — stands out from regular tabs so it's discoverable */
+  .tab-btn.tab-power {
+    background: linear-gradient(135deg, rgba(255, 213, 74, 0.18), rgba(255, 61, 146, 0.18));
+    color: #ffd54a !important;
+    text-decoration: none;
+    border: 1px solid rgba(255, 213, 74, 0.5);
+    box-shadow: 0 0 12px rgba(255, 213, 74, 0.3);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    animation: powerTabPulse 2.5s ease-in-out infinite;
+  }
+  .tab-btn.tab-power:hover {
+    background: linear-gradient(135deg, rgba(255, 213, 74, 0.4), rgba(255, 61, 146, 0.4));
+    transform: translateY(-1px);
+    box-shadow: 0 0 18px rgba(255, 213, 74, 0.6);
+  }
+  @keyframes powerTabPulse {
+    0%, 100% { box-shadow: 0 0 12px rgba(255, 213, 74, 0.3); }
+    50% { box-shadow: 0 0 22px rgba(255, 61, 146, 0.5); }
+  }
+</style>
 
 <main>
 
@@ -970,11 +1089,11 @@
     <ol style="margin:8px 0 0; padding-left:20px;">
       <li>Grab 5 mason jars or glass containers with bamboo lids</li>
       <li>In each: 1/2 cup rolled oats + 1 cup whole milk + 1 scoop whey + 1 tbsp PB + cinnamon. Stir.</li>
-      <li>Slice 5 bananas, drop one into each jar (or add fresh banana each morning if you prefer firmer fruit)</li>
-      <li>Seal, fridge. Eats best 12-72 hours later — soaked oats are creamy.</li>
+      <li>Drop 3/4 cup frozen berries (strawberries, mixed berries, blueberries — your choice) into each jar straight from the freezer. They'll thaw and bleed into the oats overnight, giving you a built-in jam layer.</li>
+      <li>Seal, fridge. Eats best 12-72 hours later — soaked oats are creamy, berries are juicy.</li>
       <li>Grab one each morning. Eat with a spoon in the car or at your desk. No cooking, no thinking.</li>
     </ol>
-    <p style="margin:8px 0 0; font-size:13px;">Wed (legs day) and Sun (rest day) get a different version — adjust portions in those jars accordingly. The Power Shake alternative is a 60-second blend if you want hot variety or forgot to prep.</p>
+    <p style="margin:8px 0 0; font-size:13px;">Wed (legs day) gets <strong>1 cup berries + 1 tbsp honey</strong> for the carb-up. Sun (rest) gets <strong>1/2 cup berries</strong>, smaller portion. The Power Shake is a 60-second blend alternative if you want variety or forgot to prep.</p>
   </div>
 
   <div id="meals-list"></div>
@@ -1106,36 +1225,25 @@
     </div>
   </div>
 
-  <h2>Body Measurements (weekly)</h2>
+  <h2>🏋️ Lift Progress</h2>
   <div class="card">
-    <p class="muted">Tape measure once a week — same day, same time, before training. Track these alongside your weight.</p>
-    <div class="grid-3">
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Waist (in)</label>
-        <input type="number" step="0.1" id="m-waist" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Chest (in)</label>
-        <input type="number" step="0.1" id="m-chest" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Hips (in)</label>
-        <input type="number" step="0.1" id="m-hips" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Arms (in)</label>
-        <input type="number" step="0.1" id="m-arms" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Thighs (in)</label>
-        <input type="number" step="0.1" id="m-thighs" oninput="saveMeasurements()">
-      </div>
-      <div class="input-row" style="flex-direction:column; align-items:stretch; gap:4px;">
-        <label>Neck (in)</label>
-        <input type="number" step="0.1" id="m-neck" oninput="saveMeasurements()">
-      </div>
+    <p class="muted" style="margin-top:0;">Estimated 1-rep max (1RM) per exercise, calculated from your logged weight×reps using the Epley formula: <code>1RM = weight × (1 + reps/30)</code>. Each chart is a sparkline of every set you've logged for that lift. Green trend = you're progressing. Hover/tap a dot to see the exact set.</p>
+    <div class="input-row" style="gap:14px; flex-wrap:wrap; margin-top:12px;">
+      <label style="display:flex; align-items:center; gap:6px;">
+        <input type="checkbox" id="lift-show-all" onchange="renderLiftProgress()">
+        Show ALL exercises (not just main lifts)
+      </label>
+      <label style="display:flex; align-items:center; gap:6px;">
+        Sort:
+        <select id="lift-sort" onchange="renderLiftProgress()" style="background:var(--panel-2); color:var(--text); border:1px solid var(--border); padding:4px 8px; border-radius:4px;">
+          <option value="recent">Most recently trained</option>
+          <option value="name">Alphabetical</option>
+          <option value="best">Biggest 1RM gain</option>
+          <option value="pr">Highest PR</option>
+        </select>
+      </label>
     </div>
-    <p class="muted" style="font-size:12px;">Saved automatically.</p>
+    <div id="lift-progress-grid" style="margin-top:16px;"></div>
   </div>
 
   <h2>Red Flags — Adjust the Plan</h2>
@@ -1515,15 +1623,19 @@
     </div>
   </div>
 
+<<<<<<< HEAD
+=======
   <h2>📊 Progress Dashboards (SQL)</h2>
   <div class="card">
     <p>For long-term progress tracking, there's a full SQL database with dashboards in the <code>database/</code> folder of this repo. Export your data here (button above), then upload the JSON to the dashboard for charts of weight trend, lift progression, body composition, recipe cycle history, and weekly spend.</p>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
       <a class="btn" href="database/dashboards.html" target="_blank">📊 Open Dashboards</a>
+      <a class="btn" href="power_level.html" target="_blank">⚡ Check Power Level</a>
       <a class="btn secondary" href="https://github.com/longvy24/Get_Ripped/tree/main/database" target="_blank">📖 Database docs</a>
     </div>
   </div>
 
+>>>>>>> 45e53b6 (db/dashboard update)
   <h2>About This Plan</h2>
   <div class="card">
     <p class="muted">120-day fat loss program. 5 days/week training in a full gym, up to 2 hours per session. No vegetables. Built for an adult with prior training experience but inconsistent recently.</p>
@@ -1582,7 +1694,7 @@ const programData = {
           ["DB Shoulder Press","3 × 10, RPE 6"],["Dead Bug","3 × 10/side"]]},
         {day:"Thu", type:"rest", label:"Rest or 20 min easy bike"},
         {day:"Fri", type:"upper", label:"Full Body C", exercises:[
-          ["Trap Bar Deadlift","3 × 8, RPE 6"],["Incline DB Press","3 × 10, RPE 6"],
+          ["Dumbbell Suitcase Deadlift","3 × 8, RPE 6 — heavy DBs held at sides, stand inside them like a trap bar"],["Incline DB Press","3 × 10, RPE 6"],
           ["Assisted Pull-up","3 × 8, RPE 7"],["Bulgarian Split Squat","2 × 8 each leg"],
           ["Cable Face Pull","3 × 12"],["Side Plank","3 × 20 sec each side"]]},
         {day:"Sat", type:"cond", label:"45 min incline walk @ 3.0 mph / 8%"},
@@ -1603,18 +1715,34 @@ const programData = {
           ["Cable Lateral Raise","3 × 15"],["Seated Cable Row","3 × 12"],
           ["EZ Bar Curl","3 × 12"],["Overhead Cable Triceps Ext","3 × 12"]]},
         {day:"Fri", type:"lower", label:"Lower B", exercises:[
-          ["Trap Bar Deadlift","4 × 6, RPE 7"],["Leg Press","4 × 12"],
-          ["DB Bulgarian Split Squat","3 × 8 each"],["Hip Thrust","3 × 12"],
+          ["Dumbbell Suitcase Deadlift","4 × 6, RPE 7"],["Leg Press","4 × 12"],
+          ["DB Bulgarian Split Squat","3 × 8 each"],["Cable Pull-Through","3 × 12"],
           ["Seated Calf Raise","4 × 15"],["Cable Crunch","3 × 12"]]},
         {day:"Sat", type:"cond", label:"30 min steady cardio"},
         {day:"Sun", type:"rest", label:"Off"}]
       },
       { title: "Week 3 (Days 15–21) — Intro to 5-Day Split", sessions: [
-        {day:"Mon", type:"push", label:"Push (preview of Phase 2)"},
-        {day:"Tue", type:"pull", label:"Pull"},
-        {day:"Wed", type:"legs", label:"Legs"},
-        {day:"Thu", type:"upper", label:"Upper"},
-        {day:"Fri", type:"lower", label:"Lower"},
+        {day:"Mon", type:"push", label:"Push (preview of Phase 2)", exercises:[
+          ["Barbell Bench Press","3 × 8, RPE 7"],["DB Shoulder Press","3 × 10, RPE 7"],
+          ["Incline DB Press","3 × 10"],["Cable Crossover (high → low)","3 × 12"],
+          ["DB Lateral Raise","3 × 12"],["Rope Triceps Pushdown","3 × 12"]]},
+        {day:"Tue", type:"pull", label:"Pull (preview of Phase 2)", exercises:[
+          ["Lat Pulldown","3 × 10, RPE 7"],["Barbell Row","3 × 10, RPE 7"],
+          ["Chest-Supported Row","3 × 10"],["Face Pull","3 × 12"],
+          ["EZ Bar Curl","3 × 10"],["DB Hammer Curl","3 × 12"]]},
+        {day:"Wed", type:"legs", label:"Legs (preview of Phase 2)", exercises:[
+          ["Back Squat","3 × 8, RPE 7"],["Romanian Deadlift","3 × 8, RPE 7"],
+          ["Leg Press","3 × 12"],["Walking Lunge","2 × 10 each leg"],
+          ["Standing Calf Raise","3 × 12"],["Hanging Knee Raise","3 × 10"]]},
+        {day:"Thu", type:"upper", label:"Upper (preview of Phase 2)", exercises:[
+          ["Incline DB Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+          ["Seated DB Shoulder Press","3 × 10"],["Lat Pulldown (wide)","3 × 12"],
+          ["Cable Lateral Raise","3 × 12"],["DB Curl","3 × 12"],
+          ["Triceps Rope Pushdown","3 × 12"]]},
+        {day:"Fri", type:"lower", label:"Lower (preview of Phase 2)", exercises:[
+          ["Dumbbell Suitcase Deadlift","3 × 6, RPE 7"],["Bulgarian Split Squat","3 × 8 each leg"],
+          ["Cable Pull-Through","3 × 10"],["Leg Curl","3 × 12"],
+          ["Seated Calf Raise","3 × 15"],["Cable Crunch","3 × 12"]]},
         {day:"Sat", type:"cond", label:"30 min steady cardio"},
         {day:"Sun", type:"rest", label:"Off"}]
       }
@@ -1623,7 +1751,8 @@ const programData = {
   2: {
     name: "Phase 2: Build", days: "Days 22–60",
     note: "Five days a week. Two-a-days on Mon/Wed/Fri — morning Z2 cardio before work, evening lift. Tuesday and Thursday are single-session lift days (your recovery days from the AM grind).",
-    weeks: [{ title: "Weekly Template (Repeat Days 22–60)", sessions: [
+    weeks: [
+      { title: "Week 1 (Days 22–28) — Acclimate: Step up from 3-day to 5-day split. Use Phase 1 Week 3 loads.", sessions: [
       {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
         ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
         ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
@@ -1635,7 +1764,7 @@ const programData = {
         ["Overhead Triceps Ext","3 × 12"]]},
       {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
         ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
-        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported T-Bar Row","3 × 10"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
         ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
         ["DB Hammer Curl","3 × 12"]]},
       {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
@@ -1655,18 +1784,190 @@ const programData = {
         ["20 min Z2 rower or bike","Steady warm-up"],
         ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
       {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
-        ["Trap Bar Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
-        ["Hip Thrust","4 × 10"],["Single-Leg Press","3 × 10 each"],
-        ["Lying Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
         ["Cable Wood Chop","3 × 10 each"]]},
       {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
       {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
-    }]
+      },
+      { title: "Week 2 (Days 29–35) — Build: Add 5 lb to Bench, Squat, RDL, OHP vs Week 1.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
+        ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
+        ["Fueled or fasted — your call","Black coffee or 1 scoop whey in water is fine"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push (chest, shoulders, triceps)", exercises:[
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"]]},
+      {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"]]},
+      {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min steady bike or stair climber","Z2 pace"],
+        ["Lower impact option for leg day","Saves your legs for PM"]]},
+      {day:"Wed PM", time:"PM", type:"legs", label:"🌙 PM Legs (quads, hams, glutes, calves)", exercises:[
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],["Walking Lunge (DB)","3 × 12 each"],
+        ["Leg Curl","4 × 12"],["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu", type:"upper", label:"PM Upper (single session — no AM cardio)", exercises:[
+        ["Incline Barbell Bench","4 × 8"],["Weighted Pull-up","4 × 8"],
+        ["Seated DB Shoulder Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+        ["Cable Lateral Raise","4 × 15"],["Hammer Curl","3 × 10"],
+        ["Skullcrusher","3 × 10"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 + brief HIIT", exercises:[
+        ["20 min Z2 rower or bike","Steady warm-up"],
+        ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Cable Wood Chop","3 × 10 each"]]},
+      {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
+      },
+      { title: "Week 3 (Days 36–42) — Progress: Add 5 lb again. Push the last set of every main lift.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
+        ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
+        ["Fueled or fasted — your call","Black coffee or 1 scoop whey in water is fine"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push (chest, shoulders, triceps)", exercises:[
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"]]},
+      {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"]]},
+      {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min steady bike or stair climber","Z2 pace"],
+        ["Lower impact option for leg day","Saves your legs for PM"]]},
+      {day:"Wed PM", time:"PM", type:"legs", label:"🌙 PM Legs (quads, hams, glutes, calves)", exercises:[
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],["Walking Lunge (DB)","3 × 12 each"],
+        ["Leg Curl","4 × 12"],["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu", type:"upper", label:"PM Upper (single session — no AM cardio)", exercises:[
+        ["Incline Barbell Bench","4 × 8"],["Weighted Pull-up","4 × 8"],
+        ["Seated DB Shoulder Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+        ["Cable Lateral Raise","4 × 15"],["Hammer Curl","3 × 10"],
+        ["Skullcrusher","3 × 10"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 + brief HIIT", exercises:[
+        ["20 min Z2 rower or bike","Steady warm-up"],
+        ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Cable Wood Chop","3 × 10 each"]]},
+      {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
+      },
+      { title: "Week 4 (Days 43–49) — Push: Add 5 lb more on main lifts. Last set to RPE 8.5.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
+        ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
+        ["Fueled or fasted — your call","Black coffee or 1 scoop whey in water is fine"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push (chest, shoulders, triceps)", exercises:[
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"]]},
+      {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"]]},
+      {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min steady bike or stair climber","Z2 pace"],
+        ["Lower impact option for leg day","Saves your legs for PM"]]},
+      {day:"Wed PM", time:"PM", type:"legs", label:"🌙 PM Legs (quads, hams, glutes, calves)", exercises:[
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],["Walking Lunge (DB)","3 × 12 each"],
+        ["Leg Curl","4 × 12"],["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu", type:"upper", label:"PM Upper (single session — no AM cardio)", exercises:[
+        ["Incline Barbell Bench","4 × 8"],["Weighted Pull-up","4 × 8"],
+        ["Seated DB Shoulder Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+        ["Cable Lateral Raise","4 × 15"],["Hammer Curl","3 × 10"],
+        ["Skullcrusher","3 × 10"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 + brief HIIT", exercises:[
+        ["20 min Z2 rower or bike","Steady warm-up"],
+        ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Cable Wood Chop","3 × 10 each"]]},
+      {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
+      },
+      { title: "Week 5 (Days 50–56) — Peak: Last set of every main lift to RPE 9. Lock in your Phase 2 PRs.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk","3.5 mph / 8% grade, treadmill"],
+        ["Goal: Z2 (conversational but uncomfortable)","Heart rate ~65-75% max"],
+        ["Fueled or fasted — your call","Black coffee or 1 scoop whey in water is fine"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push (chest, shoulders, triceps)", exercises:[
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"]]},
+      {day:"Tue", type:"pull", label:"PM Pull (single session — no AM cardio)", exercises:[
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"]]},
+      {day:"Wed AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min steady bike or stair climber","Z2 pace"],
+        ["Lower impact option for leg day","Saves your legs for PM"]]},
+      {day:"Wed PM", time:"PM", type:"legs", label:"🌙 PM Legs (quads, hams, glutes, calves)", exercises:[
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],["Walking Lunge (DB)","3 × 12 each"],
+        ["Leg Curl","4 × 12"],["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu", type:"upper", label:"PM Upper (single session — no AM cardio)", exercises:[
+        ["Incline Barbell Bench","4 × 8"],["Weighted Pull-up","4 × 8"],
+        ["Seated DB Shoulder Press","3 × 10"],["One-Arm DB Row","3 × 10 each"],
+        ["Cable Lateral Raise","4 × 15"],["Hammer Curl","3 × 10"],
+        ["Skullcrusher","3 × 10"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 + brief HIIT", exercises:[
+        ["20 min Z2 rower or bike","Steady warm-up"],
+        ["10 min intervals (30s on / 30s off)","End-of-week push"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower (posterior emphasis)", exercises:[
+        ["Dumbbell Suitcase Deadlift","4 × 5, RPE 8"],["Bulgarian Split Squat","4 × 8 each"],
+        ["Cable Pull-Through","4 × 10"],["Single-Leg Press","3 × 10 each"],
+        ["Seated Leg Curl","3 × 12"],["Seated Calf Raise","5 × 15"],
+        ["Cable Wood Chop","3 × 10 each"]]},
+      {day:"Sat", type:"cond", label:"☀ Long outdoor walk 45–60 min (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + 15 min stretch"}]
+      },
+      { title: "Days 57–60 — Transition to Phase 3 (active recovery + mid-program photos)", sessions: [
+        {day:"Mon (Day 57)", type:"cond", label:"☀ Active Recovery — 30 min easy walk + 15 min mobility", exercises:[
+          ["30 min Z1 walk (talk normally the whole time)","Recovery, not training"],
+          ["15 min mobility flow","Hips, t-spine, shoulders"]]},
+        {day:"Tue (Day 58)", type:"rest", label:"Rest + mid-program photos and measurements", exercises:[
+          ["Photo: front, side, back in same lighting as Day 1","Compare side-by-side"],
+          ["Measure: waist, chest, arms, thighs","Log to Progress tab"]]},
+        {day:"Wed (Day 59)", type:"cond", label:"☀ Light Z2 Cardio — 30 min, no lifting", exercises:[
+          ["30 min easy bike or walk","Z2, keep it conversational"],
+          ["Stretch hips and shoulders post-cardio","Prepare for Phase 3 intensity"]]},
+        {day:"Thu (Day 60)", type:"rest", label:"Rest + plan Phase 3 — Phase 3 starts tomorrow", exercises:[
+          ["Read Phase 3 overview","Heavier strength + harder conditioning ahead"],
+          ["Set baseline loads for Phase 3 strength days","Bench, Squat, Deadlift starting weights"]]}]
+      }
+    ]
   },
   3: {
     name: "Phase 3: Push", days: "Days 61–90",
     note: "Three two-a-days (Mon/Thu/Fri). Wednesday is conditioning circuit day — single session, hard. Tuesday is heavy lower-body strength — also single to protect recovery.",
-    weeks: [{ title: "Weekly Template (Repeat Days 61–90)", sessions: [
+    weeks: [
+      { title: "Week 1 (Days 61–67) — Foundation: Re-establish two-a-day rhythm. Use Phase 2 working loads.", sessions: [
       {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 35 min Z2", exercises:[
         ["35 min incline walk or steady bike","Z2 pace"],
         ["Fasted okay","Drink a black coffee, get it done"]]},
@@ -1680,9 +1981,10 @@ const programData = {
         ["FFE Split Squat","3 × 8 each"],["Glute-Ham Raise","3 × 8"],
         ["Standing Calf Raise","4 × 10 heavy"],["Heavy Plate Carry","3 × 40 yards"]]},
       {day:"Wed", type:"cond", label:"Conditioning Circuit Day (single session, AM or PM)", exercises:[
+        ["💡 How to run this circuit","Circuit A: do all 4 exercises back-to-back with minimal rest (0-15 sec), then rest 60-90 sec → that's 1 ROUND. Repeat 4× total. Then Treadmill Push (6 trips × 20s hard, 60s rest between). Then Circuit B — same format as A. ~40 min total. LOAD LIGHT — this is heart rate, not strength. Keep moving. Rep quality drops by round 3 and that's fine."],
         ["Circuit A — KB Swing × 15","4 rounds"],["+ Goblet Squat × 12","4 rounds"],
         ["+ Push-up × 12","4 rounds"],["+ TRX/Inverted Row × 12","4 rounds"],
-        ["Sled Push 20 yd","6 trips, heavy"],["Circuit B — Battle Rope 30s","4 rounds"],
+        ["Manual Treadmill Push","6 rounds of 20 sec, 60 sec rest — belt OFF, incline 6-10°, drive with legs"],["Circuit B — Battle Rope 30s","4 rounds"],
         ["+ Box Step-up × 10 each","4 rounds"],["+ DB Thruster × 10","4 rounds"],
         ["+ Plank × 30s","4 rounds"]]},
       {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM HIIT — 15 min rower intervals", exercises:[
@@ -1698,16 +2000,140 @@ const programData = {
       {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Hypertrophy", exercises:[
         ["Hack Squat or Leg Press","4 × 12"],["Romanian Deadlift","4 × 10"],
         ["Walking Lunge","3 × 12 each"],["Leg Curl","4 × 12"],
-        ["Leg Extension","3 × 15"],["Hip Thrust","3 × 12"],
+        ["Leg Extension","3 × 15"],["Cable Pull-Through","3 × 12"],
         ["Seated Calf Raise","4 × 15"]]},
       {day:"Sat", type:"cond", label:"☀ Sprint Day — 8 × 30s @ 85–90%, 90s walk recovery (single, AM)"},
       {day:"Sun", type:"rest", label:"Off + stretch + sauna if available"}]
-    }]
+      },
+      { title: "Week 2 (Days 68–74) — Build: Add 5 lb to Bench, Squat, Deadlift, OHP vs Week 1.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 35 min Z2", exercises:[
+        ["35 min incline walk or steady bike","Z2 pace"],
+        ["Fasted okay","Drink a black coffee, get it done"]]},
+      {day:"Mon PM", time:"PM", type:"upper", label:"🌙 PM Upper Strength (heavy)", exercises:[
+        ["Bench Press","5 × 5, RPE 8 (rest 3 min)"],["Weighted Pull-up","5 × 5, RPE 8"],
+        ["Standing OHP","4 × 6, RPE 8"],["Pendlay Row","4 × 6"],
+        ["DB Lateral Raise","3 × 15"],["Barbell Curl","3 × 8"],
+        ["Close-Grip Bench","3 × 8"]]},
+      {day:"Tue", type:"lower", label:"PM Lower Strength (single session — recovery from heavy AM Mon)", exercises:[
+        ["Back Squat","5 × 5, RPE 8 (rest 3 min)"],["Deadlift","4 × 4, RPE 8 (rest 3–4 min)"],
+        ["FFE Split Squat","3 × 8 each"],["Glute-Ham Raise","3 × 8"],
+        ["Standing Calf Raise","4 × 10 heavy"],["Heavy Plate Carry","3 × 40 yards"]]},
+      {day:"Wed", type:"cond", label:"Conditioning Circuit Day (single session, AM or PM)", exercises:[
+        ["💡 How to run this circuit","Circuit A: do all 4 exercises back-to-back with minimal rest (0-15 sec), then rest 60-90 sec → that's 1 ROUND. Repeat 4× total. Then Treadmill Push (6 trips × 20s hard, 60s rest between). Then Circuit B — same format as A. ~40 min total. LOAD LIGHT — this is heart rate, not strength. Keep moving. Rep quality drops by round 3 and that's fine."],
+        ["Circuit A — KB Swing × 15","4 rounds"],["+ Goblet Squat × 12","4 rounds"],
+        ["+ Push-up × 12","4 rounds"],["+ TRX/Inverted Row × 12","4 rounds"],
+        ["Manual Treadmill Push","6 rounds of 20 sec, 60 sec rest — belt OFF, incline 6-10°, drive with legs"],["Circuit B — Battle Rope 30s","4 rounds"],
+        ["+ Box Step-up × 10 each","4 rounds"],["+ DB Thruster × 10","4 rounds"],
+        ["+ Plank × 30s","4 rounds"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM HIIT — 15 min rower intervals", exercises:[
+        ["12 min rowing intervals (250m on / 60s off)","All-out efforts"],
+        ["Plus 3-5 min easy cool-down","Tough but short"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Hypertrophy", exercises:[
+        ["Incline DB Press","4 × 10"],["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],["Lat Pulldown (neutral)","3 × 12"],
+        ["Seated DB Press","3 × 10"],["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],["Triceps Rope Pushdown","3 × 12"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 stair climber", exercises:[
+        ["30 min stair climber, Z2 pace","Save energy for PM lower"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Hypertrophy", exercises:[
+        ["Hack Squat or Leg Press","4 × 12"],["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each"],["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"]]},
+      {day:"Sat", type:"cond", label:"☀ Sprint Day — 8 × 30s @ 85–90%, 90s walk recovery (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + sauna if available"}]
+      },
+      { title: "Week 3 (Days 75–81) — Push: Add 5 lb again on all main lifts. Last set to RPE 8.5.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 35 min Z2", exercises:[
+        ["35 min incline walk or steady bike","Z2 pace"],
+        ["Fasted okay","Drink a black coffee, get it done"]]},
+      {day:"Mon PM", time:"PM", type:"upper", label:"🌙 PM Upper Strength (heavy)", exercises:[
+        ["Bench Press","5 × 5, RPE 8 (rest 3 min)"],["Weighted Pull-up","5 × 5, RPE 8"],
+        ["Standing OHP","4 × 6, RPE 8"],["Pendlay Row","4 × 6"],
+        ["DB Lateral Raise","3 × 15"],["Barbell Curl","3 × 8"],
+        ["Close-Grip Bench","3 × 8"]]},
+      {day:"Tue", type:"lower", label:"PM Lower Strength (single session — recovery from heavy AM Mon)", exercises:[
+        ["Back Squat","5 × 5, RPE 8 (rest 3 min)"],["Deadlift","4 × 4, RPE 8 (rest 3–4 min)"],
+        ["FFE Split Squat","3 × 8 each"],["Glute-Ham Raise","3 × 8"],
+        ["Standing Calf Raise","4 × 10 heavy"],["Heavy Plate Carry","3 × 40 yards"]]},
+      {day:"Wed", type:"cond", label:"Conditioning Circuit Day (single session, AM or PM)", exercises:[
+        ["💡 How to run this circuit","Circuit A: do all 4 exercises back-to-back with minimal rest (0-15 sec), then rest 60-90 sec → that's 1 ROUND. Repeat 4× total. Then Treadmill Push (6 trips × 20s hard, 60s rest between). Then Circuit B — same format as A. ~40 min total. LOAD LIGHT — this is heart rate, not strength. Keep moving. Rep quality drops by round 3 and that's fine."],
+        ["Circuit A — KB Swing × 15","4 rounds"],["+ Goblet Squat × 12","4 rounds"],
+        ["+ Push-up × 12","4 rounds"],["+ TRX/Inverted Row × 12","4 rounds"],
+        ["Manual Treadmill Push","6 rounds of 20 sec, 60 sec rest — belt OFF, incline 6-10°, drive with legs"],["Circuit B — Battle Rope 30s","4 rounds"],
+        ["+ Box Step-up × 10 each","4 rounds"],["+ DB Thruster × 10","4 rounds"],
+        ["+ Plank × 30s","4 rounds"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM HIIT — 15 min rower intervals", exercises:[
+        ["12 min rowing intervals (250m on / 60s off)","All-out efforts"],
+        ["Plus 3-5 min easy cool-down","Tough but short"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Hypertrophy", exercises:[
+        ["Incline DB Press","4 × 10"],["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],["Lat Pulldown (neutral)","3 × 12"],
+        ["Seated DB Press","3 × 10"],["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],["Triceps Rope Pushdown","3 × 12"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 stair climber", exercises:[
+        ["30 min stair climber, Z2 pace","Save energy for PM lower"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Hypertrophy", exercises:[
+        ["Hack Squat or Leg Press","4 × 12"],["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each"],["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"]]},
+      {day:"Sat", type:"cond", label:"☀ Sprint Day — 8 × 30s @ 85–90%, 90s walk recovery (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + sauna if available"}]
+      },
+      { title: "Week 4 (Days 82–88) — Peak: Push the last set of every main lift to RPE 9 (1 rep in reserve).", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 35 min Z2", exercises:[
+        ["35 min incline walk or steady bike","Z2 pace"],
+        ["Fasted okay","Drink a black coffee, get it done"]]},
+      {day:"Mon PM", time:"PM", type:"upper", label:"🌙 PM Upper Strength (heavy)", exercises:[
+        ["Bench Press","5 × 5, RPE 8 (rest 3 min)"],["Weighted Pull-up","5 × 5, RPE 8"],
+        ["Standing OHP","4 × 6, RPE 8"],["Pendlay Row","4 × 6"],
+        ["DB Lateral Raise","3 × 15"],["Barbell Curl","3 × 8"],
+        ["Close-Grip Bench","3 × 8"]]},
+      {day:"Tue", type:"lower", label:"PM Lower Strength (single session — recovery from heavy AM Mon)", exercises:[
+        ["Back Squat","5 × 5, RPE 8 (rest 3 min)"],["Deadlift","4 × 4, RPE 8 (rest 3–4 min)"],
+        ["FFE Split Squat","3 × 8 each"],["Glute-Ham Raise","3 × 8"],
+        ["Standing Calf Raise","4 × 10 heavy"],["Heavy Plate Carry","3 × 40 yards"]]},
+      {day:"Wed", type:"cond", label:"Conditioning Circuit Day (single session, AM or PM)", exercises:[
+        ["💡 How to run this circuit","Circuit A: do all 4 exercises back-to-back with minimal rest (0-15 sec), then rest 60-90 sec → that's 1 ROUND. Repeat 4× total. Then Treadmill Push (6 trips × 20s hard, 60s rest between). Then Circuit B — same format as A. ~40 min total. LOAD LIGHT — this is heart rate, not strength. Keep moving. Rep quality drops by round 3 and that's fine."],
+        ["Circuit A — KB Swing × 15","4 rounds"],["+ Goblet Squat × 12","4 rounds"],
+        ["+ Push-up × 12","4 rounds"],["+ TRX/Inverted Row × 12","4 rounds"],
+        ["Manual Treadmill Push","6 rounds of 20 sec, 60 sec rest — belt OFF, incline 6-10°, drive with legs"],["Circuit B — Battle Rope 30s","4 rounds"],
+        ["+ Box Step-up × 10 each","4 rounds"],["+ DB Thruster × 10","4 rounds"],
+        ["+ Plank × 30s","4 rounds"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM HIIT — 15 min rower intervals", exercises:[
+        ["12 min rowing intervals (250m on / 60s off)","All-out efforts"],
+        ["Plus 3-5 min easy cool-down","Tough but short"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Hypertrophy", exercises:[
+        ["Incline DB Press","4 × 10"],["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],["Lat Pulldown (neutral)","3 × 12"],
+        ["Seated DB Press","3 × 10"],["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],["Triceps Rope Pushdown","3 × 12"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 stair climber", exercises:[
+        ["30 min stair climber, Z2 pace","Save energy for PM lower"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Hypertrophy", exercises:[
+        ["Hack Squat or Leg Press","4 × 12"],["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each"],["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"]]},
+      {day:"Sat", type:"cond", label:"☀ Sprint Day — 8 × 30s @ 85–90%, 90s walk recovery (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + sauna if available"}]
+      },
+      { title: "Days 89–90 — Transition to Phase 4 (active recovery + baseline photos)", sessions: [
+        {day:"Mon (Day 89)", type:"cond", label:"☀ Active Recovery — 30 min easy walk + 15 min full-body mobility", exercises:[
+          ["30 min Z1 walk (talk normally the whole time)","Recovery, not training"],
+          ["15 min mobility flow","Hips, t-spine, shoulders"]]},
+        {day:"Tue (Day 90)", type:"rest", label:"Rest + take Phase 4 baseline photos and measurements", exercises:[
+          ["Photo: front, side, back in same lighting as Day 1","Compare side-by-side later"],
+          ["Measure: waist, chest, arms, thighs","Log to Progress tab"]]}]
+      }
+    ]
   },
   4: {
     name: "Phase 4: Peak/Cut", days: "Days 91–120",
     note: "Four two-a-days (Mon/Tue/Thu/Fri). Wednesday legs stays single — too heavy to two-a-day. This is the most aggressive phase; protect sleep and food.",
-    weeks: [{ title: "Weekly Template (Repeat Days 91–120)", sessions: [
+    weeks: [
+      { title: "Week 1 (Days 91–97) — Adapt: Establish four two-a-days/week. Conservative loads to absorb the volume.", sessions: [
       {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
         ["30 min incline walk @ 3.5 / 8%","Z2 fat-loss pace"]]},
       {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push + Finisher A", exercises:[
@@ -1730,7 +2156,7 @@ const programData = {
         ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
         ["Barbell Row","4 × 8, RPE 8"],
         ["Lat Pulldown (close grip)","3 × 10"],
-        ["Chest-Supported T-Bar Row","3 × 10"],
+        ["Chest-Supported DB Row","3 × 10"],
         ["Face Pull","4 × 15"],
         ["EZ Bar Curl","4 × 10"],
         ["DB Hammer Curl","3 × 12"],
@@ -1772,7 +2198,7 @@ const programData = {
         ["Walking Lunge","3 × 12 each leg"],
         ["Leg Curl","4 × 12"],
         ["Leg Extension","3 × 15"],
-        ["Hip Thrust","3 × 12"],
+        ["Cable Pull-Through","3 × 12"],
         ["Seated Calf Raise","4 × 15"],
         ["━━ Finisher D ━━","3 rounds, 75s rest between rounds"],
         ["Goblet Squat","15 reps × 3 rounds"],
@@ -1780,7 +2206,240 @@ const programData = {
         ["Plank","45 sec × 3 rounds"]]},
       {day:"Sat", type:"cond", label:"☀ Long walk 60–75 min, fasted if possible — Z1 (single, AM)"},
       {day:"Sun", type:"rest", label:"Off + stretch + meal prep"}]
-    }]
+      },
+      { title: "Week 2 (Days 98–104) — Cut Volume: Stay at standard loads. Eat in deficit, hit every set.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk @ 3.5 / 8%","Z2 fat-loss pace"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push + Finisher A", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],
+        ["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],
+        ["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],
+        ["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"],
+        ["━━ Finisher A ━━","3 rounds, 60s rest between rounds"],
+        ["Push-up","15 reps × 3 rounds"],
+        ["DB Push Press","10 reps × 3 rounds"],
+        ["Battle Rope","30 sec × 3 rounds"]]},
+      {day:"Tue AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 bike", exercises:[
+        ["30 min steady bike","Z2, lower-impact day"]]},
+      {day:"Tue PM", time:"PM", type:"pull", label:"🌙 PM Pull + Finisher B", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
+        ["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],
+        ["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"],
+        ["━━ Finisher B ━━","3 rounds, 60s rest between rounds"],
+        ["KB Swing","20 reps × 3 rounds"],
+        ["Inverted Row","12 reps × 3 rounds"],
+        ["Farmer Carry","40 yd × 3 rounds"]]},
+      {day:"Wed", type:"legs", label:"PM Legs (heavy, single session — protect recovery)", exercises:[
+        ["💡 Keep ALL volume","Wed is the hardest day — don't drop accessories. Eat big, sleep hard."],
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],
+        ["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],
+        ["Walking Lunge (DB)","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],
+        ["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM Cardio — 15 min HIIT rower", exercises:[
+        ["15 min rower intervals (250m on / 60s off)","Hard"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Volume + Finisher C", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Incline DB Press","4 × 10"],
+        ["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],
+        ["Lat Pulldown (neutral grip)","3 × 12"],
+        ["Seated DB Press","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],
+        ["Triceps Rope Pushdown","3 × 12"],
+        ["━━ Finisher C ━━","Superset, every 90s × 6 rounds"],
+        ["DB Thruster","8 reps × 6 rounds"],
+        ["Pull-up","5 reps × 6 rounds"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min stair climber or incline walk","Z2"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Volume + Finisher D", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Hack Squat or Leg Press","4 × 12"],
+        ["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"],
+        ["━━ Finisher D ━━","3 rounds, 75s rest between rounds"],
+        ["Goblet Squat","15 reps × 3 rounds"],
+        ["Box Jump (low) or Step-up","10 reps × 3 rounds"],
+        ["Plank","45 sec × 3 rounds"]]},
+      {day:"Sat", type:"cond", label:"☀ Long walk 60–75 min, fasted if possible — Z1 (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + meal prep"}]
+      },
+      { title: "Week 3 (Days 105–111) — Cut Intensity: Add 5 lb on Bench/Squat/RDL. Push finishers harder.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk @ 3.5 / 8%","Z2 fat-loss pace"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push + Finisher A", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],
+        ["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],
+        ["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],
+        ["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"],
+        ["━━ Finisher A ━━","3 rounds, 60s rest between rounds"],
+        ["Push-up","15 reps × 3 rounds"],
+        ["DB Push Press","10 reps × 3 rounds"],
+        ["Battle Rope","30 sec × 3 rounds"]]},
+      {day:"Tue AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 bike", exercises:[
+        ["30 min steady bike","Z2, lower-impact day"]]},
+      {day:"Tue PM", time:"PM", type:"pull", label:"🌙 PM Pull + Finisher B", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
+        ["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],
+        ["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"],
+        ["━━ Finisher B ━━","3 rounds, 60s rest between rounds"],
+        ["KB Swing","20 reps × 3 rounds"],
+        ["Inverted Row","12 reps × 3 rounds"],
+        ["Farmer Carry","40 yd × 3 rounds"]]},
+      {day:"Wed", type:"legs", label:"PM Legs (heavy, single session — protect recovery)", exercises:[
+        ["💡 Keep ALL volume","Wed is the hardest day — don't drop accessories. Eat big, sleep hard."],
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],
+        ["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],
+        ["Walking Lunge (DB)","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],
+        ["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM Cardio — 15 min HIIT rower", exercises:[
+        ["15 min rower intervals (250m on / 60s off)","Hard"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Volume + Finisher C", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Incline DB Press","4 × 10"],
+        ["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],
+        ["Lat Pulldown (neutral grip)","3 × 12"],
+        ["Seated DB Press","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],
+        ["Triceps Rope Pushdown","3 × 12"],
+        ["━━ Finisher C ━━","Superset, every 90s × 6 rounds"],
+        ["DB Thruster","8 reps × 6 rounds"],
+        ["Pull-up","5 reps × 6 rounds"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min stair climber or incline walk","Z2"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Volume + Finisher D", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Hack Squat or Leg Press","4 × 12"],
+        ["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"],
+        ["━━ Finisher D ━━","3 rounds, 75s rest between rounds"],
+        ["Goblet Squat","15 reps × 3 rounds"],
+        ["Box Jump (low) or Step-up","10 reps × 3 rounds"],
+        ["Plank","45 sec × 3 rounds"]]},
+      {day:"Sat", type:"cond", label:"☀ Long walk 60–75 min, fasted if possible — Z1 (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + meal prep"}]
+      },
+      { title: "Week 4 (Days 112–118) — Peak Cut: Last set of main lifts to RPE 9. Finishers: zero rest between moves.", sessions: [
+      {day:"Mon AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min incline walk @ 3.5 / 8%","Z2 fat-loss pace"]]},
+      {day:"Mon PM", time:"PM", type:"push", label:"🌙 PM Push + Finisher A", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Barbell Bench Press","4 × 6–8, RPE 8"],
+        ["Standing Overhead Press","4 × 6–8, RPE 8"],
+        ["Incline DB Press","3 × 10, RPE 8"],
+        ["Cable Crossover (high → low)","3 × 12"],
+        ["DB Lateral Raise","4 × 12–15"],
+        ["Rope Triceps Pushdown","3 × 12"],
+        ["Overhead Triceps Ext","3 × 12"],
+        ["━━ Finisher A ━━","3 rounds, 60s rest between rounds"],
+        ["Push-up","15 reps × 3 rounds"],
+        ["DB Push Press","10 reps × 3 rounds"],
+        ["Battle Rope","30 sec × 3 rounds"]]},
+      {day:"Tue AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2 bike", exercises:[
+        ["30 min steady bike","Z2, lower-impact day"]]},
+      {day:"Tue PM", time:"PM", type:"pull", label:"🌙 PM Pull + Finisher B", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Pull-up (or Assisted)","4 × AMRAP (target 6–10)"],
+        ["Barbell Row","4 × 8, RPE 8"],
+        ["Lat Pulldown (close grip)","3 × 10"],
+        ["Chest-Supported DB Row","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["EZ Bar Curl","4 × 10"],
+        ["DB Hammer Curl","3 × 12"],
+        ["━━ Finisher B ━━","3 rounds, 60s rest between rounds"],
+        ["KB Swing","20 reps × 3 rounds"],
+        ["Inverted Row","12 reps × 3 rounds"],
+        ["Farmer Carry","40 yd × 3 rounds"]]},
+      {day:"Wed", type:"legs", label:"PM Legs (heavy, single session — protect recovery)", exercises:[
+        ["💡 Keep ALL volume","Wed is the hardest day — don't drop accessories. Eat big, sleep hard."],
+        ["Back Squat","4 × 6, RPE 8 (rest 3 min)"],
+        ["Romanian Deadlift","4 × 8, RPE 8"],
+        ["Leg Press","3 × 12"],
+        ["Walking Lunge (DB)","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Standing Calf Raise","5 × 12"],
+        ["Hanging Leg Raise","3 × 10"]]},
+      {day:"Thu AM", time:"AM", type:"cond", label:"☀ AM Cardio — 15 min HIIT rower", exercises:[
+        ["15 min rower intervals (250m on / 60s off)","Hard"]]},
+      {day:"Thu PM", time:"PM", type:"upper", label:"🌙 PM Upper Volume + Finisher C", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Incline DB Press","4 × 10"],
+        ["Chest-Supported Row","4 × 10"],
+        ["Cable Fly","3 × 12"],
+        ["Lat Pulldown (neutral grip)","3 × 12"],
+        ["Seated DB Press","3 × 10"],
+        ["Face Pull","4 × 15"],
+        ["Hammer Curl","3 × 12"],
+        ["Triceps Rope Pushdown","3 × 12"],
+        ["━━ Finisher C ━━","Superset, every 90s × 6 rounds"],
+        ["DB Thruster","8 reps × 6 rounds"],
+        ["Pull-up","5 reps × 6 rounds"]]},
+      {day:"Fri AM", time:"AM", type:"cond", label:"☀ AM Cardio — 30 min Z2", exercises:[
+        ["30 min stair climber or incline walk","Z2"]]},
+      {day:"Fri PM", time:"PM", type:"lower", label:"🌙 PM Lower Volume + Finisher D", exercises:[
+        ["💡 Drop ONE accessory (any exercise WITHOUT the MAIN badge)","Phase 4 is high-volume. Pick what you're sick of, or rotate weekly."],
+        ["Hack Squat or Leg Press","4 × 12"],
+        ["Romanian Deadlift","4 × 10"],
+        ["Walking Lunge","3 × 12 each leg"],
+        ["Leg Curl","4 × 12"],
+        ["Leg Extension","3 × 15"],
+        ["Cable Pull-Through","3 × 12"],
+        ["Seated Calf Raise","4 × 15"],
+        ["━━ Finisher D ━━","3 rounds, 75s rest between rounds"],
+        ["Goblet Squat","15 reps × 3 rounds"],
+        ["Box Jump (low) or Step-up","10 reps × 3 rounds"],
+        ["Plank","45 sec × 3 rounds"]]},
+      {day:"Sat", type:"cond", label:"☀ Long walk 60–75 min, fasted if possible — Z1 (single, AM)"},
+      {day:"Sun", type:"rest", label:"Off + stretch + meal prep"}]
+      },
+      { title: "Days 119–120 — Final Days (last long walk + final measurements)", sessions: [
+        {day:"Sat (Day 119)", type:"cond", label:"☀ Final Long Walk 60-75 min — Z1 (single, AM)", exercises:[
+          ["60-75 min fasted Z1 walk","Last cardio session of the program"],
+          ["Reflect: how far you've come","Notice everything that's different vs Day 1"]]},
+        {day:"Sun (Day 120)", type:"rest", label:"🏁 FINAL DAY — Photos, measurements, weigh-in, celebrate", exercises:[
+          ["Final photos: front, side, back","Same lighting, shorts as Day 1 — for the side-by-side"],
+          ["Final measurements: waist, chest, arms, thighs, neck","Compare to Day 1 numbers in the Progress tab"],
+          ["Final weigh-in: empty stomach, post-bathroom","Trust the 120-day trend, not the one number"],
+          ["Plan what comes next","Maintenance? Another cut? Recomp? Pick your direction."]]}]
+      }
+    ]
   }
 };
 
@@ -1821,6 +2480,7 @@ const exerciseGuide = {
   "barbell row": ["Hinge at hips to ~45°; soft knees","Bar at mid-thigh; row to lower chest/upper abs","Squeeze shoulder blades together at the top","Torso stays still — no body english"],
   "pendlay row": ["Like barbell row but bar resets on floor each rep","Explosive concentric, dead stop reset","Forces strict form — great for power"],
   "chest-supported row": ["Chest pinned against pad — no lower back stress","Pull DBs/handles to your hips","Squeeze blades together hard at the top"],
+  "chest-supported db row": ["Set an incline bench to ~30°","Lie chest-down on the bench, DBs hanging at arm's length","Row DBs to your hips (not your armpits) — elbows track close to your sides","Squeeze your shoulder blades HARD at the top, hold 1 sec","Slow on the way down — no swinging or kipping","Chest stays GLUED to the pad the whole set; if it lifts, the weight's too heavy"],
   "chest-supported t-bar row": ["Chest on pad, feet braced","Row handles to lower chest/abs","Neutral grip eases shoulder stress"],
   "t-bar row": ["Straddle the bar, hinge to 45°","Pull handles to lower chest","Strong squeeze at the top"],
   "seated cable row": ["Tall posture; sit upright, slight back lean okay","Pull handle to lower chest/upper abs","Squeeze blades, control the release"],
@@ -1849,12 +2509,19 @@ const exerciseGuide = {
   "romanian deadlift": ["Soft knees — bend knees ONCE at the start, then they don't move","Hinge at hips; bar slides down front of legs","Push hips back; feel hamstring stretch","Drive hips forward to stand — don't squat the weight up"],
   "deadlift": ["Bar over mid-foot, an inch from your shins","Hips below shoulders; flat back, chest up","Push the floor away — drive through whole foot","Lock out with hips and shoulders at the same time"],
   "trap bar deadlift": ["Stand inside the trap bar","More squat-like position than barbell — easier on lower back","Neutral spine; drive floor away"],
+  "dumbbell suitcase deadlift": ["Set heavy DBs on the floor at your sides — handles parallel to your feet","Squat down with neutral spine, chest up, grab the handles","Brace core HARD before lifting; drive through your heels","Keep DBs close to your sides — don't let them swing forward","Stand tall, squeeze glutes at the top","Lower with control: push hips back FIRST, then bend knees","Grip is the limit — that's the point; it builds forearms and traps too"],
+  "db suitcase deadlift": ["See dumbbell suitcase deadlift"],
+  "suitcase deadlift": ["See dumbbell suitcase deadlift"],
   "db romanian deadlift": ["DBs in front of thighs","Same hinge pattern as barbell RDL","Easier setup — great for learning the hinge"],
   "hip thrust": ["Upper back on bench, bar on hip crease (USE A PAD)","Feet planted, knees ~90° at the top","Drive hips up; squeeze glutes HARD","Don't hyperextend lower back; full hip extension only"],
+  "cable pull-through": ["Cable rope attachment, pulley set to LOW (floor level)","Face away from the stack, rope between your legs, take 2-3 steps forward to load the cable","Feet shoulder-width, soft knees (slight bend, locked there for the whole set)","Hinge at hips — push butt BACK toward the cable stack until you feel a hamstring stretch","Drive hips FORWARD to stand tall, squeeze glutes HARD at the top","Arms stay straight the entire rep — they're just hooks, not pullers","Don't squat the weight up — it's a HINGE, not a squat","Same glute focus as a hip thrust, way easier setup, no bar-on-hip awkwardness"],
+  "cable pullthrough": ["See cable pull-through"],
+  "pull-through": ["See cable pull-through"],
   "glute bridge": ["On the floor, same pattern as hip thrust","Bar or DB on hips for resistance","Squeeze glutes at the top"],
   "glute-ham raise": ["Ankles locked, knees on the pad","Lower torso slowly with control","Contract hamstrings hard to pull yourself back up","Use band assist if needed — it's hard"],
   "leg curl": ["Pad sits on your achilles, not your calf","Full ROM — curl hamstring fully","Slow on the eccentric"],
   "lying leg curl": ["Same cues as leg curl","Don't let hips lift off the pad"],
+  "seated leg curl": ["Sit upright, thigh pad locked down on top of your quads","Pad behind your ankles (NOT on your calves)","Curl heels DOWN and under by squeezing the hamstrings","Brief pause at the bottom of the rep — full contraction","Slow on the way back up (3 seconds) — the eccentric is where growth happens","Stretched starting position = slightly more hypertrophy than lying leg curl"],
   "leg extension": ["Pad sits on top of your ankle","Full extension at the top, brief pause","Slow eccentric — don't slam the stack"],
   "standing calf raise": ["Balls of feet on the platform, heels off","Full stretch at the bottom","Full contraction at the top, brief pause","Slow controlled reps — calves respond to time under tension"],
   "seated calf raise": ["Targets the soleus (deeper calf)","Same ROM cues as standing","Heavier weight is fine — soleus is strong"],
@@ -1871,6 +2538,8 @@ const exerciseGuide = {
   "db thruster": ["DBs at shoulders","Squat down to parallel","Drive up explosively, transition into overhead press","Squat + press = one fluid motion"],
   "dumbbell thruster": ["See db thruster"],
   "sled push": ["Low body angle, hands on the handles","Drive knees and arms hard","Short choppy steps — power, not jogging"],
+  "manual treadmill push": ["Turn the treadmill OFF (or set to lowest speed if it won't stop)","Set incline to 6-10° for real resistance","Grip the handrails firmly for stability","Get low — lean forward at the hips, athletic stance","DRIVE the belt with your legs — no motor assist","Short choppy steps, push through the ball of the foot","20 seconds hard, 60 seconds rest, 6 rounds total","Planet Fitness sled-push alternative — same quad/glute burn, same cardio kick"],
+  "treadmill push": ["See manual treadmill push"],
   "inverted row": ["Bar at hip height; lie under it","Body straight from heels to head","Pull chest to bar; squeeze blades","Harder: feet elevated"],
   "trx row": ["Same cues as inverted row","Lean back farther = harder"],
   "trx/inverted row": ["See inverted row"],
@@ -1940,7 +2609,7 @@ const exerciseAlts = {
     {name:"Triceps Dip Machine", why:"Locked path, can push to failure safely"}
   ],
   "deadlift": [
-    {name:"Trap Bar Deadlift", why:"Already in your plan — center of mass aligned, easier on lower back, easy to drop if you fail"},
+    {name:"Dumbbell Suitcase Deadlift", why:"Already in your plan — load at your sides like a trap bar, easier on the lower back, easy to drop if you fail"},
     {name:"Romanian Deadlift", why:"Already in your plan — partial ROM, far less spinal load"},
     {name:"Rack Pulls (pins set at knee height)", why:"Shortened ROM means heavier weight at the lockout, less injury risk"},
     {name:"Note: deadlift is safe to fail alone — just drop the bar","why":"Unlike bench/squat, you can always release the bar. No spotter needed even for max lifts."}
@@ -1955,7 +2624,7 @@ function findAlts(name) {
     .trim();
   if (exerciseAlts[n]) return exerciseAlts[n];
   // If the exercise is ALREADY a safer alternative, no alts icon needed
-  const alreadySafe = ['dumbbell ', 'db ', 'goblet ', 'trap bar ', 'romanian ', 'smith ', 'machine ', 'cable ', 'hack ', 'leg ', 'seated ', 'incline db', 'one-arm ', 'single-arm '];
+  const alreadySafe = ['dumbbell ', 'db ', 'goblet ', 'trap bar ', 'suitcase ', 'romanian ', 'smith ', 'machine ', 'cable ', 'hack ', 'leg ', 'seated ', 'incline db', 'one-arm ', 'single-arm '];
   if (alreadySafe.some(p => n.startsWith(p))) return null;
   const variants = [
     n.replace(/^barbell /, ''),
@@ -1999,9 +2668,9 @@ function isMainLift(name) {
     'lat pulldown',
     // LOWER BODY
     'back squat', 'front squat', 'goblet squat',
-    'deadlift', 'trap bar', 'romanian',
+    'deadlift', 'trap bar', 'suitcase deadlift', 'romanian',
     'hack squat', 'leg press',
-    'hip thrust',
+    'hip thrust', 'cable pull-through', 'pull-through',
     'bulgarian split squat', 'ffe split squat', 'split squat',
     'glute-ham raise'
   ];
@@ -2104,49 +2773,49 @@ const mealSplit = [
 const meals = [
   { day:"Day 1 (Mon, Push)", dailyMult:{cal:1.00, c:1.00, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon — prep 5 jars Sunday, soaks overnight) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey, 60-sec blend)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon — prep 5 jars Sunday, soaks overnight) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey, 60-sec blend)", slot:0},
       {n:"Mid-Morning", t:"PB Banana shake — cheap whey, milk, banana, 1 tbsp store-brand PB", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Mon lunch portion from Sunday's giant batch)", slot:2},
       {n:"Pre-Workout", t:"🥤 Pre-WO Shake (1.5 scoops whey + 1 cup milk + 1 banana + 1 tsp honey) — OR — 🥄 Greek yogurt bowl (1.5 cups + 1/4 cup granola + 1 banana)", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.25 servings + 1.5 cups rice (post-workout dinner portion)", slot:4}]},
   { day:"Day 2 (Tue, Pull)", dailyMult:{cal:1.00, c:1.00, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
       {n:"Mid-Morning", t:"Greek yogurt (1.5 cups, store brand) + 1/4 cup granola + cinnamon", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Tue lunch portion)", slot:2},
       {n:"Pre-Workout", t:"🥤 Pre-WO Shake (1.5 scoops whey + 1 cup milk + 1 banana + 1 tsp honey) — OR — 🥄 Greek yogurt bowl (1.5 cups + 1/4 cup granola + 1 banana)", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.25 servings + 1.5 cups rice", slot:4}]},
   { day:"Day 3 (Wed, Legs — carb up)", dailyMult:{cal:1.10, c:1.30, f:0.95},
     items:[
-      {n:"Breakfast", t:"🌾 Mass Overnight Oats (3/4c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + 1 tbsp honey — carb up for legs day) — OR — 🥤 Mass Shake (2 scoops whey + 1.5c milk + banana + 1/2c oats blended + 1 tbsp PB)", slot:0},
+      {n:"Breakfast", t:"🌾 Mass Overnight Oats (3/4c oats + 1c milk + 1 scoop whey + 1c frozen berries + 1 tbsp PB + 1 tbsp honey — carb up for legs day) — OR — 🥤 Mass Shake (2 scoops whey + 1.5c milk + banana + 1/2c oats blended + 1 tbsp PB)", slot:0},
       {n:"Mid-Morning", t:"Strawberry shake — whey, milk, frozen strawberries (cheapest frozen fruit)", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1.5 cups rice (Wed lunch, extra carbs for legs day)", slot:2},
       {n:"Pre-Workout", t:"🥤 Mass Pre-WO Shake (2 scoops whey + 1 cup milk + 1 banana + 1/2 cup oats blended + 1 tsp honey) — OR — 🥄 Big Yogurt Bowl (1.5 cups + 1/2 cup granola + 1 banana + 1 tbsp honey) — extra carbs for legs day", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.5 servings + 2 cups rice (carb-up post legs)", slot:4}]},
   { day:"Day 4 (Thu, Upper)", dailyMult:{cal:1.00, c:1.00, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
       {n:"Mid-Morning", t:"PB Banana shake (skip almond butter — too pricey)", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Thu lunch portion)", slot:2},
       {n:"Pre-Workout", t:"🥤 Pre-WO Shake (1.5 scoops whey + 1 cup milk + 1 banana + 1 tsp honey) — OR — 🥄 Greek yogurt bowl (1.5 cups + 1/4 cup granola + 1 banana)", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.25 servings + 1.5 cups rice", slot:4}]},
   { day:"Day 5 (Fri, Lower)", dailyMult:{cal:1.00, c:1.00, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
       {n:"Mid-Morning", t:"Greek yogurt (1.5 cups, store brand) + 1/4 cup granola + cinnamon", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Fri lunch portion)", slot:2},
       {n:"Pre-Workout", t:"🥤 Pre-WO Shake (1.5 scoops whey + 1 cup milk + 1 banana + 1 tsp honey) — OR — 🥄 Greek yogurt bowl (1.5 cups + 1/4 cup granola + 1 banana)", slot:3},
       {n:"Post-WO Dinner", t:"🍳 Same as lunch — 1.25 servings + 1.5 cups rice", slot:4}]},
   { day:"Day 6 (Sat, Walk)", dailyMult:{cal:0.95, c:0.95, f:1.00},
     items:[
-      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 1 banana + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
+      {n:"Breakfast", t:"🌾 Overnight Oats Jar (1/2c oats + 1c milk + 1 scoop whey + 3/4c frozen berries + 1 tbsp PB + cinnamon) — OR — 🥤 Power Shake (2 scoops whey + 1c milk + banana + 1/4c oats blended + 1 tsp honey)", slot:0},
       {n:"Mid-Morning", t:"PB Banana shake", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1 cup rice (Sat lunch, lighter day)", slot:2},
       {n:"Mid-Afternoon", t:"Greek yogurt (1.5 cups) + 1/4 cup granola + cinnamon, or 1 apple", slot:3},
       {n:"Dinner", t:"🍳 Same as lunch — 1 serving + 1 cup rice (no training, keep dinner normal-sized)", slot:4}]},
   { day:"Day 7 (Sun, Rest — lower carbs)", dailyMult:{cal:0.90, c:0.65, f:1.10},
     items:[
-      {n:"Breakfast", t:"🌾 Light Overnight Oats (1/3c oats + 1c milk + 1 scoop whey + cinnamon, skip banana — rest day, lower carbs) — OR — 🥤 Lean Shake (2 scoops whey + water + 1 banana, no oats)", slot:0},
+      {n:"Breakfast", t:"🌾 Light Overnight Oats (1/3c oats + 1c milk + 1 scoop whey + 1/2c frozen berries + cinnamon — rest day, lighter portion) — OR — 🥤 Lean Shake (2 scoops whey + water + 1 banana, no oats)", slot:0},
       {n:"Mid-Morning", t:"Water shake — 2 scoops whey, water, 1 banana (skip milk, saves money)", slot:1},
       {n:"Lunch", t:"🍳 This Week's Primary Meal — 1 serving + 1/2 cup rice (Sun lunch, rest day = lower carbs)", slot:2},
       {n:"Mid-Afternoon", t:"Greek yogurt + 2 tbsp PB", slot:3},
@@ -2394,7 +3063,7 @@ const groceryV2 = {
   "Fruit": [
     {name:"Bananas (cheapest fresh fruit)", qty:12, unit:"ct", costW:0.22, costR:0.30, tier:1},
     {name:"Apples (bagged, not loose)", qty:4, unit:"ct", costW:0.50, costR:0.75, tier:2},
-    {name:"Frozen strawberries (Member's Mark 4 lb bag, amortized)", qty:2, unit:"lb", costW:2.50, costR:4.50, tier:2},
+    {name:"Frozen berries (Member's Mark 4 lb bag — for daily overnight oats jars)", qty:3, unit:"lb", costW:2.50, costR:4.50, tier:1},
     {name:"Frozen mixed berries (variety for shakes)", qty:1, unit:"lb", costW:5.00, costR:7.00, tier:3}
   ],
   "Pantry": [
@@ -2624,6 +3293,84 @@ function updateWorkoutCount() {
   document.getElementById("ov-workouts").textContent = done;
 }
 
+// ============== EXERCISE HISTORY HELPERS ==============
+// Look up an exercise's name from its key (phase-week-session-exerciseIdx)
+function getExerciseNameByKey(key) {
+  const parts = key.split('-').map(Number);
+  if (parts.length !== 4 || parts.some(isNaN)) return null;
+  const [phase, w, s, e] = parts;
+  const ex = programData[phase] && programData[phase].weeks && programData[phase].weeks[w]
+          && programData[phase].weeks[w].sessions && programData[phase].weeks[w].sessions[s]
+          && programData[phase].weeks[w].sessions[s].exercises
+          && programData[phase].weeks[w].sessions[s].exercises[e];
+  return ex ? ex[0] : null;
+}
+
+// Compare two keys (phase-week-session-exerciseIdx) lexicographically by number
+function compareKeys(a, b) {
+  const aP = a.split('-').map(Number), bP = b.split('-').map(Number);
+  for (let i = 0; i < 4; i++) {
+    if (aP[i] !== bP[i]) return bP[i] - aP[i];   // descending
+  }
+  return 0;
+}
+
+// Find the MOST RECENT log entry for the same exercise NAME, excluding the current key
+function findPreviousLog(exerciseName, currentKey) {
+  if (!exerciseName) return null;
+  const matches = [];
+  for (const k in state.logs) {
+    if (k === currentKey) continue;
+    if (!state.logs[k]) continue;
+    if (getExerciseNameByKey(k) === exerciseName) {
+      matches.push({ key: k, val: state.logs[k] });
+    }
+  }
+  if (!matches.length) return null;
+  matches.sort((a, b) => compareKeys(a.key, b.key));
+  return matches[0];
+}
+
+// Parse a log string ("135x8, 145x6") and find the heaviest set
+function parseTopSet(logStr) {
+  if (!logStr) return null;
+  const re = /(\d+(?:\.\d+)?)\s*[xX×*]\s*(\d+)/g;
+  let max = null, m;
+  while ((m = re.exec(logStr)) !== null) {
+    const w = parseFloat(m[1]);
+    const r = parseInt(m[2]);
+    if (!max || w > max.w) max = { w, r };
+  }
+  return max;
+}
+
+// Find personal record (heaviest weight × reps) across ALL logs for this exercise
+function findPR(exerciseName) {
+  if (!exerciseName) return null;
+  const tops = [];
+  for (const k in state.logs) {
+    if (!state.logs[k]) continue;
+    if (getExerciseNameByKey(k) === exerciseName) {
+      const top = parseTopSet(state.logs[k]);
+      if (top) tops.push({ key: k, ...top });
+    }
+  }
+  if (!tops.length) return null;
+  tops.sort((a, b) => b.w - a.w);
+  return tops[0];
+}
+
+// Translate a key into a human-readable label (e.g. "Phase 2 Week 3 — Fri")
+function keyToLabel(key) {
+  const parts = key.split('-').map(Number);
+  if (parts.length !== 4) return key;
+  const [phase, w, s] = parts;
+  const week = programData[phase] && programData[phase].weeks && programData[phase].weeks[w];
+  const session = week && week.sessions && week.sessions[s];
+  if (!week || !session) return `Phase ${phase} W${w + 1}`;
+  return `Phase ${phase} W${w + 1} · ${session.day || ''}`;
+}
+
 // ============== TRAINING ==============
 function renderTraining(phaseNum) {
   const p = programData[phaseNum];
@@ -2670,6 +3417,18 @@ function renderTraining(phaseNum) {
                 ${showVideo && !hideCheckbox ? `<a class="ex-icon ex-video" href="${ytUrl}" target="_blank" rel="noopener" title="Watch on YouTube">▶</a>` : ''}
               </div>
               <div class="ex-sets">${ex[1]}</div>
+              ${(() => {
+                if (hideCheckbox) return '';
+                const prev = findPreviousLog(ex[0], key);
+                const pr = findPR(ex[0]);
+                const parts = [];
+                if (prev) parts.push(`<span class="ex-last" title="${keyToLabel(prev.key)}">↺ Last: ${prev.val}</span>`);
+                if (pr) parts.push(`<span class="ex-pr" title="Personal record (heaviest weight × reps logged)">🏆 PR: ${pr.w}×${pr.r}</span>`);
+                if (parts.length) return `<div class="ex-history">${parts.join('')}</div>`;
+                // No history yet — show a hint so the user knows logging unlocks this
+                if (!isNote) return `<div class="ex-history-empty">No log yet — type "weight×reps" in the box to start tracking</div>`;
+                return '';
+              })()}
               ${hasInfo && !hideCheckbox ? `<div class="ex-cues" id="cues-${key}">${cues.map(c => `<div>• ${c}</div>`).join('')}</div>` : ''}
               ${hasAlts && !hideCheckbox ? `<div class="ex-alts" id="alts-${key}"><div style="font-weight:700; margin-bottom:6px; color:var(--accent-2);">↔ Lifting alone? Safer alternatives:</div>${alts.map(a => `<div>• <strong>${a.name}</strong> — ${a.why}</div>`).join('')}</div>` : ''}
             </div>
@@ -2697,6 +3456,8 @@ function toggleExercise(key, cb) {
 function logExercise(key, val) {
   if (val) state.logs[key] = val; else delete state.logs[key];
   saveState();
+  // Update Lift Progress in the background so it's fresh when user switches tabs
+  if (typeof renderLiftProgress === 'function') renderLiftProgress();
 }
 function resetWorkouts() {
   if (!confirm("Reset all workout check-marks and exercise logs?")) return;
@@ -3012,6 +3773,170 @@ function resetWeights() {
   saveState();
   renderWeights();
   toast("Weight log reset");
+}
+
+// ============== LIFT PROGRESS ==============
+// Build a flat list of all log entries grouped by exercise name.
+// Each entry has: name, key, top set {w,r}, all sets, estimated 1RM.
+function buildLiftHistory() {
+  const byExercise = {};
+  for (const key in state.logs) {
+    if (!state.logs[key]) continue;
+    const name = getExerciseNameByKey(key);
+    if (!name) continue;
+    const logStr = state.logs[key];
+    const sets = [];
+    const re = /(\d+(?:\.\d+)?)\s*[xX×*]\s*(\d+)/g;
+    let m;
+    while ((m = re.exec(logStr)) !== null) {
+      const w = parseFloat(m[1]);
+      const r = parseInt(m[2]);
+      const e1rm = w * (1 + r / 30);    // Epley
+      sets.push({ w, r, e1rm });
+    }
+    if (!sets.length) continue;
+    // Top set = max e1rm in this session
+    const top = sets.reduce((a, b) => b.e1rm > a.e1rm ? b : a);
+    if (!byExercise[name]) byExercise[name] = [];
+    byExercise[name].push({ key, raw: logStr, sets, top, e1rm: top.e1rm });
+  }
+  // Sort each exercise's history chronologically (by key — Phase, Week, Session, Idx)
+  for (const name in byExercise) {
+    byExercise[name].sort((a, b) => {
+      const aP = a.key.split('-').map(Number);
+      const bP = b.key.split('-').map(Number);
+      for (let i = 0; i < 4; i++) {
+        if (aP[i] !== bP[i]) return aP[i] - bP[i];
+      }
+      return 0;
+    });
+  }
+  return byExercise;
+}
+
+// Render the per-exercise progress cards
+function renderLiftProgress() {
+  const grid = document.getElementById("lift-progress-grid");
+  if (!grid) return;
+  const history = buildLiftHistory();
+  const exercises = Object.keys(history);
+  if (!exercises.length) {
+    grid.innerHTML = '<p class="muted" style="text-align:center; padding:24px;">No lift data yet. Start logging weight × reps in the Training tab and your progress will appear here.</p>';
+    return;
+  }
+
+  // Filter & sort
+  const showAll = document.getElementById("lift-show-all").checked;
+  const sortMode = document.getElementById("lift-sort").value;
+  let names = showAll ? exercises : exercises.filter(n => isMainLift(n));
+  if (!names.length) {
+    // Fallback if no main lifts but they want main only
+    grid.innerHTML = '<p class="muted" style="text-align:center; padding:24px;">No main lifts logged yet. Check "Show ALL exercises" to see accessories, or log a main lift (Bench, Squat, Deadlift, OHP, Row, Pull-up) to populate this view.</p>';
+    return;
+  }
+
+  names.sort((a, b) => {
+    const aH = history[a], bH = history[b];
+    if (sortMode === "name") return a.localeCompare(b);
+    if (sortMode === "pr") return bH[bH.length - 1].top.w - aH[aH.length - 1].top.w;
+    if (sortMode === "best") {
+      const aGain = aH[aH.length - 1].e1rm - aH[0].e1rm;
+      const bGain = bH[bH.length - 1].e1rm - bH[0].e1rm;
+      return bGain - aGain;
+    }
+    // recent (default) — last key has highest position
+    const aKey = aH[aH.length - 1].key.split('-').map(Number);
+    const bKey = bH[bH.length - 1].key.split('-').map(Number);
+    for (let i = 0; i < 4; i++) {
+      if (aKey[i] !== bKey[i]) return bKey[i] - aKey[i];
+    }
+    return 0;
+  });
+
+  grid.innerHTML = names.map(name => renderLiftCard(name, history[name])).join('');
+}
+
+// Render a single lift card with sparkline
+function renderLiftCard(name, sessions) {
+  if (!sessions.length) return '';
+  const first = sessions[0];
+  const last = sessions[sessions.length - 1];
+  const pr = sessions.reduce((a, b) => b.top.w > a.top.w ? b : a);
+  const best1RM = sessions.reduce((a, b) => b.e1rm > a.e1rm ? b : a);
+
+  const gain = last.e1rm - first.e1rm;
+  const gainPct = first.e1rm > 0 ? (gain / first.e1rm) * 100 : 0;
+  const trendUp = gain > 0;
+  const trendColor = trendUp ? "var(--good)" : (gain < 0 ? "var(--bad)" : "var(--muted)");
+  const trendIcon = trendUp ? "↗" : (gain < 0 ? "↘" : "→");
+
+  // Sparkline
+  const w = 420, h = 80, pad = {l:30, r:10, t:10, b:18};
+  const e1rms = sessions.map(s => s.e1rm);
+  const minE = Math.min(...e1rms);
+  const maxE = Math.max(...e1rms);
+  const range = Math.max(5, maxE - minE);
+  const yMin = minE - range * 0.15;
+  const yMax = maxE + range * 0.15;
+
+  const n = sessions.length;
+  const pts = sessions.map((s, i) => {
+    const x = pad.l + (n === 1 ? (w - pad.l - pad.r) / 2 : (i / (n - 1)) * (w - pad.l - pad.r));
+    const y = pad.t + ((yMax - s.e1rm) / (yMax - yMin)) * (h - pad.t - pad.b);
+    return { x, y, s };
+  });
+
+  const linePath = "M " + pts.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" L ");
+  const areaPath = linePath + ` L ${pts[pts.length-1].x.toFixed(1)},${h - pad.b} L ${pts[0].x.toFixed(1)},${h - pad.b} Z`;
+
+  // Y-axis labels (min/max)
+  const yLabels = `
+    <text class="chart-label" x="${pad.l - 4}" y="${pad.t + 4}" text-anchor="end" font-size="9" fill="var(--muted)">${maxE.toFixed(0)}</text>
+    <text class="chart-label" x="${pad.l - 4}" y="${h - pad.b - 2}" text-anchor="end" font-size="9" fill="var(--muted)">${minE.toFixed(0)}</text>
+  `;
+
+  const dots = pts.map(p => `
+    <circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3.5" fill="${trendUp ? 'var(--good)' : (gain < 0 ? 'var(--bad)' : 'var(--accent)')}">
+      <title>${keyToLabel(p.s.key)} — ${p.s.raw} (est 1RM: ${p.s.e1rm.toFixed(0)} lbs)</title>
+    </circle>
+  `).join('');
+
+  return `
+    <div class="lift-card">
+      <div class="lift-card-header">
+        <div class="lift-name">${isMainLift(name) ? '<span class="ex-main-badge" style="margin-right:6px;">MAIN</span>' : ''}${name}</div>
+        <div class="lift-trend" style="color:${trendColor};">${trendIcon} ${gain >= 0 ? '+' : ''}${gain.toFixed(0)} lbs e1RM (${gainPct >= 0 ? '+' : ''}${gainPct.toFixed(1)}%)</div>
+      </div>
+      <div class="lift-stats">
+        <div class="lift-stat"><div class="lift-stat-label">SESSIONS</div><div class="lift-stat-val">${sessions.length}</div></div>
+        <div class="lift-stat"><div class="lift-stat-label">PR</div><div class="lift-stat-val">${pr.top.w}×${pr.top.r}</div></div>
+        <div class="lift-stat"><div class="lift-stat-label">BEST 1RM</div><div class="lift-stat-val">${best1RM.e1rm.toFixed(0)} lbs</div></div>
+        <div class="lift-stat"><div class="lift-stat-label">LATEST</div><div class="lift-stat-val">${last.top.w}×${last.top.r}</div></div>
+      </div>
+      <svg class="lift-spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%; height:80px; display:block;">
+        ${yLabels}
+        <path d="${areaPath}" fill="${trendUp ? 'var(--good)' : (gain < 0 ? 'var(--bad)' : 'var(--accent)')}" opacity="0.12"/>
+        <path d="${linePath}" fill="none" stroke="${trendUp ? 'var(--good)' : (gain < 0 ? 'var(--bad)' : 'var(--accent)')}" stroke-width="2"/>
+        ${dots}
+      </svg>
+      <details class="lift-detail">
+        <summary>Show all ${sessions.length} session${sessions.length === 1 ? '' : 's'}</summary>
+        <table class="lift-table">
+          <thead><tr><th>When</th><th>Sets</th><th>Top</th><th>Est 1RM</th></tr></thead>
+          <tbody>
+            ${sessions.slice().reverse().map(s => `
+              <tr>
+                <td>${keyToLabel(s.key)}</td>
+                <td>${s.raw}</td>
+                <td>${s.top.w}×${s.top.r}</td>
+                <td>${s.e1rm.toFixed(0)} lbs</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </details>
+    </div>
+  `;
 }
 
 function saveMeasurements() {
@@ -3621,6 +4546,7 @@ function importData(event) {
       renderTraining(ap);
       renderMeals();
       renderWeights();
+      renderLiftProgress();
       renderGrocery();
       toast("Data imported successfully");
     } catch (err) {
@@ -3648,6 +4574,7 @@ renderMeals();
 renderGrocery();
 document.getElementById("weight-date").value = new Date().toISOString().slice(0, 10);
 renderWeights();
+renderLiftProgress();
 updateDayCounter();
 updateWorkoutCount();
 setInterval(updateDayCounter, 60000);
